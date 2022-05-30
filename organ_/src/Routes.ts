@@ -65,6 +65,8 @@ Route.post('/loginGeral',urlencodedParser, (req:Request, resp: Response)=>{
                         const adminDados:any = dados
                         if(req.session){
                           req.session.user={role:adminDados.admn.role, id:adminDados.admn.idMedico};
+                          console.log(req.session.user);
+                          
                           resp.redirect('/adminPainel')
                         
                         } 

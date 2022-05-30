@@ -18,7 +18,6 @@ MarcacaoController.post('criarmarcacao', async(req:Request, resp: Response)=>{
       const horas_marcadas=verify.map(hora=>hora.hora);
       var maior =0;
       for(let i=0;i<horas_marcadas.length;i++){
-
         for(let i1=0;i1<horas_marcadas.length;i1++){
         if(horas_marcadas[i]>horas_marcadas[i1] ){
           if(horas_marcadas[i]>maior){
@@ -26,6 +25,7 @@ MarcacaoController.post('criarmarcacao', async(req:Request, resp: Response)=>{
           }
         }
       } 
+      
     }
     const hora_consulta=(maior!=0 && maior< 17)?maior+1:8;
 

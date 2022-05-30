@@ -9,14 +9,15 @@ async function authenticate(user:string, pass:string) {
             const pc = pDados[0]
             return {pc, p:'paciente'}
         }else if(pDados.length===0){
-            const admin= await knex('medicos').where('userAdmin', user).where('senhaAdmin',pass)
+            const admin= await knex('medicos').where('userMedico', user).where('passMedico',pass)
             if(admin.length!==0){
                 const admn= admin[0];
-                if (admn.tipoAdmin==1) {
+                if (admn.role==1) {
                     const ADMINadmn = {admn, p:'admin'}
-                    
-                    
                     return ADMINadmn
+                }else{
+                    const ADMINadmn = {admn, p:'medico_normal'}
+                    return ADMINadmn  
                 }
             }else{ 
                 return '-1'  

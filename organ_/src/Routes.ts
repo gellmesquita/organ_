@@ -51,6 +51,7 @@ Route.post('/loginGeral',urlencodedParser, (req:Request, resp: Response)=>{
         authenticate(user, pass).then(r=>{
             if(r==='-1'){
                 resp.send('Não existe uma conta')
+                
             }else{
                 const dados=r;
                 if(dados){

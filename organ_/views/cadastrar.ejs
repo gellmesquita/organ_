@@ -47,27 +47,27 @@
             <div class="col-6 right-section bg-white">
                 <h1 class="mb-5">CADASTRAR</h1>
                 <!--form method="post" action="/SavePatient" class="text-start"-->
-                <form method="post" action="/criarPaciente" class="text-start">
+                <form method="post" action="/criarpaciente" class="text-start">
                   <div class="mb-3">
-                    <input name="nome" type="text" class="form-control border-0 border-bottom" placeholder="Nome completo" id="fillName">
+                    <input name="nomePaciente" type="text" class="form-control border-0 border-bottom" placeholder="Nome completo" id="fillName">
                   </div>
                   <div class="mb-3">
-                    <input name="nascimento" type="date" class="form-control border-0 border-bottom" placeholder="Nome de usuário" id="user">
+                    <input name="nascimentoPaciente" type="date" class="form-control border-0 border-bottom" placeholder="Nome de usuário" id="user">
                   </div>
                   <div class="mb-3">
-                    <input name="user" type="text" class="form-control border-0 border-bottom" placeholder="Nome de usuário" id="user">
+                    <input name="userPaciente" type="text" class="form-control border-0 border-bottom" placeholder="Nome de usuário" id="user">
                   </div>
                   <div class="mb-3">
-                    <input name="email" type="email" class="form-control border-0 border-bottom" placeholder="Email" id="email">
+                    <input name="emailPaciente" type="email" class="form-control border-0 border-bottom" placeholder="Email" id="email">
                   </div>
                   <div class="mb-3">
-                    <input name="tell" type="number" min="1" class="form-control border-0 border-bottom" placeholder="Telefone" id="numberTell">
+                    <input name="tellPaciente" type="number" min="1" class="form-control border-0 border-bottom" placeholder="Telefone" id="numberTell">
                   </div>
                   <div class="mb-3">
-                    <input name="pass" type="password" class="form-control border-0 border-bottom" placeholder="Senha" id="pass">
+                    <input name="senhaPaciente" type="password" class="form-control border-0 border-bottom" placeholder="Senha" id="pass">
                   </div>
                   <div class="mb-3">
-                    <input name="passConfirm" type="password" class="form-control border-0 border-bottom" placeholder="Confirmar senha" id="pass">
+                    <input name="senhaPaciente2" type="password" class="form-control border-0 border-bottom" placeholder="Confirmar senha" id="pass">
                   </div>
                   <button type="submit" class="btn-dark mt-3">Continuar</button>
                 </form>
@@ -77,6 +77,28 @@
             </div>
         </div>
     </header>
+    
+    <script src="/sweetalert/sweetalert2.all.min.js"></script>
+<% if(certo.length >0){%>
+  <script>
+   Swal.fire(
+  'Cadastrado!',
+  '`<%=certo %>`!',
+  'success'
+)
+
+  </script>
+  <% }else if(errado.length >0) {%>
+    <script>
+      Swal.fire({
+icon: 'error',
+title: 'Oops...',
+text: '`<%=errado %>`!',
+
+})
+      
+    </script>
+    <% }%>
 </body>
 
 </html>

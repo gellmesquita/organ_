@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
-    "isaac":"nodemon index.js",
+    "isaac": "nodemon index.js",
     "knex:se": "knex  --knexfile knexfile.ts migrate:latest",
     "knex:seed": "knex seed:run knexfile.ts"
   },
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/express-flash": "^0.0.2",
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
@@ -20,6 +21,7 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-flash": "^0.0.2",
     "express-session": "^1.17.2",
     "jquery": "^3.6.0",
     "knex": "^0.95.12",

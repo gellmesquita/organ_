@@ -2,13 +2,13 @@ import { Response, Request, NextFunction } from "express";
 const pacienteAuth= (req:Request, resp:Response, next:NextFunction)=>{
 
     if(req.session){
-        if(req.session.paciente!==undefined){
+        if(req.session.user.role==2){
             next();
         }else{
-            resp.redirect('/paciente')
+            resp.redirect('/')
         }
     }else{
-        resp.redirect('/paciente')
+        resp.redirect('/')
     }
 }
 

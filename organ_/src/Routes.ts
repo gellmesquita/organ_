@@ -15,7 +15,7 @@ import bodyParser from "body-parser";
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 //Middlewares
-import {pacienteAuth} from './middlewre/paciente' //Aluno
+import {pacienteAuth} from './middlewre/paciente' //medico
 import {adminAuth} from './middlewre/admin'
 
 
@@ -56,30 +56,28 @@ Route.post('/loginGeral',urlencodedParser, (req:Request, resp: Response)=>{
                 const dados=r;
                 if(dados){
                      if(dados.p === 'paciente'){ 
-                        const pc = dados
+                        const pc:any = dados
                         if(req.session){
-                          req.session.paciente=pc;
-                          resp.redirect('/paciente')
-                          //console.log(paciente)
-                          //resp.json(req.session.paciente)
+                          req.session.user={role:2, id:pc.pc.idPaciente};
+                          resp.redirect('/pacientePainel')
                         }      
                      }else if(dados.p === 'admin'){
-                        const adminDados = dados
+                        const adminDados:any = dados
                         if(req.session){
-                          req.session.admin=adminDados;
+                          req.session.user={role:adminDados.admn.role, id:adminDados.admn.idMedico};
+                          console.log(req.session.user);
                           
-                          
-                          resp.redirect('/admin')
-                          //console.log(admin)
-                          //resp.json(req.session.admin)
+                          resp.redirect('/adminPainel')
+                        
                         } 
-                     }/*else if(dados.p==='aluno'){
-                        const aluno= dados
+                     }else if(dados.p==='medico_normal'){
+                        const medico:any= dados
                         if(req.session){
-                          req.session.aluno=aluno;
-                          resp.redirect('/aluno')
+                            req.session.user={role:medico.admn.role, id:medico.admn.idMedico};
+                            resp.redirect('/medicoPainel')
+                          
                         } 
-                    }*/
+                    }
                 }
             }
         })   

@@ -15,8 +15,9 @@ import bodyParser from "body-parser";
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 //Middlewares
-import {pacienteAuth} from './middlewre/paciente' //medico
-import {adminAuth} from './middlewre/admin'
+import pacienteAuth from './middlewre/paciente' //medico
+import adminAuth from './middlewre/admin'
+import medicoAuth from './middlewre/medico'
 
 
 
@@ -50,7 +51,8 @@ Route.post('/loginGeral',urlencodedParser, (req:Request, resp: Response)=>{
         const {user, pass}= req.body;
         authenticate(user, pass).then(r=>{
             if(r==='-1'){
-                resp.send('Não existe uma conta')
+
+                resp.redirect('/')
                 
             }else{
                 const dados=r;
@@ -66,9 +68,7 @@ Route.post('/loginGeral',urlencodedParser, (req:Request, resp: Response)=>{
                         if(req.session){
                           req.session.user={role:adminDados.admn.role, id:adminDados.admn.idMedico};
                           console.log(req.session.user);
-                          
                           resp.redirect('/adminPainel')
-                        
                         } 
                      }else if(dados.p==='medico_normal'){
                         const medico:any= dados

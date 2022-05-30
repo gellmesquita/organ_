@@ -2,6 +2,9 @@ import knex from '../database/conection';
 import multerConfig from '../config/multer';
 import multer from 'multer'
 import { Response, Request, Router } from  "express";
+import adminAuth from '../middlewre/admin'
+import medicoAuth from '../middlewre/medico'
+import pacienteAuth from '../middlewre/paciente'
 // import bCryptjs from 'bcryptjs'
 const upload = multer(multerConfig);
 
@@ -56,6 +59,19 @@ MedicoController.get("Minhasmarcacoes", async(req:Request, resp:Response) =>{
   const d= await knex('marcacao')
   .join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').where({idMedico:req.session?.id})
   resp.render("admin/medico/index",  {adm:req.session?.admin.admn, d})
+})
+
+//Rotas Para o Administrador
+
+MedicoController.get("/adminPainel", async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const medicos= await knex('medico').select('*')
+  const consultas= await knex('marcacao')
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  
+  resp.render("admin/index",  {medico,medicos,consultas })
 })
 
 

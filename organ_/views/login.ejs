@@ -70,6 +70,28 @@
             </div>
         </div>
     </header>
+    
+<script src="/sweetalert/sweetalert2.all.min.js"></script>
+<% if(certo.length >0){%>
+  <script>
+   Swal.fire(
+  'Cadastrado',
+  '`<%=certo %>`!',
+  'success'
+)
+
+  </script>
+  <% }else if(errado.length >0) {%>
+    <script>
+      Swal.fire({
+icon: 'error',
+title: 'Alerta',
+text: '`<%=errado %>`!',
+
+})
+      
+    </script>
+    <% }%>
 </body>
 
 </html>

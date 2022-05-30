@@ -27,12 +27,12 @@ import medicoAuth from './middlewre/medico'
 //Rotas Gerais do Sistema
 //Login principal
 Route.get('/login', (req:Request, resp: Response)=>{
-    resp.render('login')
+    resp.render('login',{certo:req.flash('certo'),errado:req.flash('errado')})
 })
 
 //Cadastrar principal
 Route.get('/cadastrar', (req:Request, resp: Response)=>{
-    resp.render('cadastrar')
+    resp.render('cadastrar',{certo:req.flash('certo'),errado:req.flash('errado')})
 })
 
 // Home page do Sistema

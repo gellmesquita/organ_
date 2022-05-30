@@ -13,4 +13,4 @@ const adminAuth= (req:Request, resp:Response, next:NextFunction)=>{
 }
 
 
-export {adminAuth};
+export default adminAuth;

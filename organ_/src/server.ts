@@ -7,19 +7,18 @@ import session from 'express-session'
 import MarcacaoController from './controller/marcacaoController';
 import PacienteController from './controller/pacienteController';
 import MedicoController from './controller/medicoController';
-
+import flash from "express-flash";
 const app= express();
 
 app.use(session({
     secret:'ineforLearning',
     cookie:{maxAge: 3000000000}
 }))
-
+app.use(flash());
 app.use('/upload', express.static(path.resolve(__dirname, '..','upload')) );
 app.use(express.static(path.resolve(__dirname, '..','public')))
 app.set('view engine', 'ejs')
-app.use(cors());
-
+app.use(cors())
 app.use(route);
 app.use(PacienteController)
 app.use(MedicoController)

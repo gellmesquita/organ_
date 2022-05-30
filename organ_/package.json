@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
-    "isaac":"nodemon index.js",
+    "isaac": "nodemon index.js",
     "knex:se": "knex  --knexfile knexfile.ts migrate:latest",
     "knex:seed": "knex seed:run knexfile.ts"
   },
@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-flash": "^0.0.2",
     "express-session": "^1.17.2",
     "jquery": "^3.6.0",
     "knex": "^0.95.12",
@@ -33,6 +34,7 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/express-flash": "^0.0.2",
     "@types/express-session": "1.17.0",
     "@types/hapi__joi": "^17.1.8",
     "@types/multer": "^1.4.7",

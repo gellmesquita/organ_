@@ -1,0 +1,36 @@
+<%- include ("../partials/doctor/head") %>
+            
+            <%- include ("../partials/doctor/leftSide") %>
+
+            <div class="col-8 right-section">
+                <div class="col resumo pb-5 text-center">
+                    <div class="row">
+                        <div class="col p-3">
+                            <form action="#" class="pd-2 g-5 d-flex align-items-center">
+                                <input type="search" list="tipo"
+                                    class="inputDate p-3 rounded-pill bg-light mb-2 form-control" id="nomePaciente"
+                                    placeholder="procurar...">
+                                <button type="submit" class="border-0 btn btn-main rounded-pill mb-2"><i
+                                        class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">TYPE</th>
+                                <th scope="col">DATA</th>
+                                <th scope="col">ACTION</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

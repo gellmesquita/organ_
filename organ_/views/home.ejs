@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organ</title>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <!--Josefin Sans-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--montsreat-->
+  <link href="https://fonts.googleapis.com/css2?family=Estonia&family=Montserrat:wght@200;300;400;700;900&display=swap"
+    rel="stylesheet">
+  <!--fontawesome-->
+  <script src="https://kit.fontawesome.com/b989a32885.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/fontawesome-free-5.15.4-web/css/all.css">
+  <!--bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+  <!--Animated css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+
+</head>
+
+<body>
+  <header class="">
+    <nav id="hoverNav" class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"><i class="fa fa-heart"> Organ</i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">Sobre</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tratamento">Tratamentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#medicos">Médicos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#marcacao">Marcações</a>
+            </li>
+          </ul>
+          <form action="perfil" class="d-flex">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-white rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section id="hero" class="hero pt-5">
+    <div class="container">
+      <div class="row align-items-center justify-content-center pt-5">
+        <div class="col left text-white">
+          <h2>Do seu bem estar</h2>
+          <h1>Cuidamos <br> Nós</h1>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur deleniti doloremque nihil natus eum
+            maxime ipsam adipisci quae assumenda soluta?</p>
+            <a class="btn btn-white rounded-pill" href="/cadastrar" type="submit">Começar</a href="/user">  
+        </div>
+        <div class="col">
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!---->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body mb-5">
+        <h2 class="text-center"><i class="fa fa-heart"> Organ</i></h2>
+        <p class="py-3 text-center">Login</p>
+        <form action="/loginGeral" method="post">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Usuário</label>
+            <input type="text" class="form-control rounded-pill" id="exampleFormControlInput1" name="user" placeholder="Digite seu nome de usuário">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Senha</label>
+            <input type="password" class="form-control rounded-pill" id="exampleFormControlInput1" name="pass" placeholder="Digite sua senha">
+          </div>
+          <div class="mb-3 text-center">
+            <a class="text-decoration-none text-dark" href="#">Esqueci-me da senha</a>
+          </div>
+          <div class="md-3">
+            <button class="btn btn-main w-100" type="submit">Entrar</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer text-center d-block">
+        <label>Ainda não possui um cadastro?</label> <br>
+        <label><a class="text-decoration-none " style="color: #ff1A40;" href="/cadastrar">Clique aqui</a> e cadastre-se.</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <section id="about" class="about bg-white animate__animated animate__backInDown">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-6 text-center">
+          <h2>A sua saúde interessa</h2>
+          <p>Se você está a fazer seu check-up anual ou simplesmente à procura que algumas perguntas sejam respondidas, o Luanda Medical Center é seu consultor de saúde local. Estamos aqui para o guiar e para guiar os seus familiares através de cada etapa do processo, não importando a razão que o traz ao nosso hospital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="container">
+      <div class="row justify-content-center align-items-center text-center">
+        <div class="col-6 rounded-pill" style="background-color: #ff1A40; margin-bottom: 50px;">
+          <h2 class=" text-white animate__animated animate__fadeInDown">Serviços</h2>
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col face item-services justify-content-center align-items-center d-flex" style="width: 18rem; height: 20rem; margin: 10px;">
+              <div>
+                <i class="fa-solid fa-baby" style="font-size: 3rem;"></i>
+                <p>Unidade Especializada de Pediatria</p>
+              </div>
+            </div>
+            <div class="col face item-services justify-content-center align-items-center d-flex" style="width: 18rem; height: 20rem; margin: 10px;">
+              <div>
+                <i class="fa-solid fa-person-breastfeeding" style="font-size: 3rem;"></i>
+                <p>Unidade Especializada de Neonatologia </p>
+              </div>
+            </div>
+            <div class="col face item-services justify-content-center align-items-center d-flex" style="width: 18rem; height: 20rem; margin: 10px;">
+              <div>
+                <i class="fa-solid fa-venus" style="font-size: 3rem;"></i>
+                <p>Unidade Especializada de Ginecologia</p>
+              </div>
+            </div>
+            <div class="col face item-services justify-content-center align-items-center d-flex" style="width: 18rem; height: 20rem; margin: 10px;">
+              <div>
+                <i class="fa-solid fa-person-pregnant" style="font-size: 3rem;"></i>
+                <p>Unidade Especializada de Obstetrícia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tratamento" class="tratamento pt-5 pb-5">
+    <div class="container pb-5">
+      <div class="row pb-5 justify-content-center align-items-center text-white">
+        <div class="col-12 text-center pb-5">
+          <h1>Tratamentos</h1>
+        </div>
+        <div class="col-6">
+          <img class="img-fluid" src="/assets/download/atendimento-pediatrico.jpg" alt="">
+        </div>
+        <div class="col-6">
+          <h4>Atendimento Pediatrico</h4>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa voluptas omnis ut consequuntur sed eaque adipisci sint veniam obcaecati esse.</p>
+          <button class="btn btn-white rounded-pill fw-bold d-none">Marcações</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="medicos" class="doutores pt-5 pb-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 pb-3 text-center text-white">
+          <h1>Médicos</h1>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate, labore repellat asperiores reiciendis
+            ea quia.</p>
+        </div>
+        <div class="col-lg-12">
+
+          <!-- Primeiros Dois-->
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+              <div class="carousel-item active">
+                <div class="row">
+
+                  <!-- Doutores #03 -->
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/1.png"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/medica1.jpg"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Doutores #03 -->
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/2.png"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/medica2.png"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Segundo Dois-->
+              <div class="carousel-item">
+                <div class="row">
+
+                  <!-- Doutores #02 -->
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/1.png"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/1.png"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Doutores #01 -->
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/1.png"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <div class="card">
+                      <img
+                        src="/assets/download/medicos/1.png"
+                        class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Célcio Lemos</h5>
+                        <p class="card-text">ortopedista</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="indicatorSlide col-12 text-center pt-5">
+          <i class="indicatorLeft fas fa-chevron-circle-left" role="button" tabindex="0" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev"></i>
+          <i class="indicatorRight fas fa-chevron-circle-right" role="button" tabindex="0" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="marcacao" class="marcacao">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col gx-5">
+          <h1>Marcação</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus quia eos natus tempore harum odit
+            architecto sed consectetur ab expedita ut, ducimus, eligendi voluptatem qui!</p>
+          <h2>Como marcar consulta aqui</h2>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-arrow-right"></i> Lorem, ipsum dolor</li>
+            <li><i class="fas fa-arrow-right"></i> Lorem, ipsum dolor</li>
+            <li><i class="fas fa-arrow-right"></i> Lorem, ipsum dolor</li>
+            <li><i class="fas fa-arrow-right"></i> Lorem, ipsum dolor</li>
+            <li><i class="fas fa-arrow-right"></i> Lorem, ipsum dolor</li>
+            <li><i class="fas fa-arrow-right"></i> Lorem, ipsum dolor</li>
+            <li><i class="fas fa-arrow-right"></i> Lorem, ipsum dolor</li>
+          </ul>
+          <button class="btn btn-main fw-bold">Fazer Marcação</button>
+        </div>
+        <div class="col">
+          <img src="/assets/download/consulta-médica.jpg" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rodape" class="rodape">
+    <div class="container">
+      <div class="row align-items-center justify-content text-center">
+        <div class="col-4">
+          <a class="navbar-brand" href="#"><i class="fas fa-heart"> Organ</i></a>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni adipisci earum voluptate esse illo velit optio porro ipsum asperiores temporibus!</p>
+        </div>
+        <div class="col-4">
+          <h5>Tecnologias</h5>
+          <ul class="list-unstyled">
+            <li class="list-item">Html</li>
+            <li class="list-item">Html</li>
+            <li class="list-item">Html</li>
+          </ul>
+        </div>
+        <div class="col-4">
+          <h5>Ferramentas</h5>
+          <ul class="list-unstyled">
+            <li class="list-item">Html</li>
+            <li class="list-item">Html</li>
+            <li class="list-item">Html</li>
+          </ul>
+        </div>
+        <div class="col-12">
+          <hr>
+          <p>&copy;2022</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <div class="modal fade" tabindex="-1" id="more" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="container">
+          <h3 class="modal-title">CCTV com Fibra Óptica</h3>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div>
+                  <p>Nessa formação será abordada conceitos avançados de configuração de NVR, DVR, uso de cameras Speed Dome, infraestrutura de rede óptica para o circuito de CCTV.</p>
+                  <p>Entende na prática o funcionamento de uma circuito CCTV, desde o levantamento de requisitos até a configuração dos equipamentos: câmeras e concentradores.</p>
+                </div>
+                <div class="mb-2">
+                  <h4>Pré-Inscrição</h4>
+                  <form action="https://api.staticforms.xyz/submit" method="post" id="fContacto">
+                    <input type="hidden" name="accessKey" value="f33e015f-bda1-463b-9ca7-2b35aa97a9df">
+                    <input type="hidden" name="subject" value="CCTV COM FIBRA ÓPTICA" />
+                    <input type="text" class="form-control form-control-sm mb-3" id="iNome" name="nome" placeholder="Nome completo" required>
+                    <input type="email" class="form-control form-control-sm mb-3" id="iEmail" name="email" placeholder="Endereço de e-mail" required>
+                    <input type="text" class="form-control form-control-sm mb-3" id="iTelefone" name="phone" placeholder="Telemóvel" required>
+                    <button type="submit" class="btn btn-primary btn-sm" value="Submit">ENVIAR</button>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <img src="images/cursos/tecnicos/jpg/cctv_com_fibra.jpg" class="img-fluid" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-start">
+          <div class="container">
+            <h5>Mais informação</h5>
+            <a class="text-color mr-3" href="callto:+244944683483"><strong><i class="ti-mobile"></i> </strong>+244 944 683 483 </a>
+            <ul class="list-inline d-inline">
+              <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" target="_blank" href="https://www.facebook.com/Inefor.consultoria"><i class="ti-facebook" target="_blank"></i></a></li>
+              <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" target="_blank" href="https://www.instagram.com/inefor_lda/?hl=pt"><i class="ti-instagram" target="_blank"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  
+    <!-- SCROLL ANIMATION CODE -->
+    <script>
+      function bgChanger() {
+          if (this.scrollY > this.innerHeight / 8) {
+              document.getElementById('hoverNav').style.background = '#ff1A40';
+              document.getElementById('hoverNav').style.color = '#fff';
+              document.getElementsByClassName("navbar").style.color='#fff'
+          } else {
+              document.getElementById('hoverNav').style.background = 'transparent';
+          }
+      }
+      window.addEventListener("scroll", bgChanger);
+    </script>
+
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/scroll.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+
+</body>
+
+</html>

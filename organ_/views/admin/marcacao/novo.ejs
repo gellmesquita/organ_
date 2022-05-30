@@ -1,0 +1,63 @@
+<%- include ("../../partials/patient/head") %>
+            
+
+<%- include ("../../partials/admin/leftSide") %>
+            <div class="col-10 right-section" style="overflow:auto; background-image: url('../assets/download/backWhite.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;">
+                <div class="col resumo text-center shadow p-5 rounded-3">
+                    <h1>Marcar</h1>
+                    <p>Admin</p>
+                    <div class="row justify-content-center">
+                        <div class="col-6 p-3">
+                            <!--form action="/admin/marcacao" method="post" class="pd-2 g-5 align-items-center"-->
+                            <form action="/criarmarcacao" method="post" class="pd-2 g-5 align-items-center">
+                                <div class="md-3">
+                                    <label class="text-start d-block px-3" for="">Paciente</label>
+                                    <select  class="inputDate p-3 rounded-pill bg-light mb-2 form-control" name="paciente" id="">
+                                        <% paciente.forEach((p)=>{ %>
+                                            <option value="<%= p.idPaciente %> "><%= p.nomePaciente %> </option>
+                                        <% }) %> 
+                                    </select>
+                                </div>
+                                <div class="md-3">
+                                    <label class="text-start d-block px-3" for="">Especialidade</label>
+                                    <select  class="inputDate p-3 rounded-pill bg-light mb-2 form-control" name="especialidade" id="">
+                                        <% especialidade.forEach((e)=>{ %>
+                                            <option><%= e.nomeEspecialidade %> </option>
+                                        <% }) %> 
+                                    </select>
+                                </div>
+                                <div class="md-3">
+                                    <input class="inputDate p-3 rounded-pill bg-light mb-2 form-control" type="date" name="data" id="date">
+                                </div>
+                                <div class="md-3 d-none">
+                                    <input class="inputDate p-3 rounded-pill bg-light mb-2 form-control" type="time" name="hora" id="">
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="border-0 btn btn-main rounded-pill mb-2 "><i class="fas fa-check"></i></button>
+                                </div>
+                              </form>
+                        </div>
+                    </div>
+                    <a href="/admin" class="btn">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <script src="../../../jquery.min.js"></script>
+    <script type="text/javascript">
+        var today = new Date()
+        var dd = String(today.getDate()).padStart(2, '0')
+        var mm = String(today.getMonth()+1).padStart(2, '0')
+        var yy = today.getFullYear()
+
+        today=dd+'-'+mm+'-'+aaaa
+        $('#date').attr('min', today)
+    </script>
+    
+</body>
+
+</html>

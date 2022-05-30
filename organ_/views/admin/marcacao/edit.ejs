@@ -1,0 +1,39 @@
+<%- include ("../../partials/patient/head") %>
+            
+
+<%- include ("../../partials/admin/leftSide") %>
+            <div class="col-10 right-section">
+                <div class="col">
+                    <h1>Sinta-se avontade connosco</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic similique ipsa corporis atque quo, dignissimos aspernatur quas natus! Itaque obcaecati minima fugit, totam hic sunt.</p>
+                </div>
+                <div class="col resumo mt-4 pt-4 pb-5 text-center">
+                    <h1>Marcar</h1>
+                    <p>Admin</p>
+                    <div class="row">
+                        <div class="col p-3">
+                            <form action="/admin/schedule/save" method="post" class="pd-2 g-5 align-items-center">
+                                <select name="patient" class="inputDate p-3 rounded-pill bg-light mb-2 form-control" id="" required>
+                                    <% p.forEach((p)=>{ %>
+                                        <option value="<%= p.namePatient %>"><%= p.namePatient %></option>
+                                    <% }) %>
+                                </select> 
+                                <input type="text" value="   " name="type" list="tipo" class="inputDate p-3 rounded-pill bg-light mb-2 form-control" id="nomePaciente" placeholder="Tipo de Consulta" required>
+                                <datalist id="tipo">
+                                    <option value="Ecografia"></option>
+                                    <option value="Obstretice"></option>
+                                    <option value="Ortopedia"></option>
+                                </datalist>
+                                <input type="date" name="data" class="inputDate p-3 rounded-pill bg-light mb-2 form-control" id="" required>
+                                  <button type="submit" class="border-0 btn btn-main rounded-pill mb-2"><i class="fas fa-check"></i></button>
+                              </form>
+                        </div>
+                    </div>
+                    <a href="/admin" class="btn">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

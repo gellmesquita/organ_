@@ -1,0 +1,35 @@
+<%- include ("../partials/patient/head") %>
+            
+            <%- include ("../partials/patient/leftSide") %>
+
+
+            <div class="col-8 right-section">
+                <div class="col">
+                    <h1>Sinta-se avontade connosco</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic similique ipsa corporis atque quo, dignissimos aspernatur quas natus! Itaque obcaecati minima fugit, totam hic sunt.</p>
+                </div>
+                <div class="col resumo mt-4 pt-4 pb-5 text-center">
+                    <h1>Marcar</h1>
+                    <p>User</p>
+                    <div class="row">
+                        <div class="col p-3">
+                            <form action="/patientSchedulesSave" method="post" class="pd-2 g-5 align-items-center">
+                                <input type="text" list="tipo" name="typeSchedule" class="inputDate p-3 rounded-pill bg-light mb-2 form-control" id="nomePaciente" placeholder="Tipo de Consulta">
+                                <input type="date" name="dataSchedule" class="inputDate p-3 rounded-pill bg-light mb-2 form-control" id="">
+                                <datalist id="tipo">
+                                    <option value="Ecografia"></option>
+                                    <option value="Obstretice"></option>
+                                    <option value="Ortopedia"></option>
+                                  </datalist>
+                                  <button type="submit" class="w-100 border-0 btn btn-main rounded-pill mb-2"><i class="fas fa-check"></i></button>
+                              </form>
+                        </div>
+                    </div>
+                    <a href="/patient" class="btn">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

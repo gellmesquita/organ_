@@ -1,0 +1,75 @@
+<%- include ("../../partials/patient/head") %>
+            
+
+<%- include ("../../partials/admin/leftSide") %>
+
+            <div class="col-10 right-section" style="overflow:auto;">
+                <a href="/admin/novaMarcacao" class="btn btn-main">Nova Marcação</a>
+                <a href="/admin/paciente/novo" class="btn btn-main">Novo Paciente</a>
+                <div class="col resumo pb-5 text-center">
+                    <div class="row">
+                        <div class="col p-3">
+                            <form action="#" class="pd-2 g-5 d-flex align-items-center">
+                                <input type="search" list="tipo"
+                                    class="inputDate p-3 rounded-pill bg-light mb-2 form-control" id="nomePaciente"
+                                    placeholder="procurar...">
+                                <button type="submit" class="border-0 btn btn-main rounded-pill mb-2"><i
+                                        class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Estado </th>
+                                <th scope="col">Acção </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% p.forEach(p =>{ %>
+                                <tr>
+                                    <td><%- p.idPaciente %> </td>
+                                    <td><%- p.nomePaciente %> </td>
+                                    <td><%- p.userPaciente %> </td>
+                                    <td><%- p.emailPaciente %> </td>
+                                    <td><%- p.tellPaciente %> </td>
+                                    <td><%- p.estadoPaciente %> </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <a href="/admin/paciente/view/<%= p.idPaciente %> " class=""><i style="font-size: 20px;" class="text-dark px-1 bi bi-eye"></i>ver</a>
+                                            <!--a href="/admin/schedule/edit" class=""><i style="font-size: 20px;" class="text-dark px-1 bi bi-arrow-clockwise"></i></a-->
+                                            <form action="/admin/paciente/delete" method="post">
+                                                <input type="hidden" name="id" value="<%= p.idPaciente %>">
+                                                <a href="#" style="color: #ff1A40;"><i class="d-none px-1 bi bi-trash"></i></a>
+                                                <button class="btn btn-warning">delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<script>
+    function confirmDelete(event, form){
+        event.preventDefault()
+        var decision = confirm("Quer deletar este dado?")
+        if(decision){
+            form.submit()
+        }
+    }
+</script>
+
+</body>
+</html>

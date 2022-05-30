@@ -1,0 +1,43 @@
+<%- include ("../../partials/head.ejs") %>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Relatórios de   Marcações
+            </div>
+            <div class="card-body">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Paciente</th>
+                            <th scope="col">Consulta</th>
+                            <th scope="col">Médico</th>
+                            <th scope="col">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% marcacao.forEach(marcacao =>{ %>
+                        <tr>
+                            <th scope="row"><%= marcacao.idMarcacao%></th>
+                            <td><%= marcacao.nomePaciente%></td>
+                            <td><%= marcacao.nomeEspecialidade %></td>
+                            <td><%= marcacao.nomeMedico %></td>
+                            <td><%= marcacao.dataMarcacao %></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+         window.addEventListener('load',window.print());
+        
+</script>
+
+</html>

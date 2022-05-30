@@ -1,0 +1,231 @@
+:root{
+    --primray: #ff1A40;
+    --secondary: #333333;
+    --default: #fff;
+    --background: #f4f4f4;
+}
+
+body{
+    color: #333333;
+}
+/*Navigator*/
+
+header{
+    background-color: var(--primray);
+    color: var(--default)
+}
+
+
+.btn-main{
+    background-color: var(--primray);
+    color: #fff;
+    border-radius: 50px;
+    border: 0;
+    width: 150px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.btn-white{
+    background-color: #fff;
+    width: 150px;
+    border-radius: 0;
+    border: none;
+}
+
+.btn-white:hover{
+    background-color: var(--primray);
+    color: #fff;
+    transition: ease-in-out .5s;
+    box-shadow: 0 0 10px #fff;
+    border: none;
+}
+
+.btn-dark{
+    background-color: var(--secondary);
+    color: #fff;
+    width: 150px;
+    border-radius: 0;
+    border: none;
+}
+
+.btn-dark:hover{
+    background-color: var(--default);
+    color: var(--secondary);
+    transition: ease-in-out .5s;
+    box-shadow: 0 0 10px var(--secondary);
+    border: none;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgb(255,255,255);
+}
+
+.navbar-dark .navbar-nav .nav-link.active{
+    border-bottom: 2px solid #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+    border-bottom: 2px solid #fff;
+}
+
+/*hero*/
+.hero{
+    height: 100vh;
+}
+
+h1{
+    color: rgb(255, 26, 64);
+    font-size: 5rem;
+    font-weight: 900;
+    /*font-family: "Josefin Sans", "San serif";*/
+}
+
+/*about*/
+.about{
+    background-color: var(--background);
+    padding: 100px 0 100px 0;
+}
+span{
+    color: #ff1A40;
+    font-size: 5rem;
+    font-weight: 900;
+    /*font-family: "Josefin Sans", "San serif";*/
+}
+
+/*call*/
+.text-call-alert {
+    color: #fff;
+    background-color: #ff1A40;
+    border-radius: 50px 0 0 50px;
+}
+
+.text-call-alert p{
+    font-size: 2rem;
+    padding: 20px;
+    font-style: italic;
+}
+
+.form-call{
+    background-color: var(--background);
+}
+
+.icon-call{
+    background-color: var(--background);
+    border-radius: 0 50px 50px 0;
+}
+
+.icon-call i{
+    color: var(--primray);
+    font-size: 8rem;
+}
+
+.icon-call i:hover{
+    box-shadow: 0 0 20px rgba(30, 30, 30, .10);
+    border-radius: 100%;
+    color: var(--default);
+    transition: ease-in .5s;
+    padding: 20px;
+    background-color: var(--primray);
+    cursor: pointer;
+}
+
+/*tratamento*/
+.tratamento, .card{
+    background-color: var(--background);
+}
+.tratamento{
+    /*height: 100vh;*/
+}
+.card{
+    border: none;
+    text-align: center;
+    box-shadow: 0px 0px 50px 10px rgba(30, 30, 30, .10);
+}
+.card-title{
+    color: #ff1A40;
+    padding: 20px 0 20px 0;
+}
+
+.card:hover{
+    box-shadow: 0px 0px 50px 10px rgba(30, 30, 30, .10);
+    transition: ease-in .5s;
+}
+
+/*Doutores*/
+.doutores{
+    background-color: #ff1A40;
+}
+.doutores h1{
+    color: #fff;
+    text-align: center;
+}
+.doutores .indicatorSlide{
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.doutores .indicatorLeft:hover{
+    transition: ease-in-out .5s;
+    transform: scale(1.2, 1.2);
+}
+
+.doutores .indicatorRight:hover{
+    transition: ease-in-out .5s;
+    transform: scale(1.2, 1.2);
+}
+
+/*Marcação*/
+.marcacao{
+    padding: 100px 0 100px 0;
+}
+
+.marcacao .inputDate{
+    border: 2px solid #ff1A40;
+}
+
+/*Rodape*/
+.rodape{
+    padding: 100px 0 0 0;
+    background-color: var(--secondary);
+    color: rgb(117, 117, 117);
+}
+
+.rodape a{
+    color: var(--default);
+    font-size: 2rem;
+}
+
+.rodape h5{
+    color: var(--default);
+}
+
+/*Scroll*/
+.rodar{
+    opacity: 1;
+    transform: scale(1);
+}
+
+/*ROTA PERFIL*/
+.page{
+    height: 100vh;
+    width: 100vh;
+    background-color: #f4f4f4;
+}
+
+.left-section{
+    background-color: var(--primray);
+    color: #fff;
+}
+
+.right-section{
+    height: 100vh;
+    background-color: var(--default);
+    color: #fff;
+}
+
+.right-section h1{
+    color: #333333;
+}
+
+

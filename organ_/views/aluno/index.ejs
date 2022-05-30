@@ -1,0 +1,91 @@
+<%- include('../partes/aluno/left') %> 
+
+
+            <div class="col-lg-9 justify-content-center d-flex flex-column bg-white fullScreen pt-5 px-5">
+
+
+                <h1>É um prazer tê-lo de volta!</span></h1>
+                <p>Vê ate onde estamos</p>
+
+                <div class="row mb-3">
+                    <div class=" col-md-4 text-center">
+                        <div class="card py-3 px-5 shadow-sm" style="border-radius: 15px;">
+                            <small class="fw-bold fs-3">0</small>
+                            <p>Cursos em andamento</p>
+                        </div>
+                    </div>
+                    <div class=" col-md-4 text-center">
+                        <div class="card py-3 px-5 shadow-sm" style="border-radius: 15px;">
+                            <small class="fw-bold fs-3">0</small>
+                            <p>Cursos concluídos</p>
+                        </div>
+                    </div>
+                    <div class=" col-md-4 text-center">
+                        <div class="card py-3 px-5 shadow-sm" style="border-radius: 15px;">
+                            <small class="fw-bold fs-3">0</small>
+                            <p>Guardados</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="shadow" style="border-radius: 15px;">
+                    <div class="row align-items-center">
+                        <div class="px-5 pt-5 pb-4 col-md-6">
+                            <img class="img-fluid" src="https://img.freepik.com/vetores-gratis/design-plano-aprenda-com-a-ilustracao-de-casa_23-2149245119.jpg?t=st=1648108608~exp=1648109208~hmac=239d520aa302f2fba4db540e590bf87c30a2808c9f5c322a484f8b4c4eb019e0&w=740" alt="">
+                        </div>
+                        <div class="px-5 pt-5 pb-4 col-md-6">
+                            <p class="fw-bold fs-5">Razões para continuar connosco</p>
+                            <div> 
+                                <p class="d-flex small">
+                                    <span class="bg-secondary rounded-pill d-flex align-items-center justify-content-center me-2 text-white small"
+                                        style="width: 45px; height: 34px;">1</span> Lorem ipsum dolor, sit amet
+                                    consectetur adipisicing elit. Repellendus ad facere.</p>
+                                <p class="d-flex small"><span
+                                        class="bg-secondary rounded-pill d-flex align-items-center justify-content-center me-2 text-white small"
+                                        style="width: 45px; height: 34px;">1</span> Lorem ipsum dolor, sit amet
+                                    consectetur adipisicing elit. Repellendus ad facere.</p>
+                                <p class="d-flex small"><span
+                                        class="bg-secondary rounded-pill d-flex align-items-center justify-content-center me-2 text-white small"
+                                        style="width: 45px; height: 34px;">1</span> Lorem ipsum dolor, sit amet
+                                    consectetur adipisicing elit. Repellendus ad facere.</p>
+                                <p class="d-flex small"><span
+                                        class="bg-secondary rounded-pill d-flex align-items-center justify-content-center me-2 text-white small"
+                                        style="width: 45px; height: 34px;">1</span> Lorem ipsum dolor, sit amet
+                                    consectetur adipisicing elit. Repellendus ad facere.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const handleSubmit = (e) => {
+            e.preventDefault()
+            Toastify({
+                text: "Cadastro efectuado com sucesso!",
+                duration: 3000,
+                destination: "/",
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                },
+                onClick: function () { } // Callback after click
+            }).showToast();
+        }
+    </script>
+
+    <script src="../js/js.js"></script>
+    <script src="../js/all.js"></script>
+    <script src="../bootstrap-5.1.3/bootstrap-5.1.3/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+
+</html>

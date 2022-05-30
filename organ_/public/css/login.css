@@ -1,0 +1,39 @@
+
+    .page-login{
+        height: 100vh;
+        background-color: #fff;
+        color: var(--secondary);
+        font-family: "Josefin Sans", "San serif";
+    }
+
+    /**********left-section***********/
+    .page-login .left-section{
+        padding-top: 60px;
+        padding-left: 100px;
+    }
+
+    .page-login .left-section i { 
+        font-size: 2rem;
+        color: var(--secondary);    
+    }
+
+    .page-login .left-section .form{
+        padding-top: 150px;    
+    }
+
+    .page-login .left-section h1{
+        font-size: 4rem;
+        color: var(--secondary);
+        font-weight: 900;
+    }
+
+    .page-login .left-section .form .btn-main{
+        padding: 50px;
+    }
+
+
+    /**********right-section************/
+    .page-login .right-section{
+        height: 100vh;;
+        padding: 10%;
+    }

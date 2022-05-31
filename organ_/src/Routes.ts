@@ -31,13 +31,13 @@ Route.get('/login', (req:Request, resp: Response)=>{
 })
 
 //Cadastrar principal
-Route.get('/cadastrar', (req:Request, resp: Response)=>{
-    resp.render('cadastrar',{certo:req.flash('certo'),errado:req.flash('errado')})
+Route.get('/cadastrarPaciente', (req:Request, resp: Response)=>{
+    resp.render('Site/cadastroPaciente',{certo:req.flash('certo'),errado:req.flash('errado')})
 })
 
 // Home page do Sistema
 Route.get('/', (req:Request, resp: Response)=>{
-    resp.render('home')
+    resp.render('Site/index')
 })
 
 Route.get('/logout', (req:Request, resp: Response)=>{

@@ -9,6 +9,10 @@ export async function up(knex: Knex) {
         table.string('userPaciente').notNullable();
         table.string('emailPaciente').notNullable();
         table.string('tellPaciente').notNullable();
+        table.string('generoPaciente').defaultTo("M");
+        table.string('enderecoPaciente').defaultTo("Luanda");
+        table.string('provinciaPaciente').defaultTo("Provincia");
+        table.string('municipioPaciente').defaultTo("Municipio");
         table.string('senhaPaciente').notNullable();
         table.string('estadoPaciente').notNullable();
     })

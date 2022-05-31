@@ -33,7 +33,7 @@ app.use(MarcacaoController);
 app.use(EspecialidadeController);
 
 app.use(function (req,res,next){
-    res.send("Esta rota não existe")
+    res.render("site/404")
 }) 
 
 

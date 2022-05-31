@@ -92,6 +92,9 @@ PacienteController.post('/criarpaciente',async(req:Request, resp: Response)=>{
       resp.json("Paciente Nao encontrado")
     }
   })
+  PacienteController.get("/pacientePainel", async(req:Request, resp: Response) =>{
+    resp.render("Paciente/index")
+  })
 
 PacienteController.post('/editarpaciente',upload.single('image'),async(req:Request, resp: Response)=>{
   try {

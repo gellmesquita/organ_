@@ -28,7 +28,7 @@ Route.get('/loginGeral', (req:Request, resp: Response)=>{
 
 //Cadastrar principal
 Route.get('/cadastrarPaciente', (req:Request, resp: Response)=>{
-    resp.render('Site/cadastroPaciente',{certo:req.flash('certo'),errado:req.flash('errado')})
+    resp.render('Site/cadastroPaciente',{info:req.flash('info'),errado:req.flash('errado')})
 })
 
 // Home page do Sistema

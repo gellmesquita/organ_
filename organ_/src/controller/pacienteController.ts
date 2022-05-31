@@ -10,81 +10,76 @@ const PacienteController=Router();
 
 import { date } from '@hapi/joi';
 // import bCryptjs from 'bcryptjs
-PacienteController.post('/criarpaciente',async(req:Request, resp: Response)=>{
-  try {
-
-
-    const {nomePaciente,nascimentoPaciente,enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,senhaPaciente2,generoPaciente,provinciaPaciente,municipioPaciente}=req.body; 
-
-   if(nomePaciente ===''||nascimentoPaciente===''|| userPaciente===''|| emailPaciente===''||tellPaciente ===''||senhaPaciente===''||senhaPaciente2===''){
-    req.flash("errado"," Um dos compas não foi preenchido!")
-     resp.redirect('/cadastrar')
-   }else{ 
-    let re = /[A-Z]/;
-    const hasUpper = re.test(userPaciente);
-    const verificaEspaco = /\s/g.test(userPaciente);
-    const Mailer = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(emailPaciente);
-    const number = /^[9]{1}[0-9]{8}$/.test(tellPaciente)
-    var dat3 = new Date();
-    var ano = (dat3.getFullYear())
-    var c =nascimentoPaciente.split("-")
-    var a =parseInt(c[0])
-    var t = ano-a 
-    if(t > 90){
-      req.flash('errado', "Idade Superior");
-      resp.redirect('/cadastrar')
-    }else
-         if(t < 13){
-            req.flash('errado', "Idade inferio aos 13");
-            resp.redirect('/cadastrar')
-         }else if (hasUpper === true) {
-            req.flash('errado', "nao cadastrado 1");
-            resp.redirect('/cadastrar')
-   
-   
-         } else if (verificaEspaco === true) {
-            req.flash('errado', "nao cadastrado 2");
-            resp.redirect('/cadastrar')
-   
-         } else
-            if (!Mailer) {
-               req.flash('errado', "nao cadastrado 3");
-               resp.redirect('/cadastrar')
-            } else
-               if (senhaPaciente.length < 5) {
-                  req.flash('errado', "Senha muito fraca");
-                  resp.redirect('/cadastrar')
-               } else
-                  if (senhaPaciente != senhaPaciente2) {
-                     req.flash('errado', "Senha Diferentes");
-                     resp.redirect('/cadastrar')
-   
-                  } else if(number == false) {
-                     req.flash('errado', "Numero de Telefone incorreto");
-                     resp.redirect('/cadastrar')
-      
-                  }else{
-                    const estadoPaciente = "1"
-                    const imgPaciente= (req.file) ? req.file.filename : 'user.png';
-                    const verify= await knex('paciente').where('nomePaciente', nomePaciente).orWhere('userPaciente', userPaciente)
-                    if(verify.length===0){
-                      const ids = await knex('paciente').insert({imgPaciente, nomePaciente, nascimentoPaciente,enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,estadoPaciente,generoPaciente,provinciaPaciente,municipioPaciente})
-                      const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
-                      //resp.render("admin/paciente/index",  {paciente:req.session?.paciente.paciente, p})
-                      req.flash("certo","Criado com sucesso !")
-                      resp.redirect("/login")
-                      //cod«ndições para quando o Adm cadastra e quando o Aluno se cadastra 
-                    }else{
-                      req.flash("errado","Esta conta Ja existe !")
-                      resp.redirect('/cadastrar')
-                    }}
-
-                  }
+PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
+  const {nomePaciente,nascimentoPaciente,enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,senhaPaciente2,generoPaciente,provinciaPaciente,municipioPaciente}=req.body; 
+ const estadoPaciente = "1";
+ if(!(nomePaciente===''||nascimentoPaciente===''||enderecoPaciente===''|| userPaciente===''|| emailPaciente===''||tellPaciente===''||senhaPaciente===''||senhaPaciente2===''||generoPaciente===''||provinciaPaciente===''||municipioPaciente==='')){
+  const imgPaciente= (req.file) ? req.file.filename : 'user.png';
+  let re = /[A-Z]/;
+  const hasUpper = re.test(userPaciente);
+  const verificaEspaco = /\s/g.test(userPaciente);
+  const Mailer = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(emailPaciente);
+  const number = /^[9]{1}[0-9]{8}$/.test(tellPaciente)
+  var dat3 = new Date();
+  var ano = (dat3.getFullYear());
+  var c =nascimentoPaciente.split("-");
+  var a =parseInt(c[0]);
+  var t = ano-a ;
+  if(t > 90){
+    req.flash('errado', "Idade Superior");
+   resp.redirect("/cadastrarPaciente")
+  }else
+       if(t < 13){
+          req.flash('errado', "Idade inferio aos 13");
+         resp.redirect("/cadastrarPaciente")
+       }else if (hasUpper === true) {
+          req.flash('errado', "nao cadastrado 1");
+         resp.redirect("/cadastrarPaciente")
  
-  
-  } catch (error) {
-    resp.send(error + " - falha ao registar")
-  }})
+ 
+       } else if (verificaEspaco === true) {
+          req.flash('errado', "nao cadastrado 2");
+         resp.redirect("/cadastrarPaciente")
+ 
+       } else
+          if (!Mailer) {
+             req.flash('errado', "nao cadastrado 3");
+            resp.redirect("/cadastrarPaciente")
+          } else
+             if (senhaPaciente.length < 5) {
+                req.flash('errado', "Senha muito fraca");
+               resp.redirect("/cadastrarPaciente")
+             } else
+                if (senhaPaciente != senhaPaciente2) {
+                   req.flash('errado', "Senha Diferentes");
+                  resp.redirect("/cadastrarPaciente")
+ 
+                } else if(number == false) {
+                   req.flash('errado', "Numero de Telefone incorreto");
+                  resp.redirect("/cadastrarPaciente")
+    
+                }else{ 
+                  const verify= await knex('paciente').where('nomePaciente', emailPaciente).orWhere('userPaciente', userPaciente)
+                  if(verify.length===0){
+                    const ids = await knex('paciente').insert({imgPaciente, nomePaciente, nascimentoPaciente,enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,estadoPaciente,generoPaciente,provinciaPaciente,municipioPaciente}).catch(err =>{console.log(err); req.flash("errado","Ocorreu um problema!");resp.redirect("/cadastrarPaciente")})
+                    const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
+                  
+                    req.flash("certo","Criado com sucesso !")
+                    resp.redirect("/loginGeral")
+                  }else{
+                    req.flash("info","Este usuario ja esta cadastrado!")
+                    resp.redirect("/cadastrarPaciente")
+                  
+                   }
+                }
+ 
+ }else{
+  req.flash("errado","Ocorreu um problema!")
+  resp.redirect("/cadastrarPaciente")
+
+ }
+                   
+})
 
   PacienteController.get("/paciente/:id", async(req:Request, resp:Response) =>{
     const{id}=req.params;

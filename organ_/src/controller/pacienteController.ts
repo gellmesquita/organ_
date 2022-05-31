@@ -83,20 +83,23 @@ PacienteController.post('/criarpaciente',async(req:Request, resp: Response)=>{
     resp.send(error + " - falha ao registar")
   }})
 
-
-PacienteController.get('/ListarPaciente', async(req:Request, resp:Response)=> {
-  const p= await knex('paciente').orderBy('idPaciente', 'desc').select('*')
-  resp.json(p)
-})
+  PacienteController.get("/paciente/:id", async(req:Request, resp:Response) =>{
+    const{id}=req.params;
+    const d= await knex('paciente').where('idpaciente',id).select("")
+    if(d.length >0){
+      resp.json(d)
+    }else{
+      resp.json("Paciente Nao encontrado")
+    }
+  })
 
 PacienteController.post('/editarpaciente',upload.single('image'),async(req:Request, resp: Response)=>{
   try {
     const {idPaciente, nomePaciente, nascimentoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente}= req.body; 
-   
-    const data = new Date()
+
     const imgPaciente= (req.file) ? req.file.filename : 'user.png';
     const d= await knex('paciente').where('idPaciente',idPaciente).update({nomePaciente, nascimentoPaciente,imgPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente});
-      const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
+    const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
 
       resp.redirect("/login")
      
@@ -104,12 +107,21 @@ PacienteController.post('/editarpaciente',upload.single('image'),async(req:Reque
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }})
+ 
+
+  // Papel Do administrador
+  PacienteController.get('/ListarPaciente', async(req:Request, resp:Response)=> {
+    const p= await knex('paciente').orderBy('idPaciente', 'desc').select('*')
+    resp.json(p)
+  })
   
-  PacienteController.get("deletarpaciente/:id", async(req:Request, resp:Response) =>{
+  PacienteController.get("/deletarpaciente/:id", async(req:Request, resp:Response) =>{
     const{id}=req.params;
     const d= await knex('paciente').where('idpaciente',id).delete();
-    resp.render("admin/medico/index",  {adm:req.session?.admin.admn, d})
+    resp.json("Deletado")
+   // resp.render("admin/medico/index")
   }) 
+
   
 
 

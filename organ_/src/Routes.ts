@@ -9,11 +9,6 @@ import multerConfig from './config/multer';
 import multer from 'multer';
 const upload = multer(multerConfig);
 
-//Instancia dos Controller
-
-//Body-parser para adicionar e obter dados a partir das rotas
-import bodyParser from "body-parser";
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 //Middlewares
 import pacienteAuth from './middlewre/paciente' //medico
@@ -50,7 +45,7 @@ Route.get('/logout', (req:Request, resp: Response)=>{
 })
 
 //LOGIN GERAL DO SISTEMA
-Route.post('/loginGeral',urlencodedParser, (req:Request, resp: Response)=>{ 
+Route.post('/loginGeral',async (req:Request, resp: Response)=>{ 
     try {
         const {user, pass}= req.body;
         authenticate(user, pass).then(r=>{

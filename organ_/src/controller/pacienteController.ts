@@ -12,7 +12,10 @@ import { date } from '@hapi/joi';
 // import bCryptjs from 'bcryptjs
 PacienteController.post('/criarpaciente',async(req:Request, resp: Response)=>{
   try {
-    const {nomePaciente,nascimentoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,senhaPaciente2}=req.body; 
+
+
+    const {nomePaciente,nascimentoPaciente,enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,senhaPaciente2,generoPaciente,provinciaPaciente,municipioPaciente}=req.body; 
+
    if(nomePaciente ===''||nascimentoPaciente===''|| userPaciente===''|| emailPaciente===''||tellPaciente ===''||senhaPaciente===''||senhaPaciente2===''){
     req.flash("errado"," Um dos compas não foi preenchido!")
      resp.redirect('/cadastrar')
@@ -65,7 +68,7 @@ PacienteController.post('/criarpaciente',async(req:Request, resp: Response)=>{
                     const imgPaciente= (req.file) ? req.file.filename : 'user.png';
                     const verify= await knex('paciente').where('nomePaciente', nomePaciente).orWhere('userPaciente', userPaciente)
                     if(verify.length===0){
-                      const ids = await knex('paciente').insert({imgPaciente, nomePaciente, nascimentoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,estadoPaciente})
+                      const ids = await knex('paciente').insert({imgPaciente, nomePaciente, nascimentoPaciente,enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,estadoPaciente,generoPaciente,provinciaPaciente,municipioPaciente})
                       const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
                       //resp.render("admin/paciente/index",  {paciente:req.session?.paciente.paciente, p})
                       req.flash("certo","Criado com sucesso !")
@@ -93,7 +96,11 @@ PacienteController.post('/criarpaciente',async(req:Request, resp: Response)=>{
     }
   })
   PacienteController.get("/pacientePainel", async(req:Request, resp: Response) =>{
-    resp.render("Paciente/index")
+    const medicos= await knex('medico').where('role', 0)
+    const consultas= await knex('marcacao').select('*')
+    const pacientes= await knex('paciente').select('*')
+    const especialidades=await knex('especialidade').select('*')
+    resp.render("Paciente/index",{medicos, consultas, pacientes, especialidades})
   })
 
 PacienteController.post('/editarpaciente',upload.single('image'),async(req:Request, resp: Response)=>{

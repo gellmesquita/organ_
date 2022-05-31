@@ -10,9 +10,12 @@ const PacienteController=Router();
 
 import { date } from '@hapi/joi';
 // import bCryptjs from 'bcryptjs
-PacienteController.post('/criarpaciente',upload.single('image'),async(req:Request, resp: Response)=>{
+PacienteController.post('/criarPaciente',async(req:Request, resp: Response)=>{
   try {
+
     const {nomePaciente,nascimentoPaciente,enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente,senhaPaciente2,generoPaciente,provinciaPaciente,municipioPaciente}=req.body; 
+    
+
    if(nomePaciente ===''||nascimentoPaciente===''|| userPaciente===''|| emailPaciente===''||tellPaciente ===''||senhaPaciente===''||senhaPaciente2===''){
     req.flash("errado"," Um dos compas não foi preenchido!")
      resp.redirect('/cadastrar')

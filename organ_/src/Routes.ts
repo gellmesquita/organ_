@@ -1,5 +1,6 @@
 import {Router, Request, Response} from 'express';
 const Route= Router (); 
+import knex from './database/conection';
 import MarcacaoController from './controller/marcacaoController';
 import PacienteController from './controller/pacienteController';
 import { authenticate } from './config/loginService';
@@ -26,8 +27,8 @@ import medicoAuth from './middlewre/medico'
 
 //Rotas Gerais do Sistema
 //Login principal
-Route.get('/login', (req:Request, resp: Response)=>{
-    resp.render('login',{certo:req.flash('certo'),errado:req.flash('errado')})
+Route.get('/loginGeral', (req:Request, resp: Response)=>{
+    resp.render('Site/login',{certo:req.flash('certo'),errado:req.flash('errado')})
 })
 
 //Cadastrar principal
@@ -36,8 +37,11 @@ Route.get('/cadastrarPaciente', (req:Request, resp: Response)=>{
 })
 
 // Home page do Sistema
-Route.get('/', (req:Request, resp: Response)=>{
-    resp.render('Site/index')
+Route.get('/',async (req:Request, resp: Response)=>{
+    const medicos= await knex('medico').where('role', 0)
+    const consultas= await knex('marcacao').select('*')
+    const pacientes= await knex('paciente').select('*')
+    resp.render('Site/index',{medicos, consultas, pacientes})
 })
 
 Route.get('/logout', (req:Request, resp: Response)=>{

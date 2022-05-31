@@ -8,6 +8,7 @@ import session from 'express-session'
 import MarcacaoController from './controller/marcacaoController';
 import PacienteController from './controller/pacienteController';
 import MedicoController from './controller/medicoController';
+import EspecialidadeController from './controller/especialidadeController';
 
 const app= express();
 app.use(flash())
@@ -26,9 +27,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(route);
-app.use(PacienteController)
-app.use(MedicoController)
-app.use(MarcacaoController)
+app.use(PacienteController);
+app.use(MedicoController);
+app.use(MarcacaoController);
+app.use(EspecialidadeController);
 
 app.use(function (req,res,next){
     res.send("Esta rota não existe")

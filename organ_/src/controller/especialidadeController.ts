@@ -4,12 +4,13 @@ import multerConfig from '../config/multer';
 import { Response, Request, Router } from  "express";
 // import bCryptjs from 'bcryptjs'
 const upload = multer(multerConfig);
-
 const EspecialidadeController=Router();
-EspecialidadeController.post('/criarespecialidade', async(req:Request, resp: Response)=>{
+
+
+EspecialidadeController.post('/teste',async(req:Request, resp: Response)=>{
   try {
-    const {nomeEspecialidade}= req.body; 
-    const ids = await knex('especialidade').insert({nomeEspecialidade})
+    const {nomeEspecialidade,descEspecialidade}= req.body; 
+    const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade})
     if(ids.length > 0){
       resp.send('Especialidade cadastrado')
     }else{
@@ -20,7 +21,7 @@ EspecialidadeController.post('/criarespecialidade', async(req:Request, resp: Res
   }
 })
 
-EspecialidadeController.post('editarespecialidade', async(req:Request, resp: Response)=>{
+EspecialidadeController.post('/editarespecialidade', async(req:Request, resp: Response)=>{
   try {
     const {id,nomeEspecialidade}= req.body; 
     const ids = await knex('especialidade').insert({nomeEspecialidade})
@@ -34,7 +35,7 @@ EspecialidadeController.post('editarespecialidade', async(req:Request, resp: Res
     resp.send(error + " - falha ao registar")
   }
 })
-EspecialidadeController.get('editarespecialidade/:id', async(req:Request, resp: Response)=>{
+EspecialidadeController.get('/editarespecialidade/:id', async(req:Request, resp: Response)=>{
   try {
     const {id}= req.params; 
     const d= await knex('especialidade').where('idEspecialidade',id).delete();

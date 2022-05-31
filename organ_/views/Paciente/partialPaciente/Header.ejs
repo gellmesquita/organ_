@@ -11,15 +11,14 @@
             <a href="/acercade" class="nav-item nav-link">Acerca de</a>
             <a href="/medicosLista" class="nav-item nav-link">Medicos</a>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Especialidades</a>
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Acção</a>
                 <div class="dropdown-menu rounded-0 rounded-bottom m-0"> 
-                    <% especialidades.map(esp=> { %>
-                        <a href="/especilidadePrincipal/<%=esp.idEspecialidade  %> " class="dropdown-item"><%=esp.nomeEspecialidade %> </a>
-                    <% }) %> 
+                    <a href="/especilidadePrincipal/" class="dropdown-item"> perfil</a>
+                    <a href="/especilidadePrincipal/" class="dropdown-item">Marcações </a>
                 </div>
             </div>
-            <a href="/" class="nav-item nav-link active">Marcações</a>
+          
         </div>
-        <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Perfil<i class="fa fa-user-alt ms-3"></i></a>
+        <a href="/logout" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Sair<i class="fa fa-power-off ms-3"></i></a>
     </div>
 </nav>

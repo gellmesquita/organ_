@@ -380,18 +380,20 @@
                             <div class="row g-3">
                                 
                         
-                                <div class="col-12 col-sm-6">
+                                <div class="col-12 col-sm-12">
                                     <select class="form-select border-0" style="height: 55px;">
-                                        <option selected>Choose Doctor</option>
-                                        <option value="1">Doctor 1</option>
-                                        <option value="2">Doctor 2</option>
-                                        <option value="3">Doctor 3</option>
+                                       
+                                        <option selected disabled>--Selecione a Especialidade--</option>
+                                        <% especialidades.map(esp=> { %>
+                                            <option value="<%=esp.nomeEspecialidade %>"><%=esp.nomeEspecialidade %></option>
+                                           
+                                        <% }) %> 
                                     </select>
                                 </div>
                             
                    <br><br><br><br>
                                 <div class="col-12">
-                                    <textarea class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
+                                    <textarea class="form-control border-0" rows="5" placeholder="Descrive o teu problema"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Criar Marcação</button>

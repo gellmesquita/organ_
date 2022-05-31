@@ -42,7 +42,7 @@ Route.get('/',async (req:Request, resp: Response)=>{
 
 Route.get('/logout', (req:Request, resp: Response)=>{
     req.session = undefined
-    resp.redirect('/login')
+    resp.redirect('/loginGeral')
 })
 
 //LOGIN GERAL DO SISTEMA

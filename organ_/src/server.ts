@@ -33,6 +33,7 @@ app.use(MarcacaoController);
 app.use(EspecialidadeController);
 
 app.use(function (req,res,next){
+    
     res.render("site/404")
 }) 
 

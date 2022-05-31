@@ -6,7 +6,7 @@ import { Response, Request, Router } from  "express";
 const upload = multer(multerConfig);
 
 const EspecialidadeController=Router();
-EspecialidadeController.post('criarespecialidade', async(req:Request, resp: Response)=>{
+EspecialidadeController.post('/criarespecialidade', async(req:Request, resp: Response)=>{
   try {
     const {nomeEspecialidade}= req.body; 
     const ids = await knex('especialidade').insert({nomeEspecialidade})

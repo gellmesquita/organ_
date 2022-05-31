@@ -86,10 +86,10 @@
                             Login da conta</h3>
                         </div>
                       </div>
-                      <form>
-                        <div class="mb-3"><label class="form-label" for="card-email">Username</label><input class="form-control" id="card-email" type="text" /></div>
+                      <form action="/loginGeral" method="post">
+                        <div class="mb-3"><label class="form-label" for="card-email">Username</label><input class="form-control" id="card-email" type="text" name="user" /></div>
                         <div class="mb-3">
-                          <div class="d-flex justify-content-between"><label class="form-label" for="card-password">Password</label></div><input class="form-control" id="card-password" type="password" />
+                          <div class="d-flex justify-content-between"><label class="form-label" for="card-password">Password</label></div><input class="form-control" id="card-password" type="password" name="pass" />
                         </div>
                         <div class="row flex-between-center">
                           <div class="col-auto">

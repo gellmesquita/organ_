@@ -105,6 +105,17 @@ MedicoController.get("Minhasmarcacoes", async(req:Request, resp:Response) =>{
   .join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').where({idMedico:req.session?.id})
   resp.render("admin/medico/index",  {adm:req.session?.admin.admn, d})
 })
+//Roras Do Medico 
+MedicoController.get("/medicoPainel", async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const medicos= await knex('medico').select('*')
+  const consultas= await knex('marcacao')
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  
+  resp.render("Medico/index",  {medico,medicos,consultas })
+})
 
 //Rotas Para o Administrador
 
@@ -116,7 +127,7 @@ MedicoController.get("/adminPainel", async(req:Request, resp:Response) =>{
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
   
-  resp.render("admin/index",  {medico,medicos,consultas })
+  resp.render("Administrador/index",  {medico,medicos,consultas })
 })
 
 

@@ -9,6 +9,7 @@ import MarcacaoController from './controller/marcacaoController';
 import PacienteController from './controller/pacienteController';
 import MedicoController from './controller/medicoController';
 import EspecialidadeController from './controller/especialidadeController';
+import knex from './database/conection';
 
 const app= express();
 app.use(flash())
@@ -32,9 +33,9 @@ app.use(MedicoController);
 app.use(MarcacaoController);
 app.use(EspecialidadeController);
 
-app.use(function (req,res,next){
-    
-    res.render("site/404")
+app.use(async (req,res, next)=>{
+    const especialidades=await knex('especialidade').select('*')
+    res.render("site/404",{especialidades})
 }) 
 
 

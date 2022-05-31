@@ -26,8 +26,8 @@ import medicoAuth from './middlewre/medico'
 
 //Rotas Gerais do Sistema
 //Login principal
-Route.get('/login', (req:Request, resp: Response)=>{
-    resp.render('login',{certo:req.flash('certo'),errado:req.flash('errado')})
+Route.get('/loginGeral', (req:Request, resp: Response)=>{
+    resp.render('Site/login',{certo:req.flash('certo'),errado:req.flash('errado')})
 })
 
 //Cadastrar principal

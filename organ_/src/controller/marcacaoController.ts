@@ -7,10 +7,10 @@ const upload = multer(multerConfig);
 import {addDias, c} from '../config/data'
 
 const MarcacaoController=Router();
-MarcacaoController.post('/criarmarcacao', async(req:Request, resp: Response)=>{
+MarcacaoController.get('/criarmarcacao', async(req:Request, resp: Response)=>{
 
   try {
-    const {mes, dia, ano, diaExtenso,idMedico}= req.body; 
+    const {mes, dia, ano, diaExtenso,idMedico ,especialidade}= req.body; 
     const  estadoMarcacao = "0";//Quer dizer que ainda não foi atendido
     const idPaciente= req.session?.user.id;
     // levar em conta a especialiade
@@ -30,9 +30,12 @@ MarcacaoController.post('/criarmarcacao', async(req:Request, resp: Response)=>{
       
     }
     const idm = await  knex('marcacao').join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').where('hora', maior).select('*')
+    const md =idm[0].idMedico;
+    const medicos= await knex('medico').leftJoin('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('role', 0).orWhere('idEspecialidade')
     const hora_consulta=(maior!=0 && maior< 17)?maior+1:8;
+ 
 
-      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso, idPaciente,idMedico:idm[0].idMedico}).catch(err=> {console.log(err)})
+      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso, idPaciente,idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
       resp.json("cadastrado")
     }else{

@@ -96,8 +96,31 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
     const consultas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',0)
     const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',1)
    const consultasadiadas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',2)
-    const especialidades=await knex('especialidade').select('*')
+    const especialidades=await knex('especialidade').limit(3)
     resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades,consultasadiadas})
+  })
+  PacienteController.get("/pacientemarcacoes", async(req:Request, resp: Response) =>{
+    const id = req.session?.user.id;
+    
+    const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao',0)
+    .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*')
+    
+   console.log(consultas)
+    resp.render("Paciente/marcacoes",{consultas,certo:req.flash('certo'),errado:req.flash('errado')})
+  })
+  PacienteController.get("/pacienteespecialidades", async(req:Request, resp: Response) =>{
+    const id = req.session?.user.id;
+   
+    const especialidades=await knex('especialidade').select('*')
+    resp.render("Paciente/especialidades",{especialidades})
+  })
+  PacienteController.get('/medicospaciente', async(req:Request, resp:Response)=> {
+   
+    const medicos= await knex('medico').leftJoin('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
+
+  console.log(medicos)
+  resp.render("Paciente/team",{medicos})
+ 
   })
 
 PacienteController.post('/editarpaciente',upload.single('image'),async(req:Request, resp: Response)=>{
@@ -121,7 +144,7 @@ PacienteController.post('/editarpaciente',upload.single('image'),async(req:Reque
   })
   PacienteController.get('/medicosLista', async(req:Request, resp:Response)=> {
     const especialidades=await knex('especialidade').select('*')
-    const medicos= await knex('medico').leftJoin('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('role', 0)
+    const medicos= await knex('medico').leftJoin('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
 
   console.log(medicos)
   resp.render("Site/team",{medicos,especialidades})

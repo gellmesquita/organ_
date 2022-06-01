@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include ("./partialPaciente/Header") %>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Topbar Start -->
+  
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <%- include ("./partialPaciente/Navbar") %>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Especialidades</h1>
+           
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <p class="d-inline-block border rounded-pill py-1 px-4">Serviços</p>
+                <h1>Consultas Marcadas</h1>
+            </div>
+            <div class="row g-4">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Data Marcação</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Médico</th>
+                        <th scope="col">Acção</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% consultas.map(mar=> { %>
+                      <tr>
+                           <td><%= mar.idMarcacao %> </td>
+                           <td><%= mar.dataMarcacao %> </td>
+                           <td><%= mar.hora %> </td>
+                           <td><%= mar.nomeMedico %> </td>
+                           <td>
+                               <button class="btn btn-primary btn-round" >Detalhes</button>
+                               <button class="btn btn-danger btn-round" onclick="confirmar( `<%= mar.idMarcacao %>`)">Cancelar </button>                              
+                          </td>
+                           
+                   
+                           
+                      </tr>
+                      <%})%> 
+                    </tbody>
+                  </table>
+               
+                
+             
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+    <%- include ("./partialPaciente/footer") %>
+
+    <script>
+        function confirmar(id){
+          
+      Swal.fire({
+        title: 'Queres cancelar esta Marcação?',
+      icon:'warning',
+        showCancelButton: true,
+        confirmButtonColor:'#3085d6',
+        cancelButtonColor:'#d33',
+        confirmButtonText: 'Confirmar',
+      
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below   */
+        if (result.isConfirmed) {
+      
+         window.location = '/deletarrmarcacao/'+id;
+        } else if (result.isDenied) {
+          Swal.fire('Erro ao eliminar', '', 'info')
+        }
+      })
+        }
+        </script>
+        <% if(certo.length >0){%>
+    <script>
+     Swal.fire(
+    'Boa!',
+    '`<%=certo %>`!',
+    'success'
+  )
+
+    </script>
+    <% }else if(errado.length >0) {%>
+      <script>
+        Swal.fire({
+icon: 'error',
+title: 'Opa...',
+text: '`<%=errado %>`!',
+
+})
+        
+      </script>
+      <% }%>
+        
+
+</body>
+
+</html>

@@ -161,7 +161,36 @@ MedicoController.get("/perfilMedico_/:idMedico",adminAuth, async(req:Request, re
   .where('marcacao.idMedico', idMedico).distinct()
   resp.render("Administrador/perfilMedico",  {medico,medicos,consultas, especialidades })
 })
+MedicoController.get("/perfilPaciente/:idPaciente",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idMedico}= req.params;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const medicos= await knex('medico').join('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('medico.idMedico',idMedico).distinct().first()
+  const especialidades= await knex('especialidade').select('*')
+  const consultas= await knex('marcacao')
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('marcacao.idMedico', idMedico).distinct()
+  resp.render("Administrador/perfilMedico",  {medico,medicos,consultas, especialidades })
+})
+MedicoController.get("/pacientes_",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const especialidades= await knex('especialidade').select('*')
+  const paciente= await knex('paciente').select('*')
+  resp.render("Administrador/paciente",  {medico,paciente, especialidades })
+})
 
+MedicoController.get("/pacienteDetalhe/:idPaciente",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idPaciente} =req.params;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const especialidades= await knex('especialidade').select('*')
+  const paciente= await knex('paciente').where('idPaciente', idPaciente).first();
+  const consultas= await knex('marcacao').where('idPaciente', idPaciente)
+
+  resp.render("Administrador/pacienteDetalhe",  {medico,paciente, especialidades, consultas })
+})
 
 
 

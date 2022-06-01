@@ -47,32 +47,22 @@ MarcacaoController.get('/criarmarcacao', async(req:Request, resp: Response)=>{
   }
 })
 
-MarcacaoController.post('editarmarcacao', async(req:Request, resp: Response)=>{
-  try {
-    const {id,nomemarcacao}= req.body; 
-    const ids = await knex('marcacao').insert({nomemarcacao})
-    const d= await knex('marcacao').where('idmarcacao',id).update({nomemarcacao});
-    if(ids.length > 0){
-      resp.send('marcacao cadastrado')
-    }else{
-      resp.send("Nao cadastrou")
-    }
-  } catch (error) {
-    resp.send(error + " - falha ao registar")
-  }
-})
-MarcacaoController.get('editarmarcacao/:id', async(req:Request, resp: Response)=>{
+
+MarcacaoController.get('/deletarrmarcacao/:id', async(req:Request, resp: Response)=>{
   try {
     const {id}= req.params; 
     const d= await knex('marcacao').where('idmarcacao',id).delete();
 
     if(d){
-      resp.send('marcacao deletado')
+      req.flash("certo","Marcacao Cancelada")
+      resp.redirect("/pacientemarcacoes")
     }else{
-      resp.send("Nao deletou")
+      req.flash("errado","Não deletou")
+      resp.redirect("/pacientemarcacoes")
     }
   } catch (error) {
-    resp.send(error + " - falha ao registar")
+    req.flash("errado","Ocorreu um problema")
+    resp.redirect("/pacientemarcacoes")
   }
 })
 

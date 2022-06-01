@@ -13,7 +13,19 @@
 
 
     <!-- Navbar Start -->
-    <%- include ("./partialSite/Navbar) %>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
+        <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h1 class="m-0 text-primary"><i class="far fa-hospital me-3"></i>Organ</h1>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+          
+           
+        </div>
+    </nav>
     <!-- Navbar End -->
 
 
@@ -36,11 +48,8 @@
                     <h1 class="display-1">404</h1>
 
                     <h1 class="mb-4">Pagina Não encontrada</h1>
-                    <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
-
-                    <h1 class="mb-4">Page Not Found</h1>
                     <p class="mb-4">Desculpe, a página que você procurou não existe em nosso site! Talvez vá para nossa página inicial ou tente usar uma pesquisa?</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5" href="/">Voltar ao Home</a>
+                    <a class="btn btn-primary rounded-pill py-3 px-5"  onclick="history.back()">Voltar ao Home</a>
 
                 </div>
             </div>

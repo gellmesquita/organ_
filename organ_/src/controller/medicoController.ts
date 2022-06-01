@@ -153,12 +153,12 @@ MedicoController.get("/perfilMedico_/:idMedico",adminAuth, async(req:Request, re
   const idUser= req.session?.user.id;
   const {idMedico}= req.params;
   const medico= await knex('medico').where('idMedico', idUser).first();
-  const medicos= await knex('medico').join('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('medico.idMedico',idMedico).distinct()
+  const medicos= await knex('medico').join('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('medico.idMedico',idMedico).distinct().first()
   const especialidades= await knex('especialidade').select('*')
   const consultas= await knex('marcacao')
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
-  
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('marcacao.idMedico', idMedico).distinct()
   resp.render("Administrador/perfilMedico",  {medico,medicos,consultas, especialidades })
 })
 

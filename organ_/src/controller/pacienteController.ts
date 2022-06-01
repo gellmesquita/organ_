@@ -112,9 +112,22 @@ PacienteController.post('/editarpaciente',upload.single('image'),async(req:Reque
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }})
+  PacienteController.get('/acercade', async(req:Request, resp:Response)=> {
+    const especialidades=await knex('especialidade').select('*')
+  
+    resp.render("Site/about",{especialidades})
+  })
+  PacienteController.get('/medicosLista', async(req:Request, resp:Response)=> {
+    const especialidades=await knex('especialidade').select('*')
+    const medicos= await knex('medicoEspecialidade')
+    .join('especialidade', 'medicoEspecialidade.id', 'especialidade.idEspecialidade')
+  .join('medico', 'medicoEspecialidade.id', 'medico.idMedico').select('*')
+  console.log(medicos)
+  //  resp.render("Site/team",{especialidades,medicos})
+  })
  
 
-  // Papel Do administrador
+  // Papel Do administrador /acercade
   PacienteController.get('/ListarPaciente', async(req:Request, resp:Response)=> {
     const p= await knex('paciente').orderBy('idPaciente', 'desc').select('*')
     resp.json(p)

@@ -33,9 +33,8 @@ app.use(MedicoController);
 app.use(MarcacaoController);
 app.use(EspecialidadeController);
 
-app.use(  async(req,res, next)=>{
-    const especialidades=await knex('especialidade').select('*')
-    res.render("Site/404",{especialidades})
+app.use(async(req,res, next)=>{ 
+    res.render("Site/404")
 }) 
 
 

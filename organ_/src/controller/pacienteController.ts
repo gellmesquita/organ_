@@ -93,11 +93,11 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
   PacienteController.get("/pacientePainel", async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
     const medicos= await knex('medico').where('role', 0)
-    const consultas= await knex('marcacao').select('*').where('idPaciente',id).orWhere('estadoMarcacao',0)
-    const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).orWhere('estadoMarcacao',1)
-   
+    const consultas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',0)
+    const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',1)
+   const consultasadiadas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',2)
     const especialidades=await knex('especialidade').select('*')
-    resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades})
+    resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades,consultasadiadas})
   })
 
 PacienteController.post('/editarpaciente',upload.single('image'),async(req:Request, resp: Response)=>{

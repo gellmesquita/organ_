@@ -97,7 +97,7 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
     const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',1)
    const consultasadiadas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',2)
     const especialidades=await knex('especialidade').limit(3)
-    resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades,consultasadiadas})
+    resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades,consultasadiadas,certo:req.flash('certo'),errado:req.flash('errado')})
   })
   PacienteController.get("/pacientemarcacoes", async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
@@ -112,7 +112,7 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
     const id = req.session?.user.id;
    
     const especialidades=await knex('especialidade').select('*')
-    resp.render("Paciente/especialidades",{especialidades})
+    resp.render("Paciente/especialidades",{especialidades,certo:req.flash('certo'),errado:req.flash('errado')})
   })
   PacienteController.get('/medicospaciente', async(req:Request, resp:Response)=> {
    

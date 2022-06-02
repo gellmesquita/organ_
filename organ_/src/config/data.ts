@@ -19,10 +19,20 @@ var inicio = b.split("T")
 var c = (inicio[0]);
 
 console.log(c)
+data = new Date(c);
+    
+var day = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
+var date = data.getDate();
+var month = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"][data.getMonth()];
+var year = data.getFullYear();
 
 
 
-export {addDias, c}
+console.log(day)
+
+
+
+export {addDias, c,day}
 
 
 

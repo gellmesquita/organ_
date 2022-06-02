@@ -111,8 +111,7 @@
                                                                 <th class="align-middle">Nome</th>
                                                                 <th class="align-middle">Username </th>
                                                                 <th class="align-middle">Email</th>
-                                                                <th class="align-middle white-space-nowrap pe-3">Telefone
-                                                                </th>
+                                                                
                                                                 <th class="align-middle white-space-nowrap pe-3">Especialização
                                                                 </th>
                                                                 <th class="align-middle white-space-nowrap pe-3">Accão
@@ -126,19 +125,15 @@
                                                                     <th class="align-middle"><%= c.nomeMedico  %></th>  
                                                                     <td class="align-middle"><%= c.userMedico  %></td>
                                                                     <td class="align-middle"><%= c.emailMedico  %></td>
-                                                                    <td
-                                                                        class="align-middle white-space-nowrap text-end pe-3">
-                                                                        <%= c.tellMedico  %>
-                                                                    </td>
+                                                                    
                                                                     <td class="align-middle white-space-nowrap text-end pe-3">
                                                                         <% especialidades.filter(esp=> esp.idEspecialidade==c.idEspecialidade).reverse().slice(0, 1).map(esp=>{%>
                                                                             <%= esp.nomeEspecialidade  %>
                                                                             <%  })
                                                                         %>
                                                                     </td>
-                                                                    <td
-                                                                        class="align-middle white-space-nowrap text-end pe-3">
-                                                                        <button onclick="window.location='/perfilMedico_/<%= c.idMedico  %>'" class="btn btn-falcon-primary me-1 mb-1" type="button">ver</button>
+                                                                    <td class="align-middle white-space-nowrap text-end pe-3">
+                                                                        <button onclick="window.location='/perfilMedico_/<%= c.idMedico %>'" class="btn btn-falcon-primary me-1 mb-1" type="button">ver</button>
                                                                     </td>
                                                                 </tr>
                                                             <%  }) %> 
@@ -149,95 +144,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane code-tab-pane" role="tabpanel"
-                                        aria-labelledby="tab-dom-d0adf82f-256f-437e-940b-d7a7b189bfa1"
-                                        id="dom-d0adf82f-256f-437e-940b-d7a7b189bfa1">
-                                        <pre class="scrollbar rounded-1" style="max-height:420px"><code class="language-html">&lt;div class=&quot;card shadow-none&quot;&gt;
-  &lt;div class=&quot;card-body p-0 pb-3&quot;&gt;
-    &lt;div class=&quot;d-flex align-items-center justify-content-end my-3&quot;&gt;
-      &lt;div id=&quot;bulk-select-replace-element&quot;&gt;&lt;button class=&quot;btn btn-falcon-success btn-sm&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fas fa-plus&quot; data-fa-transform=&quot;shrink-3 down-2&quot;&gt;&lt;/span&gt;&lt;span class=&quot;ms-1&quot;&gt;New&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
-      &lt;div class=&quot;d-none ms-3&quot; id=&quot;bulk-select-actions&quot;&gt;
-        &lt;div class=&quot;d-flex&quot;&gt;&lt;select class=&quot;form-select form-select-sm&quot; aria-label=&quot;Bulk actions&quot;&gt;
-            &lt;option selected=&quot;selected&quot;&gt;Bulk actions&lt;/option&gt;
-            &lt;option value=&quot;Delete&quot;&gt;Delete&lt;/option&gt;
-            &lt;option value=&quot;Archive&quot;&gt;Archive&lt;/option&gt;
-          &lt;/select&gt;&lt;button class=&quot;btn btn-falcon-danger btn-sm ms-2&quot; type=&quot;button&quot;&gt;Apply&lt;/button&gt;&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;table-responsive scrollbar&quot;&gt;
-      &lt;table class=&quot;table mb-0&quot;&gt;
-        &lt;thead class=&quot;text-black bg-200&quot;&gt;
-          &lt;tr&gt;
-            &lt;th class=&quot;align-middle white-space-nowrap&quot;&gt;
-              &lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; data-bulk-select='{&quot;body&quot;:&quot;bulk-select-body&quot;,&quot;actions&quot;:&quot;bulk-select-actions&quot;,&quot;replacedElement&quot;:&quot;bulk-select-replace-element&quot;}' /&gt;&lt;/div&gt;
-            &lt;/th&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Name&lt;/th&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Nationality &lt;/th&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Gender&lt;/th&gt;
-            &lt;th class=&quot;align-middle white-space-nowrap pe-3&quot;&gt;Age&lt;/th&gt;
-          &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody id=&quot;bulk-select-body&quot;&gt;
-          &lt;tr&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
-              &lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-1&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
-            &lt;/td&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Kit Harington&lt;/th&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;Male&lt;/td&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;32&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
-              &lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-2&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
-            &lt;/td&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Emilia Clarke&lt;/th&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;Female&lt;/td&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;32&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
-              &lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-3&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
-            &lt;/td&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Peter Dinklage&lt;/th&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;American&lt;/td&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;Male&lt;/td&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;49&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
-              &lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-4&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
-            &lt;/td&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Sean Bean&lt;/th&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;Male&lt;/td&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;59&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
-              &lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-5&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
-            &lt;/td&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Maisie Williams&lt;/th&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;Female&lt;/td&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;21&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
-              &lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-6&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
-            &lt;/td&gt;
-            &lt;th class=&quot;align-middle&quot;&gt;Sophie Turner&lt;/th&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
-            &lt;td class=&quot;align-middle&quot;&gt;Female&lt;/td&gt;
-            &lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;23&lt;/td&gt;
-          &lt;/tr&gt;
-        &lt;/tbody&gt;
-      &lt;/table&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-                                    </div>
+                   
                                 </div>
                             </div>
                         </div>
@@ -267,70 +174,9 @@
                         </script>
                         <!-- Começa aqui -->
 
-                        <footer class="footer">
-                            <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-                                <div class="col-12 col-sm-auto text-center">
-                                    <p class="mb-0 text-600">Thank you for creating with Falcon <span
-                                            class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2021
-                                        &copy; <a href="https:/themewagon.com/">Themewagon</a></p>
-                                </div>
-                                <div class="col-12 col-sm-auto text-center">
-                                    <p class="mb-0 text-600">v3.4.0</p>
-                                </div>
-                            </div>
-                        </footer>
+                       
                 </div>
-                <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog"
-                    aria-labelledby="authentication-modal-label" aria-hidden="true">
-                    <div class="modal-dialog mt-6" role="document">
-                        <div class="modal-content border-0">
-                            <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
-                                <div class="position-relative z-index-1 light">
-                                    <h4 class="mb-0 text-white" id="authentication-modal-label">Register</h4>
-                                    <p class="fs--1 mb-0 text-white">Please create your free Falcon account</p>
-                                </div><button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2"
-                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body py-4 px-5">
-                                <form>
-                                    <div class="mb-3"><label class="form-label" for="modal-auth-name">Name</label><input
-                                            class="form-control" type="text" autocomplete="on" id="modal-auth-name" />
-                                    </div>
-                                    <div class="mb-3"><label class="form-label" for="modal-auth-email">Email
-                                            address</label><input class="form-control" type="email" autocomplete="on"
-                                            id="modal-auth-email" /></div>
-                                    <div class="row gx-2">
-                                        <div class="mb-3 col-sm-6"><label class="form-label"
-                                                for="modal-auth-password">Password</label><input class="form-control"
-                                                type="password" autocomplete="on" id="modal-auth-password" /></div>
-                                        <div class="mb-3 col-sm-6"><label class="form-label"
-                                                for="modal-auth-confirm-password">Confirm Password</label><input
-                                                class="form-control" type="password" autocomplete="on"
-                                                id="modal-auth-confirm-password" /></div>
-                                    </div>
-                                    <div class="form-check"><input class="form-check-input" type="checkbox"
-                                            id="modal-auth-register-checkbox" /><label class="form-label"
-                                            for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and
-                                            <a href="#!">privacy policy</a></label></div>
-                                    <div class="mb-3"><button class="btn btn-primary d-block w-100 mt-3" type="submit"
-                                            name="submit">Register</button></div>
-                                </form>
-                                <div class="position-relative mt-5">
-                                    <hr class="bg-300" />
-                                    <div class="divider-content-center">or register with</div>
-                                </div>
-                                <div class="row g-2 mt-2">
-                                    <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100"
-                                            href="#"><span class="fab fa-google-plus-g me-2"
-                                                data-fa-transform="grow-8"></span> google</a></div>
-                                    <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100"
-                                            href="#"><span class="fab fa-facebook-square me-2"
-                                                data-fa-transform="grow-8"></span> facebook</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+             
         </div>
     </main><!-- ===============================================-->
     <!--    End of Main Content-->

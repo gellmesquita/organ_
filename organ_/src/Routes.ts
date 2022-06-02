@@ -61,8 +61,8 @@ Route.post('/loginGeral',async (req:Request, resp: Response)=>{
         const {user, pass}= req.body;
         authenticate(user, pass).then(r=>{
             if(r==='-1'){
-
-                resp.redirect('/')
+                req.flash("errado","Erro ao autenticar!")
+                resp.redirect('/loginGeral')
                 
             }else{
                 const dados=r;

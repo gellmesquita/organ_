@@ -28,9 +28,31 @@ var year = data.getFullYear();
 
 
 
-console.log(day)
+console.log(day,month,year)
 
+if(day=="Sábado"){
+    t =(addDias(tmpDate, 12))
+    var b= t.toISOString();
+var inicio = b.split("T")
 
+ c = (inicio[0]);
+ data = new Date(c);
+    
+day = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
+    
+
+}else if(day=="Domingo"){
+    t =(addDias(tmpDate, 11))
+    var b= t.toISOString();
+    var inicio = b.split("T")
+
+     c = (inicio[0]);
+     data = new Date(c);    
+     day = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
+         
+     
+    
+}
 
 export {addDias, c,day}
 

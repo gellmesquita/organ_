@@ -11,6 +11,9 @@ import MedicoController from './controller/medicoController';
 import EspecialidadeController from './controller/especialidadeController';
 import knex from './database/conection';
 
+//node-cron
+import c from  './config/marcacoes'
+
 const app= express();
 app.use(flash())
 

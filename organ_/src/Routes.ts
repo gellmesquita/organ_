@@ -41,11 +41,13 @@ Route.get('/acercade', async(req:Request, resp: Response)=>{
 
 // Home page do Sistema
 Route.get('/',async (req:Request, resp: Response)=>{
-    const medicos= await knex('medico').where('role', 0)
+    const esp=await knex('especialidade').limit(3)
+  
     const consultas= await knex('marcacao').select('*')
     const pacientes= await knex('paciente').select('*')
-    const especialidades=await knex('especialidade').select('*')
-    resp.render('Site/index',{medicos, consultas, pacientes, especialidades})
+    const especialidades=await knex('especialidade').select('*');
+    const medicos= await knex('medico').leftJoin('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0).limit(4)
+    resp.render('Site/index',{medicos, consultas, pacientes, especialidades,esp})
 })
 
 Route.get('/logout', (req:Request, resp: Response)=>{

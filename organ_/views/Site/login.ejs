@@ -200,13 +200,22 @@
     <script src="/sweetalert/sweetalert2.all.min.js"></script>
     <% if(errado.length >0) {%>
         <script>
-          Swal.fire({
+    var Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
   icon: 'error',
-  title: 'Opa...',
-  text: '<%=errado %>!',
-  
-  })
-          
+  title: '<%=errado %>'
+})
         </script>
        
         <% }else if(certo.length >0) {%>

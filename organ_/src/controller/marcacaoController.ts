@@ -70,7 +70,7 @@ const dia =sx[2];
     
 const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
  const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
- req.flash("certo","Cadastrado")
+ req.flash("certo","Marcação Agendada")
  resp.redirect("/pacienteespecialidades")
     
 
@@ -89,7 +89,7 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
          
      const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
-      req.flash("certo","Cadastrado")
+      req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
     
 }else{
@@ -105,7 +105,7 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
   var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
   const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
-      req.flash("certo","Cadastrado")
+      req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
 
 }
@@ -126,7 +126,7 @@ const dia =sx[2];
     
 const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
  const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
- req.flash("certo","Cadastrado")
+ req.flash("certo","Marcação Agendada")
  resp.redirect("/pacienteespecialidades")
     
 
@@ -145,7 +145,7 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
          
      const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
-      req.flash("certo","Cadastrado")
+      req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
     
 }else{
@@ -161,27 +161,23 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
   var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
   const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
-      req.flash("certo","Cadastrado")
+      req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
 
 }
-
 }else{
   req.flash("errado","Marcações lotadas tente mas tarde ou amanhã")
   resp.redirect("/pacientemarcacoes")
 }
-
    }else{
     const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
     const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
-    req.flash("certo","Cadastrado")
+    req.flash("certo","Marcação Agendada")
     resp.redirect("/pacienteespecialidades")
-   }
-
-     
+   } 
     }else{
       const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
-      req.flash("certo","Cadastrado")
+      req.flash("certo","Marcação Agendada")
     resp.redirect("/pacienteespecialidades")
     }
   }else{

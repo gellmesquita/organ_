@@ -12,37 +12,11 @@ const MedicoController=Router();
 //Papel do Admin
   MedicoController.post('/cadastarMedico',upload.single('image'),async (req:Request, resp: Response)=>{
       try {
-        const imgMedico= (req.file) ? req.file.filename : 'user.png';       
+        const imagemMedico= (req.file) ? req.file.filename : 'user.png';       
         const {nomeMedico, userMedico, emailMedico, tellMedico, passMedico, idEspecialidade,generoMedico, descMedico, passMedico2}= req.body; 
-        console.log(imgMedico, nomeMedico, userMedico, emailMedico, tellMedico, passMedico);
+        console.log(idEspecialidade);
         
-        if(nomeMedico=='' || userMedico=='' || emailMedico=='' || tellMedico=='' || passMedico=='' || idEspecialidade=='' || generoMedico=='' || descMedico=='' || passMedico2==''){
-          req.flash('Erro1', 'Valores incorretos');
-          resp.redirect('/FormMedico')
-        }else{
-          const medico= await knex('medico').where('nomeMedico',nomeMedico).orWhere('userMedico',userMedico).orWhere('tellMedico',userMedico).orWhere('passMedico',passMedico)
-          if(medico.length>0){
-            console.log('Certo1');
-            req.flash('Erro1', 'Valores incorretos');
-            resp.redirect('/FormMedico')
-          }else{
-            if(!nomeMedico.match(/\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi) || !( /^[9]{1}[0-9]{8}$/.test(tellMedico)) || !userMedico.match(/^[a-z0-9_.]+$/)){
-              console.log('Certo2')
-              req.flash('Erro1', 'Valores incorretos');
-              resp.redirect('/FormMedico')
-            }else{
-              if(passMedico2==passMedico){
-                const medito= await knex('medico').insert({role:0, nomeMedico, userMedico, emailMedico, tellMedico, passMedico, idEspecialidade,generoMedico, descMedico})
-                req.flash('Certo', 'Medico Cadastrato com Sucesso');
-                resp.redirect('/listarMedico')
-              }else{
-                console.log('Certo3')
-                req.flash('Erro1', 'Valores incorretos');
-                resp.redirect('/FormMedico')
-              }
-            }
-          }
-        }
+
        
       } catch (error) {
         resp.send(error + " - falha ao registar")
@@ -116,15 +90,17 @@ MedicoController.get("/adminPainel", async(req:Request, resp:Response) =>{
 MedicoController.get("/listarMedico",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const medico= await knex('medico').where('idMedico', idUser).first();
-  const medicos= await knex('medico').leftJoin('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('role', 0)
+  const medicos= await knex('medico').join('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
   const especialidades= await knex('especialidade').select('*')
     
   const consultas= await knex('marcacao')
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  console.log(medicos);
   
   resp.render("Administrador/listaMedico",  {medico,medicos,consultas, especialidades })
 })
+
 MedicoController.get("/FormMedico",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const medico= await knex('medico').where('idMedico', idUser).first();
@@ -136,16 +112,18 @@ MedicoController.get("/FormMedico",adminAuth, async(req:Request, resp:Response) 
   
   resp.render("Administrador/cadastroMedico",  {medico,medicos,consultas, especialidades })
 })
+
 MedicoController.get("/perfilMedico_/:idMedico",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const {idMedico}= req.params;
   const medico= await knex('medico').where('idMedico', idUser).first();
-  const medicos= await knex('medico').join('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('medico.idMedico',idMedico).distinct().first()
+  const medicos= await knex('medico').join('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('medico.idMedico',idMedico).distinct().first()
   const especialidades= await knex('especialidade').select('*')
   const consultas= await knex('marcacao')
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
   .where('marcacao.idMedico', idMedico).distinct()
+
   resp.render("Administrador/perfilMedico",  {medico,medicos,consultas, especialidades })
 })
 MedicoController.get("/perfilPaciente/:idPaciente",adminAuth, async(req:Request, resp:Response) =>{

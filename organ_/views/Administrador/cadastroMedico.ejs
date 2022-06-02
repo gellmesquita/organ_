@@ -110,10 +110,7 @@
               <div class="card theme-wizard mb-5 mb-lg-0 mb-xl-5 mb-xxl-0 h-100">
                 <div class="card-header bg-light pt-3 pb-2">
                   <ul class="nav nav-pills mb-3" role="tablist" id="pill-tab2">
-                    <li class="nav-item" role="presentation"><button class="nav-link active" data-wizard-step="data-wizard-step" data-bs-toggle="pill" data-bs-target="#form-wizard-progress-tab1" type="button" role="tab" aria-controls="form-wizard-progress-tab1" aria-selected="true"><span class="fas fa-lock me-2" data-fa-transform="shrink-2"></span><span class="d-none d-md-inline-block fs--1">Account</span></button></li>
-                    <li class="nav-item" role="presentation"><button class="nav-link" data-wizard-step="data-wizard-step" data-bs-toggle="pill" data-bs-target="#form-wizard-progress-tab2" type="button" role="tab" aria-controls="form-wizard-progress-tab2" aria-selected="false"><span class="fas fa-user me-2" data-fa-transform="shrink-2"></span><span class="d-none d-md-inline-block fs--1">Personal</span></button></li>
-                    <li class="nav-item" role="presentation"><button class="nav-link" data-wizard-step="data-wizard-step" data-bs-toggle="pill" data-bs-target="#form-wizard-progress-tab3" type="button" role="tab" aria-controls="form-wizard-progress-tab3" aria-selected="false"><span class="fas fa-dollar-sign me-2" data-fa-transform="down-2 shrink-2"></span><span class="d-none d-md-inline-block fs--1">Billing</span></button></li>
-                    <li class="nav-item" role="presentation"><button class="nav-link" data-wizard-step="data-wizard-step" data-bs-toggle="pill" data-bs-target="#form-wizard-progress-tab4" type="button" role="tab" aria-controls="form-wizard-progress-tab4" aria-selected="false"><span class="fas fa-thumbs-up me-2" data-fa-transform="shrink-2"></span><span class="d-none d-md-inline-block fs--1">Done</span></button></li>
+                    <li class="nav-item" role="presentation"><button class="nav-link active" data-wizard-step="data-wizard-step" data-bs-toggle="pill" data-bs-target="#form-wizard-progress-tab1" type="button" role="tab" aria-controls="form-wizard-progress-tab1" aria-selected="true"><span class="fas fa-lock me-2" data-fa-transform="shrink-2"></span><span class="d-none d-md-inline-block fs--1">Conta de médico</span></button></li>
                   </ul>
                 </div>
                 <div class="progress" style="height: 2px;">
@@ -155,7 +152,18 @@
                               <option value="Femenino">Femenino</option>
                             </select></div>
                           <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-phone">Telefone</label><input class="form-control" type="text" name="tellMedico" placeholder="Phone" id="form-wizard-progress-wizard-phone" /></div>
-      
+                          <div class="form-validation">
+                      
+                            <div class="row g-2">
+                              <div class="mb-3"><label class="form-label" for="form-wizard-progress-gender">Especialidade</label>
+                                <select class="form-select" name="idEspecialidade" id="form-wizard-progress-gender">
+                                <% especialidades.map(esp=> { %>
+                                  <option value="<%=esp.idEspecialidade %>"><%=esp.nomeEspecialidade %> </option>
+                              <% }) %> 
+                              </select></div>
+                           
+                            </div>
+                          </div>
                           <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-address">Descrição</label>
                             <textarea class="form-control" name="descMedico" rows="4" id="form-wizard-progress-wizard-address"></textarea></div>
                         </div>
@@ -188,26 +196,19 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane text-center px-sm-3 px-md-5" role="tabpanel" aria-labelledby="form-wizard-progress-tab4" id="form-wizard-progress-tab4">
-                      <div class="wizard-lottie-wrapper">
-                        <div class="lottie wizard-lottie mx-auto my-3" data-options='{"path":"/assets/img/animated-icons/celebration.json"}'></div>
+                    <div class="card-footer bg-light">
+                      <div class="px-sm-3 px-md-5">
+                        <ul class="pager wizard list-inline mb-0">
+                          <li class="previous"><button class="btn btn-link ps-0" type="button"><span class="fas fa-chevron-left me-2" data-fa-transform="shrink-3"></span></button></li>
+                          <li class="next"><button class="btn btn-primary px-5 px-sm-6" type="submit">Next<span class="fas fa-chevron-right ms-2" data-fa-transform="shrink-3"> </span></button></li>
+                        </ul>
                       </div>
-                      <h4 class="mb-1">Cadastro Efectuado!</h4>
-                      <p>Agora clique para para guardar os dados</p>
-                      <input type="submit" Value="Guardar" class="btn btn-primary px-5 my-3" />
                     </div>
                     
 
                   </form>
                 </div>
-                <div class="card-footer bg-light">
-                  <div class="px-sm-3 px-md-5">
-                    <ul class="pager wizard list-inline mb-0">
-                      <li class="previous"><button class="btn btn-link ps-0" type="button"><span class="fas fa-chevron-left me-2" data-fa-transform="shrink-3"></span>Prev</button></li>
-                      <li class="next"><button class="btn btn-primary px-5 px-sm-6" type="submit">Next<span class="fas fa-chevron-right ms-2" data-fa-transform="shrink-3"> </span></button></li>
-                    </ul>
-                  </div>
-                </div>
+
               </div>
             </div>
 

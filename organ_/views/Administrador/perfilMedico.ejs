@@ -98,7 +98,7 @@
           </script>
           <div class="card mb-3">
             <div class="card-header position-relative min-vh-25 mb-7">
-              <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url(/assets/img/generic/4.jpg);"></div>
+              <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url(http://localhost:1001/upload/medicos.jpg);"></div>
               <!--/.bg-holder-->
               <div class="avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm" src="http://localhost:1001/upload/<%= medicos.imagemMedico  %>" width="200" alt="" /></div>
             </div>
@@ -178,12 +178,7 @@
                                     <table class="table mb-0">
                                         <thead class="text-black bg-200">
                                             <tr>
-                                                <th class="align-middle white-space-nowrap">
-                                                    <div class="form-check mb-0"><input
-                                                            class="form-check-input" type="checkbox"
-                                                            data-bulk-select='{"body":"bulk-select-body","actions":"bulk-select-actions","replacedElement":"bulk-select-replace-element"}' />
-                                                    </div>
-                                                </th>
+                                                
                                                 <th class="align-middle">Nome</th>
                                                 <th class="align-middle">Email </th>
                                                 <th class="align-middle">Telefone</th>
@@ -198,13 +193,7 @@
                                         <tbody id="bulk-select-body">
                                             <% consultas.reverse().map(c=>{%> 
                                                 <tr>
-                                                    <td class="align-middle white-space-nowrap">
-                                                        <div class="form-check mb-0"><input
-                                                                class="form-check-input" type="checkbox"
-                                                                id="checkbox-1"
-                                                                data-bulk-select-row="data-bulk-select-row" />
-                                                        </div>
-                                                    </td>
+                                                    
                                                     <th class="align-middle"><%= c.nomePaciente  %></th>  
                                                     <td class="align-middle"><%= c.emailPaciente  %></td>
                                                     <td class="align-middle"><%= c.tellPaciente  %></td>

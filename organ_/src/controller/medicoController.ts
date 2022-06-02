@@ -10,52 +10,39 @@ const upload = multer(multerConfig);
 
 const MedicoController=Router();
 //Papel do Admin
-  MedicoController.post('/cadastarMedico',async (req:Request, resp: Response)=>{
+  MedicoController.post('/cadastarMedico',upload.single('image'),async (req:Request, resp: Response)=>{
       try {
-        const {nomeMedico, userMedico, emailMedico, tellMedico, passMedico}= req.body; 
-        const estadoMedico = 1;
-        const role= 0;
-        const imagemMedico= (req.file) ? req.file.filename : 'user.png';
-        let re = /[A-Z]/;
-        const hasUpper = re.test(userMedico);
-        const verificaEspaco = /\s/g.test(userMedico);
-        const Mailer = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(emailMedico);
-        const number = /^[9]{1}[0-9]{8}$/.test(tellMedico)
-        if (hasUpper === true) {
-          req.flash('errado', "nao cadastrado 1");
-          resp.redirect('/cadastrar')
- 
- 
-       } else if (verificaEspaco === true) {
-          req.flash('errado', "nao cadastrado 2");
-          resp.redirect('/cadastrar')
- 
-       } else
-          if (!Mailer) {
-             req.flash('errado', "nao cadastrado 3");
-             resp.redirect('/cadastrar')
-          } else
-             if (passMedico.length < 5) {
-                req.flash('errado', "Senha muito fraca");
-                resp.redirect('/cadastrar')
-             }else{
-              
-              const verify= await knex('medico').where('userMedico', userMedico).orWhere('emailMedico', emailMedico)
-              if(verify.length===0){
-                const ids = await knex('medico').insert({nomeMedico, userMedico, emailMedico, tellMedico, passMedico, estadoMedico, imagemMedico,role})
-                const medico = await knex('medico').where('idMedico', ids[0])
-                if (medico) {
-                  req.flash("certo","Criado com sucesso !")
-                  resp.json("criou")
-                } else {
-                  req.flash("errado","Nao criou !")
-                  resp.json("Nao criou")
-                }
+        const imgMedico= (req.file) ? req.file.filename : 'user.png';       
+        const {nomeMedico, userMedico, emailMedico, tellMedico, passMedico, idEspecialidade,generoMedico, descMedico, passMedico2}= req.body; 
+        console.log(imgMedico, nomeMedico, userMedico, emailMedico, tellMedico, passMedico);
+        
+        if(nomeMedico=='' || userMedico=='' || emailMedico=='' || tellMedico=='' || passMedico=='' || idEspecialidade=='' || generoMedico=='' || descMedico=='' || passMedico2==''){
+          req.flash('Erro1', 'Valores incorretos');
+          resp.redirect('/FormMedico')
+        }else{
+          const medico= await knex('medico').where('nomeMedico',nomeMedico).orWhere('userMedico',userMedico).orWhere('tellMedico',userMedico).orWhere('passMedico',passMedico)
+          if(medico.length>0){
+            console.log('Certo1');
+            req.flash('Erro1', 'Valores incorretos');
+            resp.redirect('/FormMedico')
+          }else{
+            if(!nomeMedico.match(/\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi) || !( /^[9]{1}[0-9]{8}$/.test(tellMedico)) || !userMedico.match(/^[a-z0-9_.]+$/)){
+              console.log('Certo2')
+              req.flash('Erro1', 'Valores incorretos');
+              resp.redirect('/FormMedico')
+            }else{
+              if(passMedico2==passMedico){
+                const medito= await knex('medico').insert({role:0, nomeMedico, userMedico, emailMedico, tellMedico, passMedico, idEspecialidade,generoMedico, descMedico})
+                req.flash('Certo', 'Medico Cadastrato com Sucesso');
+                resp.redirect('/listarMedico')
               }else{
-                resp.send("Esse dados ja Existem")
+                console.log('Certo3')
+                req.flash('Erro1', 'Valores incorretos');
+                resp.redirect('/FormMedico')
               }
-
-             }
+            }
+          }
+        }
        
       } catch (error) {
         resp.send(error + " - falha ao registar")
@@ -187,14 +174,35 @@ MedicoController.get("/pacienteDetalhe/:idPaciente",adminAuth, async(req:Request
   const medico= await knex('medico').where('idMedico', idUser).first();
   const especialidades= await knex('especialidade').select('*')
   const paciente= await knex('paciente').where('idPaciente', idPaciente).first();
-  const consultas= await knex('marcacao').where('idPaciente', idPaciente)
+  const consultas= await knex('marcacao')
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .where('idPaciente', idPaciente).select('*')
 
   resp.render("Administrador/pacienteDetalhe",  {medico,paciente, especialidades, consultas })
 })
 
+MedicoController.get("/pacienteDeletar/:idPaciente",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idPaciente} =req.params;
+  const paciente= await knex('paciente').where('idPaciente', idPaciente).del();
+  resp.redirect('/pacientes_')
 
+})
 
+MedicoController.get("/pacienteEditar/:idPaciente",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idPaciente} =req.params;
+  const paciente= await knex('paciente').where('idPaciente', idPaciente).first()
+  resp.render('Administrador/editarPaciente',{paciente})
 
+})
+
+MedicoController.post("/editarPaciente_",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {nomePaciente, userPacientem, emailPaciente, enderecoPaciente, idPaciente } =req.body;
+  const paciente= await knex('paciente').where('idPaciente', idPaciente).update({nomePaciente, userPacientem, emailPaciente, enderecoPaciente})
+  resp.redirect('/pacienteDetalhe/'+idPaciente)
+})
 export default MedicoController;
 
 //image, name, email, whatsaap, nomeuser senha

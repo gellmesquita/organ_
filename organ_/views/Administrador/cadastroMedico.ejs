@@ -120,34 +120,12 @@
                   <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="card-body py-4">
-                  <form action="#" method="post"class="tab-content">
+                  <form action="/cadastarMedico" method="post" enctype="multipart/form-data" class="tab-content">
                     <div class="tab-pane active px-sm-3 px-md-5" role="tabpanel" aria-labelledby="form-wizard-progress-tab1" id="form-wizard-progress-tab1">
                       <div novalidate="novalidate">
-                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-name">Nome*</label><input class="form-control" type="text" name="nomeMedico" placeholder="John Smith" id="form-wizard-progress-wizard-name" /></div>
-                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-name">Username*</label><input class="form-control" type="text" name="userMedico" placeholder="Username" id="form-wizard-progress-wizard-name" /></div>
-                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-email">Email*</label><input class="form-control" type="email" name="emailMedico" placeholder="Email address" pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$" required="required" id="form-wizard-progress-wizard-email" data-wizard-validate-email="true" />
-                          <div class="invalid-feedback">You must add email</div>
-                        </div>
-                        <div class="row g-2">
-                          <div class="col-6">
-                            <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-password">Password*</label><input class="form-control" type="password" name="passMedico" placeholder="Password" required="required" id="form-wizard-progress-wizard-password" data-wizard-validate-password="true" />
-                              <div class="invalid-feedback">Please enter password</div>
-                            </div>
-                          </div>
-                          <div class="col-6">
-                            <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-confirm-password">Confirm Password*</label><input class="form-control" type="passMedico2" name="confirmPassword" placeholder="Confirm Password" required="required" id="form-wizard-progress-wizard-confirm-password" data-wizard-validate-confirm-password="true" />
-                              <div class="invalid-feedback">Passwords need to match</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" name="terms" required="required" checked="checked" id="form-wizard-progress-wizard-checkbox" /><label class="form-check-label" for="form-wizard-progress-wizard-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label></div>
-                      </div>
-                    </div>
-                    <div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="form-wizard-progress-tab2" id="form-wizard-progress-tab2">
-                      <div>
                         <div class="mb-3">
                           <div class="row" data-dropzone="data-dropzone" data-options='{"maxFiles":1,"data":[{"name":"avatar.png","size":"54kb","url":"/assets/img/team"}]}'>
-                            <div class="fallback"><input type="file" name="image" /></div>
+                            <div></div>
                             <div class="col-md-auto">
                               <div class="dz-preview dz-preview-single">
                                 <div class="dz-preview-cover d-flex align-items-center justify-content-center mb-3 mb-md-0">
@@ -157,28 +135,51 @@
                               </div>
                             </div>
                             <div class="col-md">
-                              <div class="dz-message dropzone-area px-2 py-3" data-dz-message="data-dz-message">
-                                <div class="text-center"><img class="me-2" src="/assets/img/icons/cloud-upload.svg" width="25" alt="" />Upload your profile picture<p class="mb-0 fs--1 text-400">Upload a 300x300 jpg image with <br />a maximum size of 400KB</p>
+                              <div class=" px-2 py-3">
+                                <div class="text-center"><img class="me-2" src="/assets/img/icons/cloud-upload.svg" width="25" alt="" /> 
+                                  <input  type="file" name="image" accept="image/png, image/jpeg"/>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-gender">Genero</label><select class="form-select" name="generoMedico" id="form-wizard-progress-gender">
-                        
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                          </select></div>
-                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-phone">Phone</label><input class="form-control" type="text" name="tellMedico" placeholder="Phone" id="form-wizard-progress-wizard-phone" /></div>
-    
-                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-address">Descrição</label><textarea class="form-control" rows="4" id="form-wizard-progress-wizard-address"></textarea></div>
+                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-name">Nome*</label><input class="form-control" type="text" name="nomeMedico" placeholder="John Smith" id="form-wizard-progress-wizard-name" /></div>
+                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-name">Username*</label><input class="form-control" type="text" name="userMedico" placeholder="Username" id="form-wizard-progress-wizard-name" /></div>
+                        <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-email">Email*</label><input class="form-control" type="email" name="emailMedico" placeholder="Email address" pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$" required="required" id="form-wizard-progress-wizard-email" data-wizard-validate-email="true" />
+                          <div class="invalid-feedback">You must add email</div>
+                        </div>
+                        <div>
+                          <div class="mb-3"><label class="form-label" for="form-wizard-progress-gender">Genero</label><select class="form-select" name="generoMedico" id="form-wizard-progress-gender">
+                          
+                              <option value="Masculino">Masculino</option>
+                              <option value="Femenino">Femenino</option>
+                            </select></div>
+                          <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-phone">Telefone</label><input class="form-control" type="text" name="tellMedico" placeholder="Phone" id="form-wizard-progress-wizard-phone" /></div>
+      
+                          <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-address">Descrição</label>
+                            <textarea class="form-control" name="descMedico" rows="4" id="form-wizard-progress-wizard-address"></textarea></div>
+                        </div>
+                        <div class="row g-2">
+                          <div class="col-6">
+                            <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-password">Senha*</label><input class="form-control" type="password" name="passMedico" placeholder="Password" required="required" id="form-wizard-progress-wizard-password" data-wizard-validate-password="true" />
+                              <div class="invalid-feedback">Please enter password</div>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-confirm-password">Confirma Senha*</label><input class="form-control" type="password" name="passMedico2" placeholder="Confirm Password" required="required" id="form-wizard-progress-wizard-confirm-password" data-wizard-validate-confirm-password="true" />
+                              <div class="invalid-feedback">Passwords need to match</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" name="terms" required="required" checked="checked" id="form-wizard-progress-wizard-checkbox" /><label class="form-check-label" for="form-wizard-progress-wizard-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label></div>
                       </div>
                     </div>
+
                     <div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="form-wizard-progress-tab3" id="form-wizard-progress-tab3">
                       <div class="form-validation">
                       
                         <div class="row g-2">
-                          <div class="mb-3"><label class="form-label" for="form-wizard-progress-gender">Especialidade</label><select class="form-select" name="especialidade" id="form-wizard-progress-gender">
+                          <div class="mb-3"><label class="form-label" for="form-wizard-progress-gender">Especialidade</label><select class="form-select" name="idEspecialidade" id="form-wizard-progress-gender">
                             <% especialidades.map(esp=> { %>
                               <option value="<%=esp.idEspecialidade %> "><%=esp.nomeEspecialidade %> </option>
                           <% }) %> 
@@ -192,8 +193,11 @@
                         <div class="lottie wizard-lottie mx-auto my-3" data-options='{"path":"/assets/img/animated-icons/celebration.json"}'></div>
                       </div>
                       <h4 class="mb-1">Cadastro Efectuado!</h4>
-                      <p>Agora clique para para guardar os dados</p><button type="submit" class="btn btn-primary px-5 my-3" >Cadastrar</button>
+                      <p>Agora clique para para guardar os dados</p>
+                      <input type="submit" Value="Guardar" class="btn btn-primary px-5 my-3" />
                     </div>
+                    
+
                   </form>
                 </div>
                 <div class="card-footer bg-light">

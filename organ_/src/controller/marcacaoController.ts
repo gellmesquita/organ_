@@ -39,6 +39,7 @@ MarcacaoController.get('/criarmarcacao/:idesp', async(req:Request, resp: Respons
     const hora_consulta = maior + 1;
     console.log(hora_consulta)
    if(hora_consulta > 17){
+
      console.log(c)
    var t =(addDias(c, 1))
    var b= t.toISOString();
@@ -48,6 +49,11 @@ MarcacaoController.get('/criarmarcacao/:idesp', async(req:Request, resp: Respons
    var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
    console.log(ctx)
    console.log(dayx)
+   const verify= await knex('marcacao').where('dataMarcacao', ctx).max('hora',{as: 'maior'});
+   const mai= verify[0].maior;
+   const hora_consul = mai + 1;
+   if(hora_consul < 18){
+
    if(day=="Sábado"){
     t =(addDias(c, 3))
     var b= t.toISOString();
@@ -57,6 +63,15 @@ MarcacaoController.get('/criarmarcacao/:idesp', async(req:Request, resp: Respons
  data = new Date(ctx);
     
 dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
+const sx =ctx.split("-")
+const ano =sx[0];
+const  mes  =sx[1];
+const dia =sx[2];
+    
+const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+ const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
+ req.flash("certo","Cadastrado")
+ resp.redirect("/pacienteespecialidades")
     
 
 }else if(day=="Domingo"){
@@ -72,7 +87,7 @@ dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feir
     const  mes  =sx[1];
     const dia =sx[2];
          
-     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
       req.flash("certo","Cadastrado")
       resp.redirect("/pacienteespecialidades")
@@ -88,11 +103,72 @@ dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feir
     const dia =sx[2];
   var data = new Date(ctx);    
   var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-  const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+  const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
       req.flash("certo","Cadastrado")
       resp.redirect("/pacienteespecialidades")
 
+}
+}else if(hora_consul == null){
+  if(day=="Sábado"){
+    t =(addDias(c, 3))
+    var b= t.toISOString();
+    var inicio = b.split("T")
+
+ ctx = (inicio[0]);
+ data = new Date(ctx);
+    
+dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
+const sx =ctx.split("-")
+const ano =sx[0];
+const  mes  =sx[1];
+const dia =sx[2];
+    
+const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+ const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
+ req.flash("certo","Cadastrado")
+ resp.redirect("/pacienteespecialidades")
+    
+
+}else if(day=="Domingo"){
+    t =(addDias(c, 2))
+    var b= t.toISOString();
+    var inicio = b.split("T")
+
+   var  ctx = (inicio[0]);
+     data = new Date(ctx);    
+     dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
+     const sx =ctx.split("-")
+     const ano =sx[0];
+    const  mes  =sx[1];
+    const dia =sx[2];
+         
+     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+      const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
+      req.flash("certo","Cadastrado")
+      resp.redirect("/pacienteespecialidades")
+    
+}else{
+  var t =(addDias(c, 1))
+  var b= t.toISOString();
+  var inicio = b.split("T")
+  var ctx = (inicio[0]);
+   const sx =ctx.split("-")
+     const ano =sx[0];
+    const  mes  =sx[1];
+    const dia =sx[2];
+  var data = new Date(ctx);    
+  var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
+  const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+      const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
+      req.flash("certo","Cadastrado")
+      resp.redirect("/pacienteespecialidades")
+
+}
+
+}else{
+  req.flash("errado","Marcações lotadas tente mas tarde ou amanhã")
+  resp.redirect("/pacientemarcacoes")
 }
 
    }else{

@@ -49,7 +49,7 @@
                             </div>
                             <h4 class="mb-3"><%=esp.nomeEspecialidade %> </h4>
                             <p class="mb-4"><%=esp.descEspecialidade %>.</p>
-                            <a class="btn" href=""><i class="fa fa-plus text-primary me-3"></i>Marcar consulta</a>
+                            <a class="btn" onclick="confirmar( `<%=esp.idEspecialidade%>`)"> <i class="fa fa-plus text-primary me-3"></i>Marcar consulta</a>
                         </div>
                     </div>
                  
@@ -62,8 +62,49 @@
     <!-- Service End -->
 
     <%- include ("./partialPaciente/footer") %>
+    <script>
+        function confirmar(id){
+          
+      Swal.fire({
+        title: 'Queres Agendar Esta Marcação?',
+      icon:'warning',
+        showCancelButton: true,
+        confirmButtonColor:'#3085d6',
+        cancelButtonColor:'#d33',
+        confirmButtonText: 'Confirmar',
+      
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below   */
+        if (result.isConfirmed) {
+      
+         window.location = '/criarmarcacao/'+id;
+        } else if (result.isDenied) {
+          Swal.fire('Erro ao eliminar', '', 'info')
+        }
+      })
+        }
+        </script>
 
-    <!-- Testimonial End -->
+    <% if(certo.length >0){%>
+        <script>
+         Swal.fire(
+        'Boa!',
+        '`<%=certo %>`!',
+        'success'
+      )
+    
+        </script>
+        <% }else if(errado.length >0) {%>
+          <script>
+            Swal.fire({
+    icon: 'error',
+    title: 'Opa...',
+    text: '`<%=errado %>`!',
+    
+    })
+            
+          </script>
+          <% }%>
         
 
 </body>

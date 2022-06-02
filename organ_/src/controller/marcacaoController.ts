@@ -4,44 +4,55 @@ import multerConfig from '../config/multer';
 import { Response, Request, Router } from  "express";
 // import bCryptjs from 'bcryptjs'
 const upload = multer(multerConfig);
-import {addDias, c} from '../config/data'
+import {addDias, c,day} from '../config/data'
 
 const MarcacaoController=Router();
-MarcacaoController.get('/criarmarcacao', async(req:Request, resp: Response)=>{
+MarcacaoController.get('/criarmarcacao/:idesp', async(req:Request, resp: Response)=>{
 
   try {
-    const {mes, dia, ano, diaExtenso,idMedico ,especialidade}= req.body; 
+    const {idesp}= req.params;
+  
+    const medicos= await knex('medicoEspecialidade').where('idEspecialidade', idesp)
+    if(medicos.length> 0){
+
+   
+    
+    const s =c.split("-")
+    const ano =s[0];
+    const  mes  =s[1];
+    const dia =s[2];
+ 
     const  estadoMarcacao = "0";//Quer dizer que ainda não foi atendido
     const idPaciente= req.session?.user.id;
-    // levar em conta a especialiade
+   
   
-    const verify= await knex('marcacao').join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').where('dataMarcacao', c).groupBy('dia').count('dia',{as: 'quantidade'}).select('*');
+    const verify= await knex('marcacao').where('dataMarcacao', c).max('hora',{as: 'maior'});
+   
+    
     if(verify.length >  0){
-      const horas_marcadas=verify.map(hora=>hora.hora);
-      var maior =0;
-      for(let i=0;i<horas_marcadas.length;i++){
-        for(let i1=0;i1<horas_marcadas.length;i1++){
-        if(horas_marcadas[i]>horas_marcadas[i1] ){
-          if(horas_marcadas[i]>maior){
-            maior=horas_marcadas[i]
-          }
-        }
-      } 
-      
-    }
-    const idm = await  knex('marcacao').join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').where('hora', maior).select('*')
-    const md =idm[0].idMedico;
-    const medicos= await knex('medico').leftJoin('medicoEspecialidade', 'medico.idMedico','=', 'medicoEspecialidade.idMedico').where('role', 0).orWhere('idEspecialidade')
-    const hora_consulta=(maior!=0 && maior< 17)?maior+1:8;
- 
+    const maior= parseInt(verify[0].maior)
+    const idm = await  knex('marcacao').join('medico', 'marcacao.idMarcacao', 'medico.idMedico').where('hora', maior).select('*')
+  
+    
+    console.log(maior)
+    const hora_consulta = maior + 1;
+    console.log(hora_consulta)
+    console.log(medicos[0].idMedico)
+    
 
-      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso, idPaciente,idMedico}).catch(err=> {console.log(err)})
+      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
-      resp.json("cadastrado")
+      req.flash("certo","Cadastrado")
+      resp.redirect("/pacienteespecialidades")
     }else{
-      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso, idPaciente,idMedico}).catch(err=> {console.log(err)})
-      resp.json("cadastrado")
+      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+      req.flash("certo","Cadastrado")
+    resp.redirect("/pacienteespecialidades")
     }
+  }else{
+    req.flash("errado","Sem especialista de momento")
+    resp.redirect("/pacienteespecialidades")
+  }
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }

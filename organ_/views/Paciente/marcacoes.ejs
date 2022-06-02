@@ -46,6 +46,7 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Data Marcação</th>
+                        <th scope="col">Dia de Semana</th>
                         <th scope="col">Hora</th>
                         <th scope="col">Médico</th>
                         <th scope="col">Acção</th>
@@ -56,7 +57,8 @@
                       <tr>
                            <td><%= mar.idMarcacao %> </td>
                            <td><%= mar.dataMarcacao %> </td>
-                           <td><%= mar.hora %> </td>
+                           <td><%= mar.diaExtenso %> </td>
+                           <td><%= mar.hora %>:00 </td>
                            <td><%= mar.nomeMedico %> </td>
                            <td>
                                <button class="btn btn-primary btn-round" >Detalhes</button>

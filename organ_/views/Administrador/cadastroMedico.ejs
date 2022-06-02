@@ -182,20 +182,6 @@
                         <div class="form-check"><input class="form-check-input" type="checkbox" name="terms" required="required" checked="checked" id="form-wizard-progress-wizard-checkbox" /><label class="form-check-label" for="form-wizard-progress-wizard-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label></div>
                       </div>
                     </div>
-
-                    <div class="tab-pane px-sm-3 px-md-5" role="tabpanel" aria-labelledby="form-wizard-progress-tab3" id="form-wizard-progress-tab3">
-                      <div class="form-validation">
-                      
-                        <div class="row g-2">
-                          <div class="mb-3"><label class="form-label" for="form-wizard-progress-gender">Especialidade</label><select class="form-select" name="idEspecialidade" id="form-wizard-progress-gender">
-                            <% especialidades.map(esp=> { %>
-                              <option value="<%=esp.idEspecialidade %> "><%=esp.nomeEspecialidade %> </option>
-                          <% }) %> 
-                          </select></div>
-                       
-                        </div>
-                      </div>
-                    </div>
                     <div class="card-footer bg-light">
                       <div class="px-sm-3 px-md-5">
                         <ul class="pager wizard list-inline mb-0">

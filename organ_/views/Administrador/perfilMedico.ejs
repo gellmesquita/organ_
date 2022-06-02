@@ -114,7 +114,7 @@
                     %>
                   </h5>
                   <p class="text-500"><%= medicos.enderecoMedico  %></p>
-                  <button class="btn btn-falcon-primary btn-sm px-3" type="button">Editar Perfil</button>
+                  <button onclick="window.location='/medicoEditar/<%= medicos.idMedico  %>'" class="btn btn-falcon-primary btn-sm px-3" type="button">Editar Perfil</button>
                   <button class="btn btn-falcon-danger btn-sm px-3 ms-2" type="button">Desactivar Conta</button>
                   <div class="border-dashed-bottom my-4 d-lg-none"></div>
                 </div>

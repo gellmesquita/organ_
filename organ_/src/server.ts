@@ -37,7 +37,8 @@ app.use(MarcacaoController);
 app.use(EspecialidadeController);
 
 app.use(async(req,res, next)=>{ 
-    res.render("Site/404")
+    const esp=await knex('especialidade').limit(3)
+    res.render("Site/404", {esp})
 }) 
 
 

@@ -35,7 +35,8 @@ Route.get('/acercade', async(req:Request, resp: Response)=>{
     const consultas= await knex('marcacao').select('*')
     const pacientes= await knex('paciente').select('*')
     const especialidades=await knex('especialidade').select('*')
-    resp.render('Site/acercade',{medicos, consultas, pacientes, especialidades})
+    const esp=await knex('especialidade').limit(3)
+    resp.render('Site/acercade',{medicos, consultas, pacientes, especialidades,esp})
 })
 
 

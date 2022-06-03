@@ -100,15 +100,16 @@ MedicoController.get("/medicoPainel", async(req:Request, resp:Response) =>{
 
 //Rotas Para o Administrador
 
-MedicoController.get("/adminPainel", async(req:Request, resp:Response) =>{
+MedicoController.get("/adminPainel",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const medico= await knex('medico').where('idMedico', idUser).first();
   const medicos= await knex('medico').select('*')
   const consultas= await knex('marcacao')
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  const pacientes=await knex('paciente').select('*')
   
-  resp.render("Administrador/index",  {medico,medicos,consultas })
+  resp.render("Administrador/index",  {medico,medicos,consultas, pacientes })
 })
 
 MedicoController.get("/listarMedico",adminAuth, async(req:Request, resp:Response) =>{

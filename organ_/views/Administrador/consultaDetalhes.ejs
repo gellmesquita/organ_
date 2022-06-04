@@ -142,14 +142,14 @@
                     <div class="col-5 col-sm-4">
                       <p class="fw-semi-bold mb-1">Email</p>
                     </div>
-                    <div class="col"><a href="#"><%= consulta.emailPaciente %></a></div>
+                    <div class="col"><%= consulta.emailPaciente %></div>
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
                       <p class="fw-semi-bold mb-1">Telefone</p>
                     </div>
                     <div class="col">
-                      <p class=" text-400 mb-1"><%= consulta.tellPaciente %></p>
+                      <p class=" mb-1"><%= consulta.tellPaciente %></p>
                     </div>
                   </div>
                   <div class="row">
@@ -157,7 +157,7 @@
                       <p class="fw-semi-bold mb-0">Endereço</p>
                     </div>
                     <div class="col">
-                      <p class=" text-400 mb-0"><%= consulta.enderecoPaciente %></p>
+                      <p class="mb-0"><%= consulta.enderecoPaciente %></p>
                     </div>
                   </div>
                 </div>
@@ -166,32 +166,45 @@
 
                   <div class="row">
                     <div class="col-5 col-sm-4">
-                      <p class="fw-semi-bold mb-1">Endereço</p>
+                      <p class="fw-semi-bold mb-1">Marcação</p>
                     </div>
                     <div class="col">
-                      <p class="mb-1"><%= consulta.enderecoconsulta %></p>
+                      <p class="mb-1"><%= consulta.dataMarcacao %></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
-                      <p class="fw-semi-bold mb-1">Telefone</p>
+                      <p class="fw-semi-bold mb-1">Hora</p>
                     </div>
-                    <div class="col"><a ><%= consulta.tellconsulta %></a></div>
+                    <div class="col"><a ><%= consulta.hora %>:00</a></div>
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
-                      <p class="fw-semi-bold mb-0">Genero</p>
+                      <p class="fw-semi-bold mb-0">dia</p>
                     </div>
                     <div class="col">
-                      <p class="fw-semi-bold mb-0"><%= consulta.generoconsulta %></p>
+                      <p class=" mb-0"><%= consulta.diaExtenso %></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
-                      <p class="fw-semi-bold mb-0">Naturalidade</p>
+                      <p class="fw-semi-bold mb-0">Medico</p>
                     </div>
                     <div class="col">
-                      <p class="fw-semi-bold mb-0"><%= consulta.provinciaconsulta %>, <%= consulta.municipioconsulta %></p>
+                      <p class=" mb-0"><%= consulta.nomeMedico %></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-5 col-sm-4">
+                      <p class="fw-semi-bold mb-0">Tipo</p>
+                    </div>
+                    <div class="col">
+                      <p class=" mb-0">
+                        <% especialidades.map(esp=>{%>
+                          <%= (consulta.idEspecialidade==esp.idEspecialidade)? esp.nomeEspecialidade: '  ' %> 
+                        <%}) %> 
+          
+                      </p>
                     </div>
                   </div>
                 </div>

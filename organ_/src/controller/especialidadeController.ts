@@ -38,7 +38,7 @@ EspecialidadeController.post('/editarespecialidade', async(req:Request, resp: Re
 EspecialidadeController.get('/listarEspecialidade', async(req:Request, resp: Response)=>{
   try { 
     const especialidades= await knex('especialidade').select('*').orderBy('idEspecialidade','desc');
-    const medicos
+   
 
     resp.render('Administrador/especializacaoLista', {especialidades})
   } catch (error) {

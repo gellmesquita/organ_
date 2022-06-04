@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include ("./partialSite/Header") %>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+  
+    <!-- Navbar Start -->
+    <%- include ("./partialSite/Navbar") %>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown"><%=especialidade_1.nomeEspecialidade %></h1>
+          
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-7">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="row g-7">
+                       
+                            <div class="col-lg-8 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="service-item bg-light rounded h-100 p-5">
+                                    <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
+                                        <i class="fa fa-heartbeat text-primary fs-4"></i>
+                                    </div>
+                                    <h4 class="mb-3">Esp:<%=especialidade_1.nomeEspecialidade %> </h4>
+                                    <p class="mb-4">Desc:<%=especialidade_1.descEspecialidade %>.</p>
+                                   
+                                </div>
+                            </div>
+                       
+                        
+                     
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <p class="d-inline-block border rounded-pill py-1 px-4">Especialidade</p>
+                    <h1 class="mb-4">Why You Should Trust Us? Get Know About Us!</h1>
+                    <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                    <p class="mb-4">Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No stet est diam rebum amet diam ipsum. Clita clita labore, dolor duo nonumy clita sit at, sed sit sanctus dolor eos.</p>
+                    <p><i class="far fa-check-circle text-primary me-3"></i>Quality health care</p>
+                    <p><i class="far fa-check-circle text-primary me-3"></i>Only Qualified Doctors</p>
+                    <p><i class="far fa-check-circle text-primary me-3"></i>Medical Research Professionals</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="/loginGeral">Começar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Feature Start -->
+    
+    <!-- Feature End -->
+
+
+    <!-- Team Start -->
+    
+    <!-- Team End -->
+        
+    <%- include ("./partialSite/footer") %>
+</body>
+
+</html>

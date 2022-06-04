@@ -16,7 +16,7 @@ MarcacaoController.get('/criarmarcacao/:idesp', async(req:Request, resp: Respons
     const medicos= await knex('medico').where('idEspecialidade', idesp).andWhere('role',0)
     const  estadoMarcacao = "0";//Quer dizer que ainda não foi atendido
     const idPaciente= req.session?.user.id;
-    const consultas= await knex('marcacao').where('idPaciente',idPaciente).andWhere('idEspecialidade',idesp)
+    const consultas= await knex('marcacao').where('idPaciente',idPaciente).andWhere('idEspecialidade',idesp).andWhere('estadoMarcacao', 0)
     .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*');
    
     if( consultas.length !==0){

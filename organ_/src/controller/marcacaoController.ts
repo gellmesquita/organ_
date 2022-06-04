@@ -17,9 +17,7 @@ MarcacaoController.get('/criarmarcacao/:idesp', async(req:Request, resp: Respons
     const  estadoMarcacao = "0";//Quer dizer que ainda não foi atendido
     const idPaciente= req.session?.user.id;
     const consultas= await knex('marcacao').where('idPaciente',idPaciente).andWhere('idEspecialidade',idesp)
-    .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*')
-
-     ;
+    .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*');
    
     if( consultas.length !==0){
       const dataMarcacao = consultas[0].dataMarcacao;
@@ -72,8 +70,7 @@ dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feir
 const sx =ctx.split("-")
 const ano =sx[0];
 const  mes  =sx[1];
-const dia =sx[2];
-    
+const dia =sx[2];   
 const verify= await knex('marcacao').where('dataMarcacao', ctx).max('hora',{as: 'maior'});
 const mai= verify[0].maior;
 const hora_consul = mai + 1; 

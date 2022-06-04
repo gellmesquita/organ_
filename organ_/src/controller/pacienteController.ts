@@ -184,6 +184,15 @@ PacienteController.post('/editarpaciente',pacienteAuth,async(req:Request, resp: 
     req.flash('certo','Sua foto Foi atualizado') 
     resp.redirect("/perfilpaciente")
   })
+  PacienteController.get("/especialidades_1/:idEspecialidade", async(req:Request, resp: Response) =>{
+    
+    const {idEspecialidade}= req.params;
+   
+    const especialidades=await knex('especialidade').select('*')
+    const especialidade_1=await knex('especialidade').where('idEspecialidade',idEspecialidade).first();
+    console.log(especialidade_1)
+    resp.render("Site/especialidade_1",{especialidades,especialidade_1,certo:req.flash('certo'),errado:req.flash('errado')})
+  })
  
 
 

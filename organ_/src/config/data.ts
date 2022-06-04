@@ -54,7 +54,7 @@ day = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira
     
 }
 
-export {addDias, c,day}
+export {addDias, c,day,dataAtual}
 
 
 

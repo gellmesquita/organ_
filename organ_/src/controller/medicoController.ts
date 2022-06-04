@@ -286,6 +286,15 @@ MedicoController.get("/detalheConsulta/:idMarcacao",adminAuth, async(req:Request
 
   resp.render("Administrador/consultaDetalhes",  {medico, especialidades, consulta })
 })
+MedicoController.get("/deletarConsulta/:idMarcacao",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idMarcacao} =req.params;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const especialidades= await knex('especialidade').select('*')
+  const consulta= await knex('marcacao').where('idMarcacao',idMarcacao).del()
+
+  resp.redirect("/listarConsulta")
+})
 
 export default MedicoController;
 

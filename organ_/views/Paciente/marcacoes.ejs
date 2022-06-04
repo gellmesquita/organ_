@@ -49,6 +49,7 @@
                         <th scope="col">Dia de Semana</th>
                         <th scope="col">Hora</th>
                         <th scope="col">Médico</th>
+                        <th scope="col">Especialidade/Médico</th>
                         <th scope="col">Acção</th>
                       </tr>
                     </thead>
@@ -60,6 +61,12 @@
                            <td><%= mar.diaExtenso %> </td>
                            <td><%= mar.hora %>:00 </td>
                            <td><%= mar.nomeMedico %> </td>
+                           <td>
+                            <% especialidades.filter(esp=> esp.idEspecialidade==mar.idEspecialidade).reverse().slice(0, 1).map(esp=>{%>
+                              <p><%= esp.nomeEspecialidade  %></p> 
+                         
+                                <%  })%>
+                           </td>
                            <td>
                                <button class="btn btn-primary btn-round" >Detalhes</button>
                                <button class="btn btn-danger btn-round" onclick="confirmar( `<%= mar.idMarcacao %>`)">Cancelar </button>                              

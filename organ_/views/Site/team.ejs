@@ -46,6 +46,8 @@
             </div>
             <div class="row g-4">
                 <% medicos.map(medico=> { %>
+                  
+
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item position-relative rounded overflow-hidden">
                             <div class="overflow-hidden">
@@ -55,13 +57,16 @@
                                 <h5><%= medico.nomeMedico %></h5>
                                 <p class="text-primary"><%= medico.nomeEspecialidade%></p>
                                 <div class="team-social text-center">
-                                    <a class="btn btn-square" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square" href=""><i class="fab fa-instagram"></i></a>
+                                    <% especialidades.filter(esp=> esp.idEspecialidade==medico.idEspecialidade).reverse().slice(0, 1).map(esp=>{%>
+                                      <p>Especialidade: <%= esp.nomeEspecialidade  %></p> 
+                                      <p>Descrição: <%= esp.nomeEspecialidade  %></p> 
+                                        <%  })%>
+                                  
                                 </div>
                             </div>
                         </div>
                     </div>
+                   
                 <% }) %> 
                
               

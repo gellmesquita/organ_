@@ -106,9 +106,10 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
     
     const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao',0)
     .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*')
+    const especialidades=await knex('especialidade').select('*')
     
    console.log(consultas)
-    resp.render("Paciente/marcacoes",{consultas,certo:req.flash('certo'),errado:req.flash('errado')})
+    resp.render("Paciente/marcacoes",{consultas,especialidades,certo:req.flash('certo'),errado:req.flash('errado')})
   })
   PacienteController.get("/pacienteespecialidades",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
@@ -118,10 +119,10 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
   })
   PacienteController.get('/medicospaciente',pacienteAuth, async(req:Request, resp:Response)=> {
    
-    const medicos= await knex('medico').leftJoin('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
-
+    const medicos= await knex('medico').where('role', 0)
+    const especialidades=await knex('especialidade').select('*')
   console.log(medicos)
-  resp.render("Paciente/team",{medicos})
+  resp.render("Paciente/team",{medicos,especialidades})
  
   })
 

@@ -47,8 +47,10 @@ Route.get('/',async (req:Request, resp: Response)=>{
     const consultas= await knex('marcacao').select('*')
     const pacientes= await knex('paciente').select('*')
     const especialidades=await knex('especialidade').select('*');
-    const medicos= await knex('medico').leftJoin('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0).limit(4)
-    resp.render('Site/index',{medicos, consultas, pacientes, especialidades,esp})
+    const medicos= await knex('medico').where('role', 0).limit(4)
+    const med= await knex('medico').where('role', 0).select('*');
+
+    resp.render('Site/index',{medicos,med, consultas, pacientes, especialidades,esp})
 })
 
 Route.get('/logout', (req:Request, resp: Response)=>{

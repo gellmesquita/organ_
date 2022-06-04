@@ -1,6 +1,7 @@
 import knex from '../database/conection';
 import multer from 'multer'
 import multerConfig from '../config/multer';
+import pacienteAuth from '../middlewre/paciente'
 
 import { Response, Request, Router, request } from  "express";
 // import bCryptjs from 'bcryptjs'
@@ -81,16 +82,17 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
                    
 })
 
-  PacienteController.get("/paciente/:id", async(req:Request, resp:Response) =>{
-    const{id}=req.params;
-    const d= await knex('paciente').where('idpaciente',id).select("")
-    if(d.length >0){
-      resp.json(d)
+  PacienteController.get("/perfilpaciente",pacienteAuth, async(req:Request, resp:Response) =>{
+    const id=req.session?.user.id;
+    const paciente= await knex('paciente').where('idPaciente', id).first();
+    if(paciente){
+      console.log(paciente)
+      resp.render('Paciente/perfil',{paciente,certo:req.flash('certo'),errado:req.flash('errado')})
     }else{
-      resp.json("Paciente Nao encontrado")
+      resp.redirect("/rota descon...")
     }
   })
-  PacienteController.get("/pacientePainel", async(req:Request, resp: Response) =>{
+  PacienteController.get("/pacientePainel",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
     const medicos= await knex('medico').where('role', 0)
     const consultas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',0)
@@ -99,7 +101,7 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
     const especialidades=await knex('especialidade').limit(3)
     resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades,consultasadiadas,certo:req.flash('certo'),errado:req.flash('errado')})
   })
-  PacienteController.get("/pacientemarcacoes", async(req:Request, resp: Response) =>{
+  PacienteController.get("/pacientemarcacoes",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
     
     const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao',0)
@@ -108,13 +110,13 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
    console.log(consultas)
     resp.render("Paciente/marcacoes",{consultas,certo:req.flash('certo'),errado:req.flash('errado')})
   })
-  PacienteController.get("/pacienteespecialidades", async(req:Request, resp: Response) =>{
+  PacienteController.get("/pacienteespecialidades",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
    
     const especialidades=await knex('especialidade').select('*')
     resp.render("Paciente/especialidades",{especialidades,certo:req.flash('certo'),errado:req.flash('errado')})
   })
-  PacienteController.get('/medicospaciente', async(req:Request, resp:Response)=> {
+  PacienteController.get('/medicospaciente',pacienteAuth, async(req:Request, resp:Response)=> {
    
     const medicos= await knex('medico').leftJoin('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
 
@@ -123,16 +125,28 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
  
   })
 
-PacienteController.post('/editarpaciente',upload.single('image'),async(req:Request, resp: Response)=>{
+PacienteController.post('/editarpaciente',pacienteAuth,async(req:Request, resp: Response)=>{
   try {
-    const {idPaciente, nomePaciente, nascimentoPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente}= req.body; 
+    const {idPaciente, nomePaciente, enderecoPaciente, userPaciente, emailPaciente,tellPaciente,senha,senha2}= req.body; 
+    console.log(senha)
+    if(senha === senha2){
+      if(senha ===''){
+        const d= await knex('paciente').where('idPaciente',idPaciente).update({nomePaciente,userPaciente,enderecoPaciente, emailPaciente,tellPaciente});
+        const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
+        req.flash('certo','Os dados Foram Actualizados') 
+          resp.redirect("/perfilpaciente")
+      }else{
+        const d= await knex('paciente').where('idPaciente',idPaciente).update({nomePaciente,userPaciente,enderecoPaciente, emailPaciente,tellPaciente,senhaPaciente:senha});
+        const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
+        req.flash('certo','Os dados Foram Actualizados') 
+          resp.redirect("/perfilpaciente")
+      }
 
-    const imgPaciente= (req.file) ? req.file.filename : 'user.png';
-    const d= await knex('paciente').where('idPaciente',idPaciente).update({nomePaciente, nascimentoPaciente,imgPaciente, userPaciente, emailPaciente,tellPaciente,senhaPaciente});
-    const p = await knex('paciente').orderBy('idPaciente', 'desc').select('*')
-
-      resp.redirect("/login")
-     
+    
+    }else{
+      req.flash('errado','Ocorreu um problema ao tentar alterar a senha de acesso') 
+      resp.redirect("/perfilpaciente")
+    }
    
   } catch (error) {
     resp.send(error + " - falha ao registar")
@@ -144,28 +158,32 @@ PacienteController.post('/editarpaciente',upload.single('image'),async(req:Reque
   })
   PacienteController.get('/medicosLista', async(req:Request, resp:Response)=> {
     const especialidades=await knex('especialidade').select('*')
-    const medicos= await knex('medico').leftJoin('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
+    const medicos= await knex('medico').where('role', 0).select('*')
 
   console.log(medicos)
   resp.render("Site/team",{medicos,especialidades})
  
   })
+  PacienteController.get('/updatephoto',pacienteAuth, async(req:Request, resp:Response)=> {
+    const id=req.session?.user.id;
+    const paciente= await knex('paciente').where('idPaciente', id).first();
+    if(paciente){
+      console.log(paciente)
+      resp.render('Paciente/updatephoto',{paciente,errado:req.flash('errado')})
+    }else{
+      resp.redirect("/rota descon...")
+    }
+
  
-
-  // Papel Do administrador /acercade
-  PacienteController.get('/ListarPaciente', async(req:Request, resp:Response)=> {
-    const p= await knex('paciente').orderBy('idPaciente', 'desc').select('*')
-    resp.json(p)
   })
-  
-  PacienteController.get("/deletarpaciente/:id", async(req:Request, resp:Response) =>{
-    const{id}=req.params;
-    const d= await knex('paciente').where('idpaciente',id).delete();
-    resp.json("Deletado")
-   // resp.render("admin/medico/index")
-  }) 
-
-  
+  PacienteController.post("/fotopaciente",upload.single('image'),pacienteAuth, async(req:Request, resp:Response) =>{
+    const{idPaciente}=req.body;
+    const imgPaciente= (req.file) ? req.file.filename : 'user.png';
+    const d= await knex('paciente').where('idPaciente',idPaciente).update({imgPaciente});
+    req.flash('certo','Sua foto Foi atualizado') 
+    resp.redirect("/perfilpaciente")
+  })
+ 
 
 
 export default PacienteController;

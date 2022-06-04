@@ -226,6 +226,27 @@
     <script src="//../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
     <script src="/vendors/list.js/list.min.js"></script>
     <script src="/assets/js/theme.js"></script>
+    <script src="/sweetalert/sweetalert2.all.min.js"></script>
+    <% if(certo.length >0){%>
+        <script>
+         Swal.fire(
+        'Boa!',
+        '`<%=certo %>`!',
+        'success'
+      )
+    
+        </script>
+        <% }else if(errado.length >0) {%>
+          <script>
+            Swal.fire({
+    icon: 'error',
+    title: 'Opa...',
+    text: '`<%=errado %>`!',
+    
+    })
+            
+          </script>
+          <% }%>
   </body>
 
 

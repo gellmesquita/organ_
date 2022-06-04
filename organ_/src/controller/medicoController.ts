@@ -15,32 +15,54 @@ const MedicoController=Router();
         const imagemMedico= (req.file) ? req.file.filename : 'user.png';       
         const {nomeMedico, userMedico, emailMedico, tellMedico, passMedico, idEspecialidade,generoMedico, descMedico, passMedico2}= req.body;         
         if(nomeMedico=='' || userMedico=='' || emailMedico=='' || tellMedico=='' || passMedico=='' || idEspecialidade=='' || generoMedico=='' || descMedico=='' || passMedico2==''){
-          req.flash('Erro1', 'Valores incorretos');
+          req.flash('errado', 'Valores incorretos');
           resp.redirect('/FormMedico')
         }else{
-          const medico= await knex('medico').where('nomeMedico',nomeMedico).orWhere('userMedico',userMedico).orWhere('tellMedico',userMedico).orWhere('passMedico',passMedico)
+          let re = /[A-Z]/;
+          const hasUpper = re.test(userMedico);
+          const verificaEspaco = /\s/g.test(userMedico);
+          const Mailer = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(emailMedico);
+          const number = /^[9]{1}[0-9]{8}$/.test(tellMedico)
+          if (hasUpper === true) {
+            req.flash('errado', "Ocorreu um problema");
+          resp.redirect('/FormMedico')
+       
+   
+         } else if (verificaEspaco === true) {
+            req.flash('errado', "nao cadastrado 2");
+          resp.redirect('/FormMedico')
+   
+         } else
+            if (!Mailer) {
+               req.flash('errado', "nao cadastrado 3");
+             resp.redirect('/FormMedico')
+            } else
+               if (passMedico.length < 5) {
+                  req.flash('errado', "Senha muito fraca");
+                resp.redirect('/FormMedico')
+               } else
+                  if (passMedico != passMedico2) {
+                     req.flash('errado', "Senha Diferentes");
+                   resp.redirect('/FormMedico')
+   
+                  } else if(number == false) {
+                     req.flash('errado', "Numero de Telefone incorreto");
+                   resp.redirect('/FormMedico')
+      
+                  }else{ 
+          const medico= await knex('medico').where('userMedico',userMedico).orWhere('tellMedico',tellMedico).orWhere('passMedico',emailMedico)
           if(medico.length>0){
-            console.log('Certo1');
-            req.flash('Erro1', 'Valores incorretos');
+            
+            req.flash('errado', 'Esses dados Ja encontra-se presente ');
             resp.redirect('/FormMedico')
           }else{
-            if(!nomeMedico.match(/\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi) || !( /^[9]{1}[0-9]{8}$/.test(tellMedico)) || !userMedico.match(/^[a-z0-9_.]+$/)){
-              console.log('Certo2')
-              req.flash('Erro1', 'Valores incorretos');
-              resp.redirect('/FormMedico')
-            }else{
-              if(passMedico2==passMedico){
-                const medito= await knex('medico').insert({role:0, nomeMedico, userMedico, emailMedico, tellMedico, passMedico, idEspecialidade,generoMedico,imagemMedico, descMedico})
-                req.flash('Certo', 'Medico Cadastrato com Sucesso');
-                resp.redirect('/listarMedico')
-              }else{
-                console.log('Certo3')
-                req.flash('Erro1', 'Valores incorretos');
-                resp.redirect('/FormMedico')
-              }
-            }
+            const medito= await knex('medico').insert({role:0, nomeMedico, userMedico, emailMedico, tellMedico, passMedico, idEspecialidade,generoMedico,imagemMedico, descMedico})
+            req.flash('certo', 'Medico Cadastrato com Sucesso');
+            resp.redirect('/listarMedico')
+           
           }
         }
+      }
        
       } catch (error) {
         resp.send(error + " - falha ao registar")
@@ -122,7 +144,7 @@ MedicoController.get("/listarMedico",adminAuth, async(req:Request, resp:Response
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
   
-  resp.render("Administrador/listaMedico",  {medico,medicos,consultas, especialidades })
+  resp.render("Administrador/listaMedico",  {medico,medicos,consultas, especialidades,certo:req.flash('certo'),errado:req.flash('errado') })
 })
 
 MedicoController.get("/FormMedico",adminAuth, async(req:Request, resp:Response) =>{
@@ -134,7 +156,7 @@ MedicoController.get("/FormMedico",adminAuth, async(req:Request, resp:Response) 
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
   
-  resp.render("Administrador/cadastroMedico",  {medico,medicos,consultas, especialidades })
+  resp.render("Administrador/cadastroMedico",  {medico,medicos,consultas, especialidades,certo:req.flash('certo'),errado:req.flash('errado')})
 })
 
 MedicoController.get("/perfilMedico_/:idMedico",adminAuth, async(req:Request, resp:Response) =>{

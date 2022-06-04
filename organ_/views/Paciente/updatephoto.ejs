@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include ("./partialPaciente/Header") %>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Topbar Start -->
+  
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <%- include ("./partialPaciente/Navbar") %>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown"> <%= paciente.nomePaciente%></h1>
+           
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+              
+                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="bg-light rounded h-100 d-flex align-items-center p-5">
+                        <form action="/fotopaciente" method="post" enctype="multipart/form-data">
+                            <input type="hidden"  name="idPaciente" value="<%= paciente.idPaciente %>" style="height: 55px;">
+                               
+                            <div class="row g-3">
+                                <div class="col-12 col-sm-6">
+                                    <input type="file" class="form-control border-0" placeholder= "Nome" id="customFile" onchange= "ValidarExt()"  name="image" value="<%= paciente.nomePaciente %>" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Carregar foto...</button>
+                                </div>
+                              
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+    <%- include ("./partialPaciente/footer") %>
+   
+
+<script>
+    function ValidarExt() {
+        var customFile = document.getElementById('customFile');
+        var customRuta = customFile.value;
+        var customPermitidas = /(.jpg|.png|.PNG.|JPG|.jpeg|.JPEG|.svg|.SVG)$/i;
+        if (!customPermitidas.exec(customRuta)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Extensão não permitido!',
+  
+          })
+          customFile.value = '';
+          return false
+        }
+      }
+    </script>
+        
+
+</body>
+
+</html>

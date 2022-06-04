@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include ("./partialPaciente/Header") %>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Topbar Start -->
+  
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <%- include ("./partialPaciente/Navbar") %>
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown"> <%= paciente.nomePaciente%></h1>
+           
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="d-flex flex-column">
+                            <img class="img-fluid rounded w-75 align-self-end" src="/StylesSite/img/about-1.jpg" alt="">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                    <img class="img-fluid rounded w-50 bg-white pt-3 pe-3" src="http://localhost:1001/upload/<%= paciente.imgPaciente %>" alt="" style="margin-top: -25%;">
+                                </a>
+                                <div class="dropdown-menu rounded-0 rounded-bottom m-0"> 
+                                    
+                                    <a href="/updatephoto" class="dropdown-item">Atualizar foto<i class="fa fa-camera ms-3"></i> </a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
+                        <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
+                            <i class="fa fa-phone-alt text-primary"></i>
+                        </div>
+                        <div class="ms-4">
+                            <p class="mb-2">Contacto</p>
+                            <h5 class="mb-0"><%= paciente.tellPaciente %></h5>
+                        </div>
+                    </div>
+                    <div class="bg-light rounded d-flex align-items-center p-5">
+                        <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
+                            <i class="fa fa-envelope-open text-primary"></i>
+                        </div>
+                        <div class="ms-4">
+                            <p class="mb-2">E-mail</p>
+                            <h5 class="mb-0"><%= paciente.emailPaciente %></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="bg-light rounded h-100 d-flex align-items-center p-5">
+                        <form action="/editarpaciente" method="post">
+                            <div class="row g-3">
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control border-0" placeholder= "Nome" name="nomePaciente" value="<%= paciente.nomePaciente %>" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="email" class="form-control border-0" placeholder="Email" name="emailPaciente" value="<%= paciente.emailPaciente %>" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control border-0" placeholder="Contacto" name="tellPaciente" value="<%= paciente.tellPaciente %>" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" class="form-control border-0" placeholder="Usuario" name="userPaciente" value="<%= paciente.userPaciente %>" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="password" class="form-control border-0" name="senha" placeholder="Nova senha" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="password" class="form-control border-0" name="senha2" placeholder="Confirmar senha" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control border-0" rows="5" placeholder="Endereço..." name="enderecoPaciente" ><%= paciente.enderecoPaciente %></textarea>
+                                </div>
+                                <input type="hidden"  name="idPaciente" value="<%= paciente.idPaciente %>" style="height: 55px;">
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Atualizar Dados</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+    <%- include ("./partialPaciente/footer") %>
+    <script>
+        function confirmar(id){
+          
+      Swal.fire({
+        title: 'Queres Agendar Esta Marcação?',
+      icon:'warning',
+        showCancelButton: true,
+        confirmButtonColor:'#3085d6',
+        cancelButtonColor:'#d33',
+        confirmButtonText: 'Confirmar',
+      
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below   */
+        if (result.isConfirmed) {
+      
+         window.location = '/criarmarcacao/'+id;
+        } else if (result.isDenied) {
+          Swal.fire('Erro ao eliminar', '', 'info')
+        }
+      })
+        }
+        </script>
+
+    <% if(certo.length >0){%>
+        <script>
+        const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: '<%=certo %>'
+})
+    
+        </script>
+        <% }else if(errado.length >0) {%>
+          <script>
+            Swal.fire({
+    icon: 'error',
+    title: 'Opa...',
+    text: '`<%=errado %>`!',
+    
+    })
+            
+          </script>
+          <% }%>
+        
+
+</body>
+
+</html>

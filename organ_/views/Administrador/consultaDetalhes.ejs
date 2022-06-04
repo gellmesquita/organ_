@@ -98,24 +98,17 @@
           <div class="card mb-3">
             <div class="card-header">
               <div class="row">
-                <div class="col"> 
-                  <h5 class="mb-2"><%= consulta.nomeconsulta %> (<a href="#"><%= consulta.emailconsulta %></a>)</h5>
-                  <a class="btn btn-falcon-default btn-sm" href="#!"><span class="fas fa-plus fs--2 me-1"></span>Definições</a><button class="btn btn-falcon-default btn-sm dropdown-toggle ms-2 dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h"></span></button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Editar</a>
-                    <a class="dropdown-item text-danger" href="#">Deletar</a>
-                  </div>
-                </div>
+
                 <div class="col-auto d-none d-sm-block">
-                  <span class="text-uppercase text-600">consulta nº <%= consulta.idconsulta %><span class="fas fa-user ms-2"></span></h6>
+                  <span class="text-uppercase text-600">consulta nº <%= consulta.idMarcacao %><span class="fas fa-user ms-2"></span></h6>
                 </div>
               </div>
             </div>
             <div class="card-body border-top">
               <div class="d-flex"><span class="fas fa-user text-success me-2" data-fa-transform="down-5"></span>
                 <div class="flex-1">
-                  <p class="mb-0">Data de Nascimento</p>
-                  <p class="fs--1 mb-0 text-600"><%= consulta.nascimentoconsulta %></p>
+                  <p class="mb-0">Nome Paciente</p>
+                  <p class="fs--1 mb-0 text-600"><%= consulta.nomePaciente %></p>
                 </div>
               </div>
             </div>
@@ -124,7 +117,7 @@
             <div class="card-header">
               <div class="row align-items-center">
                 <div class="col">
-                  <h5 class="mb-0">Detalhes do consulta</h5>
+                  <h5 class="mb-0">Detalhes da Marcacao</h5>
                 </div>
                 <div class="col-auto"><a class="btn btn-falcon-default btn-sm" href="#!"><span class="fas fa-pencil-alt fs--2 me-1"></span>Gerar Relatório</a></div>
               </div>
@@ -141,30 +134,30 @@
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
-                      <p class="fw-semi-bold mb-1">Nascimento</p>
+                      <p class="fw-semi-bold mb-1">Nome</p>
                     </div>
-                    <div class="col"><%= consulta.nascimentoconsulta %></div>
+                    <div class="col"><%= consulta.nomePaciente %></div>
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
                       <p class="fw-semi-bold mb-1">Email</p>
                     </div>
-                    <div class="col"><a href="#"><%= consulta.emailconsulta %></a></div>
+                    <div class="col"><a href="#"><%= consulta.emailPaciente %></a></div>
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
-                      <p class="fw-semi-bold mb-1">Descrição</p>
+                      <p class="fw-semi-bold mb-1">Telefone</p>
                     </div>
                     <div class="col">
-                      <p class=" text-400 mb-1">sem Descrição</p>
+                      <p class=" text-400 mb-1"><%= consulta.tellPaciente %></p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-5 col-sm-4">
-                      <p class="fw-semi-bold mb-0">VAT</p>
+                      <p class="fw-semi-bold mb-0">Endereço</p>
                     </div>
                     <div class="col">
-                      <p class=" text-400 mb-0">Sem numero VAT</p>
+                      <p class=" text-400 mb-0"><%= consulta.enderecoPaciente %></p>
                     </div>
                   </div>
                 </div>

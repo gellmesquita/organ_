@@ -112,7 +112,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="bulk-select-body">
-                                                            <% especialidades.reverse().map(c=>{%> 
+                                                            <% consultas.reverse().map(c=>{%> 
                                                                 <tr>
                                                                     
                                                                     <th class="align-middle"><%= c.nomePaciente  %></th>  
@@ -137,7 +137,7 @@
                                                                             <button class="btn btn-falcon-success dropdown-toggle" id="btnGroupVerticalDrop4" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
                                                                             <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop4">
                                                                               <a class="dropdown-item" href="/detalheConsulta/<%= c.idMarcacao  %>">ver</a>
-                                                                              <a class="dropdown-item" href="/deletarConsulta/<%= c.idMarcacao  %>">Eliminar</a>
+                                                                              <a class="dropdown-item" href="/deletarConsulta/<%= c.idEspecialidade  %>">Eliminar</a>
                                                                             </div>
                                                                           </div>
                                                                     </td>

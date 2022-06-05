@@ -5,23 +5,31 @@ import { Response, Request, Router } from  "express";
 // import bCryptjs from 'bcryptjs'
 const upload = multer(multerConfig);
 const EspecialidadeController=Router();
+import medicoAuth from '../middlewre/medico'
+import adminAuth from '../middlewre/admin'
+import pacienteAuth from '../middlewre/paciente'
 
 
-EspecialidadeController.post('/teste',async(req:Request, resp: Response)=>{
+EspecialidadeController.post('/cadastarEspecialidade',adminAuth,async(req:Request, resp: Response)=>{
   try {
     const {nomeEspecialidade,descEspecialidade}= req.body; 
-    const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade})
-    if(ids.length > 0){
-      resp.send('Especialidade cadastrado')
+    
+    const verify = await knex('especialidade').where('nomeEspecialidade', nomeEspecialidade);
+    if(verify.length>0){
+      req.flash('Errado', 'Especialidade Não Cadastrada');
+      resp.redirect('/listarEspecialidade')
     }else{
-      resp.send("Nao cadastrou")
+      const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade});
+      req.flash('certo', 'Especialidade Cadastrada');
+      resp.redirect('/listarEspecialidade')
     }
+
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }
 })
 
-EspecialidadeController.post('/editarespecialidade', async(req:Request, resp: Response)=>{
+EspecialidadeController.post('/editarespecialidade',adminAuth, async(req:Request, resp: Response)=>{
   try {
     const {id,nomeEspecialidade}= req.body; 
     const ids = await knex('especialidade').insert({nomeEspecialidade})
@@ -35,9 +43,21 @@ EspecialidadeController.post('/editarespecialidade', async(req:Request, resp: Re
     resp.send(error + " - falha ao registar")
   }
 })
-EspecialidadeController.get('/listarEspecialidade', async(req:Request, resp: Response)=>{
+EspecialidadeController.get('/listarEspecialidade',adminAuth, async(req:Request, resp: Response)=>{
   try { 
     const especialidades= await knex('especialidade').select('*').orderBy('idEspecialidade','desc');
+    const quantidade= await knex('medico').groupBy('idEspecialidade').count('idEspecialidade', {as:'quantidade'}).select('idEspecialidade');
+    resp.render('Administrador/especializacaoLista', {especialidades, quantidade})
+  } catch (error) {
+    resp.send(error + " - falha ao registar")
+  }
+})
+EspecialidadeController.get('/detalheEsp/:idEsp',adminAuth, async(req:Request, resp: Response)=>{
+  try { 
+    const {idEsp}= req.params;
+    const idUser= req.session?.user.id;
+    const medico= await knex('medico').where('idMedico', idUser).first();
+    const especialidades= await knex('especialidade').where('idEspecialidade',idEsp).first();
     const quantidade= await knex('medico').groupBy('idEspecialidade').count('idEspecialidade', {as:'quantidade'}).select('idEspecialidade');
     resp.render('Administrador/especializacaoLista', {especialidades, quantidade})
   } catch (error) {
@@ -54,6 +74,15 @@ EspecialidadeController.get('/editarespecialidade/:id', async(req:Request, resp:
     }else{
       resp.send("Nao deletou")
     }
+  } catch (error) {
+    resp.send(error + " - falha ao registar")
+  }
+})
+EspecialidadeController.get('/deletarEsp/:id', async(req:Request, resp: Response)=>{
+  try {
+    const {id}= req.params; 
+    const d= await knex('especialidade').where('idEspecialidade',id).delete();
+    resp.redirect('/listarEspecialidade')
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }

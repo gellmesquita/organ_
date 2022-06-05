@@ -209,6 +209,7 @@ MedicoController.get("/pacienteDetalhe/:idPaciente",adminAuth, async(req:Request
 MedicoController.get("/pacienteDeletar/:idPaciente",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const {idPaciente} =req.params;
+  const marcacao=await knex('marcacao').where('idPaciente', idPaciente).del();
   const paciente= await knex('paciente').where('idPaciente', idPaciente).del();
   resp.redirect('/pacientes_')
 

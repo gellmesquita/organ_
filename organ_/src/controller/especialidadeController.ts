@@ -38,9 +38,8 @@ EspecialidadeController.post('/editarespecialidade', async(req:Request, resp: Re
 EspecialidadeController.get('/listarEspecialidade', async(req:Request, resp: Response)=>{
   try { 
     const especialidades= await knex('especialidade').select('*').orderBy('idEspecialidade','desc');
-   
-
-    resp.render('Administrador/especializacaoLista', {especialidades})
+    const quantidade= await knex('medico').groupBy('idEspecialidade').count('idEspecialidade', {as:'quantidade'}).select('idEspecialidade');
+    resp.render('Administrador/especializacaoLista', {especialidades, quantidade})
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }

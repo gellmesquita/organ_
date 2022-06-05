@@ -94,12 +94,14 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
   })
   PacienteController.get("/pacientePainel",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
-    const medicos= await knex('medico').where('role', 0)
-    const consultas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',0)
-    const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',1)
-   const consultasadiadas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',2)
+     const medicos= await knex('medico').where('role', 0)
+     const especialidade=await knex('especialidade').select('*')
+      const medico= await knex('medico').where('role', 0).limit(4)
+     const consultas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',0)
+     const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',1)
+    const consultasadiadas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',2)
     const especialidades=await knex('especialidade').limit(3)
-    resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades,consultasadiadas,certo:req.flash('certo'),errado:req.flash('errado')})
+    resp.render("Paciente/index",{medicos,medico,especialidade, consultas,consultasfeitas,especialidades,consultasadiadas,certo:req.flash('certo'),errado:req.flash('errado')})
   })
   PacienteController.get("/pacientemarcacoes",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;

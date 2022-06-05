@@ -202,7 +202,12 @@ PacienteController.post('/editarpaciente',pacienteAuth,async(req:Request, resp: 
     const especialidades=await knex('especialidade').select('*')
     const marcacao_1=await knex('marcacao').where('idMarcacao',id).join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*').first();
     console.log(marcacao_1)
-    resp.render("Paciente/marcacao_1",{especialidades,marcacao_1,certo:req.flash('certo'),errado:req.flash('errado')})
+    if(marcacao_1){
+      resp.render("Paciente/marcacao_1",{especialidades,marcacao_1})
+    }else{
+    resp.redirect("/rota desconhecida...!#")
+    }
+    
   })
  
 

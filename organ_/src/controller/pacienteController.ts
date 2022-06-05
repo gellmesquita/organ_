@@ -195,6 +195,15 @@ PacienteController.post('/editarpaciente',pacienteAuth,async(req:Request, resp: 
     console.log(especialidade_1)
     resp.render("Site/especialidade_1",{especialidades,especialidade_1,certo:req.flash('certo'),errado:req.flash('errado')})
   })
+  PacienteController.get("/marcacao_1/:id",pacienteAuth, async(req:Request, resp: Response) =>{
+    
+    const {id}= req.params;
+   
+    const especialidades=await knex('especialidade').select('*')
+    const marcacao_1=await knex('marcacao').where('idMarcacao',id).join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*').first();
+    console.log(marcacao_1)
+    resp.render("Paciente/marcacao_1",{especialidades,marcacao_1,certo:req.flash('certo'),errado:req.flash('errado')})
+  })
  
 
 

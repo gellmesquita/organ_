@@ -4,6 +4,7 @@ import knex from '../database/conection';
 
 async function authenticate(user:string, pass:string) {
     try {
+       
         const pDados =await knex('paciente').where('userPaciente', user).where('senhaPaciente', pass)
         if(pDados.length!==0){
             const pc = pDados[0]

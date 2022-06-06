@@ -114,8 +114,7 @@ MedicoController.get("/medicoPainel", async(req:Request, resp:Response) =>{
   const medico= await knex('medico').where('idMedico', idUser).first();
   const medicos= await knex('medico').select('*')
   const consultas= await knex('marcacao')
-  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').where('idMedico',idUser).distinct()
   
   resp.render("Medico/index",  {medico,medicos,consultas })
 })

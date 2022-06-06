@@ -94,12 +94,14 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
   })
   PacienteController.get("/pacientePainel",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
-    const medicos= await knex('medico').where('role', 0)
-    const consultas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',0)
-    const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',1)
-   const consultasadiadas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',2)
+     const medicos= await knex('medico').where('role', 0)
+     const especialidade=await knex('especialidade').select('*')
+      const medico= await knex('medico').where('role', 0).limit(4)
+     const consultas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',0)
+     const consultasfeitas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',1)
+    const consultasadiadas= await knex('marcacao').select('*').where('idPaciente',id).andWhere('estadoMarcacao',2)
     const especialidades=await knex('especialidade').limit(3)
-    resp.render("Paciente/index",{medicos, consultas,consultasfeitas,especialidades,consultasadiadas,certo:req.flash('certo'),errado:req.flash('errado')})
+    resp.render("Paciente/index",{medicos,medico,especialidade, consultas,consultasfeitas,especialidades,consultasadiadas,certo:req.flash('certo'),errado:req.flash('errado')})
   })
   PacienteController.get("/pacientemarcacoes",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
@@ -192,6 +194,20 @@ PacienteController.post('/editarpaciente',pacienteAuth,async(req:Request, resp: 
     const especialidade_1=await knex('especialidade').where('idEspecialidade',idEspecialidade).first();
     console.log(especialidade_1)
     resp.render("Site/especialidade_1",{especialidades,especialidade_1,certo:req.flash('certo'),errado:req.flash('errado')})
+  })
+  PacienteController.get("/marcacao_1/:id",pacienteAuth, async(req:Request, resp: Response) =>{
+    
+    const {id}= req.params;
+   
+    const especialidades=await knex('especialidade').select('*')
+    const marcacao_1=await knex('marcacao').where('idMarcacao',id).join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*').first();
+    console.log(marcacao_1)
+    if(marcacao_1){
+      resp.render("Paciente/marcacao_1",{especialidades,marcacao_1})
+    }else{
+    resp.redirect("/rota desconhecida...!#")
+    }
+    
   })
  
 

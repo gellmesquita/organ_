@@ -97,10 +97,25 @@ MedicoController.get("imagemMedico/:id",upload.single('image'), async(req:Reques
   resp.render("admin/medico/index",  {adm:req.session?.admin.admn, d})
 })
 // todas as marcacoes
-MedicoController.get("/listarmarcacoes", async(req:Request, resp:Response) =>{
-  const d= await knex('marcacao')
-  .join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').select('*')
-  resp.json(d)
+MedicoController.get("/listarmarcacoes",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consultas= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico').where('marcacao.idMedico', idUser)
+  
+  resp.render('Medico/consultaLista',{medico, consultas});
+})
+MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {id}= req.params;
+
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('idMarcacao', id).first()
+  
+  resp.render('Medico/consultaDetail',{medico, consulta});
 })
 //Marcacoes especificos
 MedicoController.get("Minhasmarcacoes", async(req:Request, resp:Response) =>{

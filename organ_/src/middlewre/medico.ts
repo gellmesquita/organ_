@@ -5,7 +5,7 @@ const medicoAuth= (req:Request, resp:Response, next:NextFunction)=>{
         if(req.session.user.role==0){
             next();
         }else{
-            resp.redirect('/login')
+            resp.redirect('/loginGeral')
         }
     }else{
         resp.redirect('/loginGeral')

@@ -201,21 +201,33 @@
                     <table class="table mb-0 fs--1 border-200 table-borderless">
                       <thead class="bg-light">
                         <tr class="text-800 bg-200">
-                          <th class="text-nowrap">Owner</th>
-                          <th class="text-center text-nowrap">Qualified to buy</th>
-                          <th class="text-center text-nowrap">Appointment </th>
-                          <th class="text-end text-nowrap">Contact sent</th>
-                          <th class="pe-card text-end text-nowrap">Closed won</th>
+                          <th class="text-nowrap">identificador</th>
+                          <th class="text-center text-nowrap">Paciente</th>
+                          <th class="text-center text-nowrap">Medico </th>
+                          <th class="text-end text-nowrap">Data</th>
+                          <th class="pe-card text-end text-nowrap">Tipo</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr class="border-bottom border-200">
-                          <td class="align-middle font-sans-serif fw-medium text-nowrap"><a href="../app/e-commerce/customer-details.html">John oliver</a></td>
-                          <td class="align-middle text-center">1000</td>
-                          <td class="align-middle text-center">$2600</td>
-                          <td class="align-middle text-center">$3523</td>
-                          <td class="align-middle text-end">$1311</td>
-                        </tr>
+                        <% consultas.slice(0, 4).map(c=>{%> 
+                          <tr class="border-bottom border-200">
+                          
+                            <td class="align-middle text-center">
+                             Consulta nº<%=c.idMarcacao %> 
+                            </td>
+                            <td class="align-middle text-center"><%=c.nomePaciente %> </td>
+                            <td class="align-middle text-center"><%=c.nomeMedico %> </td>
+                            <td class="align-middle text-center"><%=c.dataMarcacao %> </td>
+                            <td class="align-middle text-end">
+                              <% especialidades.map(esp=>{%>
+                                <% if(c.idEspecialidade==esp.idEspecialidade){%>
+                                    <%= esp.nomeEspecialidade  %>
+                                <%}%> 
+                            <%}) %>  
+                            </td>
+                          </tr>
+                        <%}) %> 
+                       
 
 
                       </tfoot>
@@ -1090,7 +1102,7 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
           type: 'value',
           axisLabel: {
             formatter: function formatter(value) {
-              return "".concat(value / 1000, "k");
+              return "".concat(value);
             },
             color: utils.getGrays()['500']
           },

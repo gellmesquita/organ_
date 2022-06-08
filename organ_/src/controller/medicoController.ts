@@ -135,8 +135,10 @@ MedicoController.get("/adminPainel",adminAuth, async(req:Request, resp:Response)
   const medicos= await knex('medico').select('*')
   const consultas= await knex('marcacao')
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').orderBy('idMarcacao', 'desc').distinct()
   const pacientes=await knex('paciente').select('*')
+  const especialidades=await knex('especialidade').select('*')
+  
   const ev= await knex('marcacao').groupBy('mes').count('mes', {as:'marcada'}).select('*')
   const marcRealizada= await knex('marcacao').where('estadoMarcacao',1).groupBy('mes').count('mes', {as:'marcRealizada'}).select('*')
   const naoRealizada= await knex('marcacao').where('estadoMarcacao',2).groupBy('mes').count('mes', {as:'naoRealizada'}).select('*')
@@ -222,7 +224,7 @@ MedicoController.get("/adminPainel",adminAuth, async(req:Request, resp:Response)
     
 })
   
-  resp.render("Administrador/index",  {medico,medicos,consultas, pacientes, naorealizado,realizado,marcada, meses })
+  resp.render("Administrador/index",  {medico,medicos,consultas, pacientes, naorealizado,realizado,marcada, meses, especialidades })
 })
 
 MedicoController.get("/listarMedico",adminAuth, async(req:Request, resp:Response) =>{

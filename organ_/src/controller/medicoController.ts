@@ -214,8 +214,6 @@ MedicoController.get("/medicoPainel",medicoAuth, async(req:Request, resp:Respons
     }
     
 })
-  
-  
   resp.render("Medico/index",  {medico,medicos,consultas, especialidades, m,r,n , marcada, realizado, naorealizado, meses})
 })
 

@@ -121,10 +121,12 @@ MedicoController.get("/medicoPainel",medicoAuth, async(req:Request, resp:Respons
   const idUser= req.session?.user.id;
   const medico= await knex('medico').where('idMedico', idUser).first();
   const medicos= await knex('medico').select('*')
+  const especialidades= await knex('especialidade').select('*')
   const consultas= await knex('marcacao')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').where('idMedico',idUser).distinct()
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').orderBy('idMarcacao', 'desc').where('idMedico',idUser).distinct()
   
-  resp.render("Medico/index",  {medico,medicos,consultas })
+  resp.render("Medico/index",  {medico,medicos,consultas, especialidades })
 })
 
 //Rotas Para o Administrador

@@ -139,14 +139,16 @@
                             <label class="form-label" for="time-zone">Descrição</label>
                             <input value="<%=medicos.descMedico %>" name="descMedico" class="form-control "  type="text"   />
                           </div>
-                      <div class="col-12 mb-3 mt-3">
-                        <label class="form-label" for="event-name">Especialização</label>
-                        <select class="form-select" name="idEspecialidade" id="form-wizard-progress-gender">
-                            <% especialidades.map(esp=> { %>
-                              <option value="<%=esp.idEspecialidade %>"><%=esp.nomeEspecialidade %> </option>
-                          <% }) %> 
-                          </select></div>
-                      </div>
+                          <% if(medicos.role==0){%> 
+                            <div class="col-12 mb-3 mt-3">
+                              <label class="form-label" for="event-name">Especialização</label>
+                              <select class="form-select" name="idEspecialidade" id="form-wizard-progress-gender">
+                                  <% especialidades.map(esp=> { %>
+                                    <option value="<%=esp.idEspecialidade %>"><%=esp.nomeEspecialidade %> </option>
+                                <% }) %> 
+                                </select></div>
+                            </div>
+                          <%} %> 
                     </div>
                     <div class="col-auto m-3">
                         <button type="submit" class="btn btn-falcon-primary btn-sm p-2" role="button">Salvar Alteração </button>

@@ -390,6 +390,16 @@ MedicoController.get("/deletarConsulta/:idMarcacao",adminAuth, async(req:Request
   resp.redirect("/listarConsulta")
 })
 
+MedicoController.get("/perfilAdmin",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idMedico}= req.params;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const especialidades= await knex('especialidade').select('*')
+
+
+  resp.render("Administrador/perfilAdmin",  {medico, especialidades })
+})
+
 export default MedicoController;
 
 //image, name, email, whatsaap, nomeuser senha

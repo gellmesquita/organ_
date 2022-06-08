@@ -31,11 +31,11 @@ EspecialidadeController.post('/cadastarEspecialidade',adminAuth,async(req:Reques
 
 EspecialidadeController.post('/editarespecialidade',adminAuth, async(req:Request, resp: Response)=>{
   try {
-    const {id,nomeEspecialidade}= req.body; 
+    const {idEspecialidade,nomeEspecialidade, descEspecialidade}= req.body; 
     const ids = await knex('especialidade').insert({nomeEspecialidade})
-    const d= await knex('especialidade').where('idEspecialidade',id).update({nomeEspecialidade});
+    const d= await knex('especialidade').where('idEspecialidade',idEspecialidade).update({nomeEspecialidade, descEspecialidade});
     if(ids.length > 0){
-      resp.send('Especialidade cadastrado')
+      resp.redirect('detalheEsp/'+idEspecialidade)
     }else{
       resp.send("Nao cadastrou")
     }
@@ -58,8 +58,8 @@ EspecialidadeController.get('/detalheEsp/:idEsp',adminAuth, async(req:Request, r
     const idUser= req.session?.user.id;
     const medico= await knex('medico').where('idMedico', idUser).first();
     const especialidades= await knex('especialidade').where('idEspecialidade',idEsp).first();
-    const quantidade= await knex('medico').groupBy('idEspecialidade').count('idEspecialidade', {as:'quantidade'}).select('idEspecialidade');
-    resp.render('Administrador/especializacaoLista', {especialidades, quantidade})
+    const quantidade= await knex('medico').where('idEspecialidade',idEsp).select('*');
+    resp.render('Administrador/detalheEsp', {especialidades, quantidade,medico})
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }

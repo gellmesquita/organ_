@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/app/e-commerce/customer-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:34:11 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Organ</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="/assets/js/config.js"></script>
+    <script src="/vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="/vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+    <link href="/assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
+    <link href="/assets/css/theme.min.css" rel="stylesheet" id="style-default">
+    <link href="/assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+    <link href="/assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <script>
+      var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+      if (isRTL) {
+        var linkDefault = document.getElementById('style-default');
+        var userLinkDefault = document.getElementById('user-style-default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+      } else {
+        var linkRTL = document.getElementById('style-rtl');
+        var userLinkRTL = document.getElementById('user-style-rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <div class="container" data-layout="container">
+        <script>
+          var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+          if (isFluid) {
+            var container = document.querySelector('[data-layout]');
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+          }
+        </script>
+        <%- include ("./partialAdmin/HeaderSideBar") %>
+        <div class="content">
+            <%- include ("./partialAdmin/MenuAdmin") %>
+
+          <script>
+            var navbarPosition = localStorage.getItem('navbarPosition');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            var navbarTopVertical = document.querySelector('.content .navbar-top');
+            var navbarTop = document.querySelector('[data-layout] .navbar-top');
+            var navbarTopCombo = document.querySelector('.content [data-navbar-top="combo"]');
+            if (navbarPosition === 'top') {
+              navbarTop.removeAttribute('style');
+              navbarTopVertical.remove(navbarTopVertical);
+              navbarVertical.remove(navbarVertical);
+              navbarTopCombo.remove(navbarTopCombo);
+            } else if (navbarPosition === 'combo') {
+              navbarVertical.removeAttribute('style');
+              navbarTopCombo.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopVertical.remove(navbarTopVertical);
+            } else {
+              navbarVertical.removeAttribute('style');
+              navbarTopVertical.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopCombo.remove(navbarTopCombo);
+            }
+          </script>
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="row">
+
+                <div class="col-auto d-none d-sm-block">
+                  <span class="text-uppercase text-600">especialidades nº <%= especialidades.idEspecialidade %><span class="fas fa-user ms-2"></span></h6>
+                </div>
+              </div>
+            </div>
+            <div class="card-body border-top">
+              <div class="d-flex"><span class="fas fa-user text-success me-2" data-fa-transform="down-5"></span>
+                <div class="flex-1">
+                  <p class="mb-0"><%= especialidades.nomeEspecialidade %></p>
+                  <p class="fs--1 mb-0 text-600">Especialidade</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h5 class="mb-0">Detalhes da Marcacao</h5>
+                </div>
+                <div class="col-auto">
+                    <span data-bs-toggle="modal" data-bs-target="#error-modal" class="btn btn-falcon-default btn-sm" >
+                        Editar Especialidade
+                    </span>
+                </div>
+                <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                      <div class="modal-content position-relative">
+                        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form method="post" action="/editarespecialidade">
+                            <div class="modal-body p-0">
+                           
+                                <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                  <h4 class="mb-1" id="modalExampleDemoLabel">Editar Especialidade</h4>
+                                </div>
+                                <div class="p-4 pb-0">
+                                  <span>
+                                    <div class="mb-3">
+                                      <label class="col-form-label" for="recipient-name">Nome Especialidade</label>
+                                      <input value=" <%= especialidades.nomeEspecialidade %>  " name="nomeEspecialidade" class="form-control" id="recipient-name" type="text" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="hidden" name="idEspecialidade" value="<%= especialidades.idEspecialidade %> ">
+                                      <label class="col-form-label" for="message-text">Descrição</label>
+                                      <textarea  name="descEspecialidade" class="form-control" id="message-text">
+                                        <%= especialidades.descEspecialidade %>  
+                                      </textarea>
+                                    </div>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Abortar</button>
+                                <button type="submit" class="btn btn-primary" type="button">Editar</button>
+                              </div>
+                        </form>
+                        
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body bg-light border-top">
+              <div class="row">
+                <div class="col-lg col-xxl-12">
+                  <%= especialidades.descEspecialidade %>   
+                </div>
+              </div>
+            </div>  
+          </div>
+          <div class="card">
+            <div class="card-header">
+                <div class="row flex-between-end">
+                    <div class="col-auto align-self-center">
+                        <h5 class="mb-0">Listagem dos Especilistas: <%=quantidade.length  %> </h5>
+                    </div>
+                    <div class="col-auto align-self-center">
+                        <h6 style="cursor:pointer" onclick="window.location='/'" class="mb-0">Gerar Relatório</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body py-0 border-top">
+                <div class="tab-content">
+                    <div class="tab-pane preview-tab-pane active" role="tabpanel"
+                        aria-labelledby="tab-dom-b5b90702-8f53-4c41-812c-1124c578a4c4"
+                        id="dom-b5b90702-8f53-4c41-812c-1124c578a4c4">
+                        <div class="card shadow-none">
+                            <div class="card-body p-0 pb-3">
+                                <div class="d-flex align-items-center justify-content-end my-3">
+                                    <div id="bulk-select-replace-element">
+                                        <button onclick="window.location='/FormMedico'"  class="btn btn-falcon-success btn-sm" type="button">
+                                            <span class="fas fa-plus"
+                                                data-fa-transform="shrink-3 down-2"></span><span
+                                                class="ms-1">Cadastrar Medico</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="table-responsive scrollbar">
+                                    <table class="table mb-0">
+                                        <thead class="text-black bg-200">
+                                            <tr>
+                                                
+                                                <th class="align-middle">Nome</th>
+                                                <th class="align-middle">Username </th>
+                                                <th class="align-middle">Email</th>
+                                                
+                                                <th class="align-middle white-space-nowrap pe-3">Especialização
+                                                </th>
+                                                <th class="align-middle white-space-nowrap pe-3">Accão
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bulk-select-body">
+                                            <% quantidade.reverse().map(c=>{%> 
+                                                <tr>
+                                                   
+                                                    <th class="align-middle"><%= c.nomeMedico  %></th>  
+                                                    <td class="align-middle"><%= c.userMedico  %></td>
+                                                    <td class="align-middle"><%= c.emailMedico  %></td>
+                                                    
+                                                    <td class="align-middle white-space-nowrap text-end pe-3">
+                                                        <%= especialidades.nomeEspecialidade %> 
+                                                    </td>
+                                                    <td class="align-middle white-space-nowrap text-end pe-3">
+                                                        <button onclick="window.location='/perfilMedico_/<%= c.idMedico %>'" class="btn btn-falcon-primary me-1 mb-1" type="button">ver</button>
+                                                    </td>
+                                                </tr>
+                                            <%  }) %> 
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+   
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+      </div>
+    </main><!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="/vendors/popper/popper.min.js"></script>
+    <script src="/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="/vendors/anchorjs/anchor.min.js"></script>
+    <script src="/vendors/is/is.min.js"></script>
+    <script src="/vendors/fontawesome/all.min.js"></script>
+    <script src="/vendors/lodash/lodash.min.js"></script>
+    <script src="//../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
+    <script src="/vendors/list.js/list.min.js"></script>
+    <script src="/assets/js/theme.js"></script>
+  </body>
+
+
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/app/e-commerce/customer-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:34:11 GMT -->
+</html>

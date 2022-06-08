@@ -8,6 +8,7 @@ import session from 'express-session'
 import MarcacaoController from './controller/marcacaoController';
 import PacienteController from './controller/pacienteController';
 import MedicoController from './controller/medicoController';
+import RelatorioController from './controller/relatorioController';
 import EspecialidadeController from './controller/especialidadeController';
 import knex from './database/conection';
 
@@ -35,6 +36,7 @@ app.use(PacienteController);
 app.use(MedicoController);
 app.use(MarcacaoController);
 app.use(EspecialidadeController);
+app.use(RelatorioController);
 
 app.use(async(req,res, next)=>{ 
     const esp=await knex('especialidade').limit(3)

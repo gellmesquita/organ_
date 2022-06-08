@@ -99,7 +99,7 @@
                                                     <table class="table mb-0">
                                                         <thead class="text-black bg-200">
                                                             <tr>
-                                                                
+                                                                <th class="align-middle">Identificador</th>
                                                                 <th class="align-middle">Paciente</th>
                                                                 
                                                                 <th class="align-middle">Medico</th>
@@ -114,7 +114,7 @@
                                                         <tbody id="bulk-select-body">
                                                             <% consultas.reverse().map(c=>{%> 
                                                                 <tr>
-                                                                    
+                                                                    <th class="align-middle">Consulta nº<%= c.idMarcacao  %></th> 
                                                                     <th class="align-middle"><%= c.nomePaciente  %></th>  
                                                                     
                                                                     <td class="align-middle"><%= c.nomeMedico  %></td>

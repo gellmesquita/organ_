@@ -69,17 +69,7 @@ const MedicoController=Router();
       }
     }    
   )
-  MedicoController.get("/Medico/:id", async(req:Request, resp:Response) =>{
-    const{id}=req.params;
-    const d= await knex('medico').where('idMedico',id).select("")
-    if(d.length >0){
-      resp.json(d)
-    }else{
-      resp.json("Paciente Nao encontrado")
-    }
-  
-   // resp.render("admin/medico/index")
-  })
+
 MedicoController.post("/editarrMedico", async(req:Request, resp:Response) =>{
   const{id, nomeMedico, userMedico, emailMedico, tellMedico, passMedico}=req.params;
   const d= await knex('medico').where('idMedico',id).update({nomeMedico, userMedico, emailMedico, tellMedico, passMedico});
@@ -90,32 +80,49 @@ MedicoController.get("/deletarMedico/:id", async(req:Request, resp:Response) =>{
   const d= await knex('medico').where('idMedico',id).delete();
   resp.json("Deletado")
 })
-MedicoController.get("imagemMedico/:id",upload.single('image'), async(req:Request, resp:Response) =>{
-  const{id}=req.params;
-  const imagemMedico= (req.file) ? req.file.filename : 'user.png';
-  const d= await knex('medico').where('idMedico',id).update({imagemMedico});
-  resp.render("admin/medico/index",  {adm:req.session?.admin.admn, d})
+MedicoController.get("/medicoperfil",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idMedico}= req.params;
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const especialidades= await knex('especialidade').select('*')
+  const consultas= await knex('marcacao')
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('marcacao.idMedico', idUser).distinct()
+
+  resp.render("Medico/perfilMedico",  {medico,consultas, especialidades })
 })
+
 // todas as marcacoes
-MedicoController.get("/listarmarcacoes", async(req:Request, resp:Response) =>{
-  const d= await knex('marcacao')
-  .join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').select('*')
-  resp.json(d)
+MedicoController.get("/listarmarcacoes",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consultas= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico').where('marcacao.idMedico', idUser)
+  
+  resp.render('Medico/consultaLista',{medico, consultas});
 })
-//Marcacoes especificos
-MedicoController.get("Minhasmarcacoes", async(req:Request, resp:Response) =>{
-  const d= await knex('marcacao')
-  .join('marcacao', 'marcacao.idMarcacao', 'medico.idMedico').where({idMedico:req.session?.id})
-  resp.render("admin/medico/index",  {adm:req.session?.admin.admn, d})
+MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {id}= req.params;
+
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('idMarcacao', id).first()
+  
+  resp.render('Medico/consultaDetail',{medico, consulta});
 })
+
 //Roras Do Medico 
-MedicoController.get("/medicoPainel", async(req:Request, resp:Response) =>{
+MedicoController.get("/medicoPainel",medicoAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const medico= await knex('medico').where('idMedico', idUser).first();
   const medicos= await knex('medico').select('*')
   const consultas= await knex('marcacao')
-  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').where('idMedico',idUser).distinct()
   
   resp.render("Medico/index",  {medico,medicos,consultas })
 })
@@ -128,10 +135,96 @@ MedicoController.get("/adminPainel",adminAuth, async(req:Request, resp:Response)
   const medicos= await knex('medico').select('*')
   const consultas= await knex('marcacao')
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').distinct()
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').orderBy('idMarcacao', 'desc').distinct()
   const pacientes=await knex('paciente').select('*')
+  const especialidades=await knex('especialidade').select('*')
   
-  resp.render("Administrador/index",  {medico,medicos,consultas, pacientes })
+  const ev= await knex('marcacao').groupBy('mes').count('mes', {as:'marcada'}).select('*')
+  const marcRealizada= await knex('marcacao').where('estadoMarcacao',1).groupBy('mes').count('mes', {as:'marcRealizada'}).select('*')
+  const naoRealizada= await knex('marcacao').where('estadoMarcacao',2).groupBy('mes').count('mes', {as:'naoRealizada'}).select('*')
+
+  const dados=ev.map(e=>{
+      //Consultas Efectuadas 
+      const real=marcRealizada.map(ed=>(ed.mes==e.mes)?ed.marcRealizada:0)
+      const v=real.map(r=>parseInt(r.toString())).reduce((prev, curr)=>prev+curr, 0)
+      //Não Realizada
+      const realC=naoRealizada.map(ed=>(ed.mes==e.mes)?ed.naoRealizada:0);
+      const vC=realC.map(r=>parseInt(r.toString())).reduce((prev, curr)=>prev+curr, 0)
+      
+     let name;
+     switch (e.mes) {
+         case '01':
+             name="Janeiro"
+             break;
+             case '02':
+                 name="Fevereiro"
+                 break;
+                 case '03':
+                     name="Março"
+                     break;
+                     case '04':
+                         name="Abril"
+                         break;
+                         case '05':
+                             name="Maio"
+                             break;
+                             case '06':
+                                 name="Junho"
+                                 break;
+                                 case '07':
+                                     name="Julho"
+                                     break;
+                                     case '08':
+                                     name="Agosto"
+                                     break;
+                                     case '09':
+                                     name="Setembro"
+                                     break;
+                                     case '10':
+                                     name="Outubro"
+                                     break;
+                                     case '11':
+                                     name="Novembro"
+                                     break;
+                                     case '12':
+                                     name="Dezembro"
+                                     break;
+     
+         default:
+             break;
+     }
+     return {mes:name, marcada:e.marcada, realizada:v, naoRealizada:vC}
+  }) 
+  const meses= ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro','Outubro','Novembro','Dezembro'];
+  const naorealizado=meses.map(i=>{
+      const e=dados.filter(e=>e.mes==i);
+      if(e.length>0){
+          return e[0].naoRealizada
+      }else{
+          return 0
+      }
+      
+  })
+  const realizado=meses.map(i=>{
+      const e=dados.filter(e=>e.mes==i);
+      if(e.length>0){
+          return e[0].realizada
+      }else{
+          return 0
+      }
+      
+  })
+  const marcada=meses.map(i=>{
+    const e=dados.filter(e=>e.mes==i);
+    if(e.length>0){
+        return e[0].marcada
+    }else{
+        return 0
+    }
+    
+})
+  
+  resp.render("Administrador/index",  {medico,medicos,consultas, pacientes, naorealizado,realizado,marcada, meses, especialidades })
 })
 
 MedicoController.get("/listarMedico",adminAuth, async(req:Request, resp:Response) =>{
@@ -295,6 +388,16 @@ MedicoController.get("/deletarConsulta/:idMarcacao",adminAuth, async(req:Request
   const consulta= await knex('marcacao').where('idMarcacao',idMarcacao).del()
 
   resp.redirect("/listarConsulta")
+})
+
+MedicoController.get("/perfilAdmin",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idMedico}= req.params;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const especialidades= await knex('especialidade').select('*')
+
+
+  resp.render("Administrador/perfilAdmin",  {medico, especialidades })
 })
 
 export default MedicoController;

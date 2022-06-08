@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/modules/charts/chartjs.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:34:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Organ</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="../../assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="../../assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="../../vendors/prism/prism-okaidia.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="../../vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+    <link href="../../assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
+    <link href="../../assets/css/theme.min.css" rel="stylesheet" id="style-default">
+    <link href="../../assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+    <link href="../../assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <script>
+      var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+      if (isRTL) {
+        var linkDefault = document.getElementById('style-default');
+        var userLinkDefault = document.getElementById('user-style-default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+      } else {
+        var linkRTL = document.getElementById('style-rtl');
+        var userLinkRTL = document.getElementById('user-style-rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <div class="container" data-layout="container">
+        
+        
+        <%- include ("./PartialMedico/HeaderSideBar") %>
+        <div class="content">
+          <%- include ("./PartialMedico/MenuMedico") %>
+         
+          <script>
+            var navbarPosition = localStorage.getItem('navbarPosition');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            var navbarTopVertical = document.querySelector('.content .navbar-top');
+            var navbarTop = document.querySelector('[data-layout] .navbar-top');
+            var navbarTopCombo = document.querySelector('.content [data-navbar-top="combo"]');
+            if (navbarPosition === 'top') {
+              navbarTop.removeAttribute('style');
+              navbarTopVertical.remove(navbarTopVertical);
+              navbarVertical.remove(navbarVertical);
+              navbarTopCombo.remove(navbarTopCombo);
+            } else if (navbarPosition === 'combo') {
+              navbarVertical.removeAttribute('style');
+              navbarTopCombo.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopVertical.remove(navbarTopVertical);
+            } else {
+              navbarVertical.removeAttribute('style');
+              navbarTopVertical.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopCombo.remove(navbarTopCombo);
+            }
+          </script>
+
+
+        
+            <div class="row g-3 mb-3">
+                <div class="col-lg-6">
+                  <div class="card h-100" dir="ltr">
+                    <div class="card-header">
+                      <div class="row flex-between-end">
+                        <div class="col-auto align-self-center">
+                          <h5 class="mb-0" data-anchor="data-anchor">Pie Chart</h5>
+                        </div>
+                        <div class="col-auto ms-auto">
+                          <div class="nav nav-pills nav-pills-falcon flex-grow-1" role="tablist"><button class="btn btn-sm active" data-bs-toggle="pill" data-bs-target="#dom-64a6d4c1-e0bf-4af2-bd10-6ab6010f1094" type="button" role="tab" aria-controls="dom-64a6d4c1-e0bf-4af2-bd10-6ab6010f1094" aria-selected="true" id="tab-dom-64a6d4c1-e0bf-4af2-bd10-6ab6010f1094">Preview</button><button class="btn btn-sm" data-bs-toggle="pill" data-bs-target="#dom-d87fa015-6763-4f5f-acb1-1aafc0502ce3" type="button" role="tab" aria-controls="dom-d87fa015-6763-4f5f-acb1-1aafc0502ce3" aria-selected="false" id="tab-dom-d87fa015-6763-4f5f-acb1-1aafc0502ce3">Code</button></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body bg-light">
+                      <div class="tab-content">
+                        <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-64a6d4c1-e0bf-4af2-bd10-6ab6010f1094" id="dom-64a6d4c1-e0bf-4af2-bd10-6ab6010f1094">
+                          <!-- Find the JS file for the following chart at: src/js/charts/echarts/examples/pie-chart.js-->
+                          <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/echarts-example.js-->
+                          <div class="echart-pie-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
+                        </div>
+                        <div class="tab-pane code-tab-pane" role="tabpanel" aria-labelledby="tab-dom-d87fa015-6763-4f5f-acb1-1aafc0502ce3" id="dom-d87fa015-6763-4f5f-acb1-1aafc0502ce3"><pre class="scrollbar rounded-1" style="max-height:420px"><code class="language-html">
+    &lt;!-- Find the JS file for the following chart at: src/js/charts/echarts/examples/pie-chart.js--&gt;
+    
+    &lt;!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/echarts-example.js--&gt;
+    &lt;div class=&quot;echart-pie-chart-example&quot; style=&quot;min-height: 320px;&quot; data-echart-responsive=&quot;true&quot;&gt;&lt;/div&gt;</code></pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                      <div class="card-header">
+                        <div class="row flex-between-end">
+                          <div class="col-auto align-self-center">
+                            <h5 class="mb-0" data-anchor="data-anchor">Stacked area chart</h5>
+                          </div>
+                          <div class="col-auto ms-auto">
+                            <div class="nav nav-pills nav-pills-falcon flex-grow-1" role="tablist"><button class="btn btn-sm active" data-bs-toggle="pill" data-bs-target="#dom-5ea057ef-37e5-4184-a06e-c71ceaadf0aa" type="button" role="tab" aria-controls="dom-5ea057ef-37e5-4184-a06e-c71ceaadf0aa" aria-selected="true" id="tab-dom-5ea057ef-37e5-4184-a06e-c71ceaadf0aa">Preview</button><button class="btn btn-sm" data-bs-toggle="pill" data-bs-target="#dom-d8a03fc2-010a-4577-b29a-1d3fd9df02ec" type="button" role="tab" aria-controls="dom-d8a03fc2-010a-4577-b29a-1d3fd9df02ec" aria-selected="false" id="tab-dom-d8a03fc2-010a-4577-b29a-1d3fd9df02ec">Code</button></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body bg-light">
+                        <div class="tab-content">
+                          <div class="tab-pane preview-tab-pane active" role="tabpanel" aria-labelledby="tab-dom-5ea057ef-37e5-4184-a06e-c71ceaadf0aa" id="dom-5ea057ef-37e5-4184-a06e-c71ceaadf0aa">
+                            <!-- Find the JS file for the following chart at: src/js/charts/echarts/examples/stacked-area-chart.js-->
+                            <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/echarts-example.js-->
+                            <div class="echart-stacked-area-chart-example" style="min-height: 300px;" data-echart-responsive="true"></div>
+                          </div>
+                          <div class="tab-pane code-tab-pane" role="tabpanel" aria-labelledby="tab-dom-d8a03fc2-010a-4577-b29a-1d3fd9df02ec" id="dom-d8a03fc2-010a-4577-b29a-1d3fd9df02ec"><pre class="scrollbar rounded-1" style="max-height:420px"><code class="language-html">
+      &lt;!-- Find the JS file for the following chart at: src/js/charts/echarts/examples/stacked-area-chart.js--&gt;
+      
+      &lt;!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/echarts-example.js--&gt;
+      &lt;div class=&quot;echart-stacked-area-chart-example&quot; style=&quot;min-height: 300px;&quot; data-echart-responsive=&quot;true&quot;&gt;&lt;/div&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+            
+          
+              <div class="row g-3 mb-3">
+                <div class="col-xxl-6">
+                  <div class="card overflow-hidden">
+                    <div class="card-header">
+                      <h6 class="mb-0">Deal Forecast by Owner</h6>
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive scrollbar">
+                        <table class="table mb-0 fs--1 border-200 table-borderless">
+                          <thead class="bg-light">
+                            <tr class="text-800 bg-200">
+                              <th class="text-nowrap">Owner</th>
+                              <th class="text-center text-nowrap">Qualified to buy</th>
+                              <th class="text-center text-nowrap">Appointment </th>
+                              <th class="text-end text-nowrap">Contact sent</th>
+                              <th class="pe-card text-end text-nowrap">Closed won</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="border-bottom border-200">
+                              <td class="align-middle font-sans-serif fw-medium text-nowrap"><a href="../app/e-commerce/customer-details.html">John oliver</a></td>
+                              <td class="align-middle text-center">1000</td>
+                              <td class="align-middle text-center">$2600</td>
+                              <td class="align-middle text-center">$3523</td>
+                              <td class="align-middle text-end">$1311</td>
+                            </tr>
+    
+    
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+        </div>
+        
+      </div>
+    </main><!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+ 
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="../../vendors/popper/popper.min.js"></script>
+    <script src="../../vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="../../vendors/anchorjs/anchor.min.js"></script>
+    <script src="../../vendors/is/is.min.js"></script>
+    <script src="../../vendors/prism/prism.js"></script>
+    <script src="../../vendors/fontawesome/all.min.js"></script>
+    <script src="../../vendors/lodash/lodash.min.js"></script>
+    <script src="../../../../../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
+    <script src="../../vendors/list.js/list.min.js"></script>
+    <script src="../../assets/js/theme.js"></script>
+    <script src="../../vendors/chart/chart.min.js"></script>
+    <script src="../../../vendors/echarts/echarts.min.js"></script>
+    <script src="../../../assets/js/echarts-example.js"></script> 
+    
+    
+    
+    
+   
+    <script src="../../../vendors/lodash/lodash.min.js"></script>
+    <script src="../../../vendors/dayjs/dayjs.min.js"></script>
+    <script src="../../../assets/js/echarts-example.js"></script>
+    <script src="../../../vendors/prism/prism.js"></script>
+    <script src="../../../vendors/fontawesome/all.min.js"></script>
+    <script src="../../../vendors/lodash/lodash.min.js"></script>
+
+    <script src="../../../vendors/list.js/list.min.js"></script>
+    <script src="../../../assets/js/theme.js"></script>
+    
+  </body>
+
+
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/modules/charts/chartjs.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:34:53 GMT -->
+</html>

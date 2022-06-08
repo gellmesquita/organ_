@@ -4991,6 +4991,14 @@ var echartsUsaMapInit = function echartsUsaMapInit() {
 
 /* -------------------------------------------------------------------------- */
 
+let m="<%= m.length %>";
+let n="<%= n.length %>";
+let r="<%= r.length %>";
+let m_=parseInt(m)
+let n_=parseInt(n)
+let r_=parseInt(r)
+
+
 
 var echartsPieChartInit = function echartsPieChartInit() {
   var $pieChartEl = document.querySelector('.echart-pie-chart-example');
@@ -5016,19 +5024,19 @@ var echartsPieChartInit = function echartsPieChartInit() {
           },
           center: ['50%', '55%'],
           data: [{
-            value: 1048,
+            value: m_,
             name: 'Marcadas',
             itemStyle: {
               color: utils.getColor('primary')
             }
           }, {
-            value: 735,
+            value: n_,
             name: 'Não Realizadas',
             itemStyle: {
               color: utils.getColor('danger')
             }
           },  {
-            value: 484,
+            value: r_,
             name: 'Realizadas',
             itemStyle: {
               color: utils.getColor('success')
@@ -6424,6 +6432,14 @@ var echartsScatterSingleAxisChartInit = function echartsScatterSingleAxisChartIn
 
 /* -------------------------------------------------------------------------- */
 
+let naorealizado="<%= naorealizado %>";
+let realizado="<%= realizado %>";
+let marcada="<%= marcada %>";
+let marcada_=marcada.split(",").map(d=>parseInt(d))
+let naorealizado_=naorealizado.split(",").map(d=>parseInt(d))
+let realizado_=realizado.split(",").map(d=>parseInt(d))
+let meses="<%= meses %>";
+let meses_=meses.split(",");
 
 var echartsStackedAreaChartInit = function echartsStackedAreaChartInit() {
   var $stackedAreaChartEl = document.querySelector('.echart-stacked-area-chart-example');
@@ -6432,7 +6448,7 @@ var echartsStackedAreaChartInit = function echartsStackedAreaChartInit() {
     // Get options from data attribute
     var userOptions = utils.getData($stackedAreaChartEl, 'options');
     var chart = window.echarts.init($stackedAreaChartEl);
-    var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    var days = meses_;
 
     var getDefaultOptions = function getDefaultOptions() {
       return {
@@ -6504,7 +6520,7 @@ var echartsStackedAreaChartInit = function echartsStackedAreaChartInit() {
           type: 'line',
           symbolSize: 10,
           stack: 'product',
-          data: [220, 182, 191, 234, 290, 330, 310],
+          data: realizado_,
           areaStyle: {
             color: utils.rgbaColor(utils.getColor('success'), 0.3)
           },
@@ -6522,7 +6538,7 @@ var echartsStackedAreaChartInit = function echartsStackedAreaChartInit() {
           type: 'line',
           symbolSize: 10,
           stack: 'product',
-          data: [150, 232, 201, 154, 190, 330, 410],
+          data: naorealizado_,
           areaStyle: {
             color: utils.rgbaColor(utils.getColor('danger'), 0.3)
           },
@@ -6540,7 +6556,7 @@ var echartsStackedAreaChartInit = function echartsStackedAreaChartInit() {
           type: 'line',
           symbolSize: 10,
           stack: 'product',
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: marcada_,
           areaStyle: {
             color: utils.rgbaColor(utils.getColor('primary'), 0.3)
           },

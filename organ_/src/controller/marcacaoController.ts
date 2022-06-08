@@ -455,7 +455,6 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
   }
 })
 
-
 MarcacaoController.get('/deletarrmarcacao/:id', async(req:Request, resp: Response)=>{
   try {
     const {id}= req.params; 
@@ -477,5 +476,5 @@ MarcacaoController.get('/deletarrmarcacao/:id', async(req:Request, resp: Respons
 
 export default MarcacaoController;
 
-//image, name, email, whatsaap, nomeuser senha
+// image, name, email, whatsaap, nomeuser senha
 

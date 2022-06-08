@@ -194,7 +194,7 @@
             <div class="col-xxl-6">
               <div class="card overflow-hidden">
                 <div class="card-header">
-                  <h6 class="mb-0">Deal Forecast by Owner</h6>
+                  <h6 class="mb-0">Ultimas Consultas Marcadas</h6>
                 </div>
                 <div class="card-body p-0">
                   <div class="table-responsive scrollbar">
@@ -1295,7 +1295,14 @@ var echartsBarStackedChartInit = function echartsBarStackedChartInit() {
 /*                         Echarts Bar Timeline Chart                         */
 
 /* -------------------------------------------------------------------------- */
-
+let naorealizado="<%= naorealizado %>";
+let realizado="<%= realizado %>";
+let marcada="<%= marcada %>";
+let marcada_=marcada.split(",").map(d=>parseInt(d))
+let naorealizado_=naorealizado.split(",").map(d=>parseInt(d))
+let realizado_=realizado.split(",").map(d=>parseInt(d))
+let meses="<%= meses %>";
+let meses_=meses.split(",");
 
 var echartsBarTimelineChartInit = function echartsBarTimelineChartInit() {
   var $barTimelineChartEl = document.querySelector('.echart-bar-timeline-chart-example');
@@ -1304,7 +1311,7 @@ var echartsBarTimelineChartInit = function echartsBarTimelineChartInit() {
     // Get options from data attribute
     var userOptions = utils.getData($barTimelineChartEl, 'options');
     var chart = window.echarts.init($barTimelineChartEl);
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var months = meses_;
     var dataMap = {};
 
     var dataFormatter = function dataFormatter(obj) {
@@ -1319,18 +1326,15 @@ var echartsBarTimelineChartInit = function echartsBarTimelineChartInit() {
     };
 
     dataMap.dataTI = dataFormatter({
-      2005: [88.68, 112.38, 1400, 262.42, 589.56, 882.41, 625.61, 684.6, 90.26, 1461.51, 892.83, 966.5],
-      2006: [88.8, 103.35, 1461.81, 276.77, 634.94, 939.43, 672.76, 750.14, 93.81, 1545.05, 925.1, 1011.03],
+      2022: naorealizado_
 
     });
     dataMap.dataSI = dataFormatter({
-      2005: [2026.51, 2135.07, 5271.57, 2357.04, 1773.21, 3869.4, 1580.83, 2971.68, 4381.2, 10524.96, 7164.75, 2245.9],
-      2006: [2191.43, 2457.08, 6110.43, 2755.66, 2374.96, 4566.83, 1915.29, 3365.31, 4969.95, 12282.89, 8511.51, 2711.18],
+      2022: realizado_
 
     });
     dataMap.dataPI = dataFormatter({
-      2005: [4854.33, 1658.19, 3340.54, 1611.07, 1542.26, 3295.45, 1413.83, 1857.42, 4776.2, 6612.22, 5360.1, 2137.77],
-      2006: [5837.55, 1902.31, 3895.36, 1846.18, 1934.35, 3798.26, 1687.07, 2096.35, 5508.48, 7914.11, 6281.86, 2390.29],
+      2022: marcada_
     });
 
     var getDefaultOptions = function getDefaultOptions() {
@@ -1340,7 +1344,7 @@ var echartsBarTimelineChartInit = function echartsBarTimelineChartInit() {
             axisType: 'category',
             autoPlay: true,
             playInterval: 1000,
-            data: ['2005', '2006'],
+            data: ['2022'],
             label: {
               formatter: function formatter(s) {
                 return new Date(s).getFullYear();
@@ -1451,14 +1455,14 @@ var echartsBarTimelineChartInit = function echartsBarTimelineChartInit() {
         },
         options: [{
           title: {
-            text: '2005'
+            text: '2022'
           },
           series: [{
-            data: dataMap.dataPI['2005']
+            data: dataMap.dataPI['2022']
           }, {
-            data: dataMap.dataSI['2005']
+            data: dataMap.dataSI['2022']
           }, {
-            data: dataMap.dataTI['2005']
+            data: dataMap.dataTI['2022']
           }]
         }, {
           title: {

@@ -70,9 +70,19 @@ const MedicoController=Router();
     }    
   )
 
-MedicoController.post("/editarrMedico", async(req:Request, resp:Response) =>{
-  const{id, nomeMedico, userMedico, emailMedico, tellMedico, passMedico}=req.params;
-  const d= await knex('medico').where('idMedico',id).update({nomeMedico, userMedico, emailMedico, tellMedico, passMedico});
+MedicoController.post("/editarrMedic0",medicoAuth,upload.single('image'), async(req:Request, resp:Response) =>{
+     
+
+  const {nomeMedico,id, userMedico, emailMedico, tellMedico, passMedico,generoMedico, descMedico,enderecoMedico}= req.body;
+  const idUser= req.session?.user.id;
+  const f= await knex('medico').where('idMedico',id).first(); 
+  const imagemMedico= (req.file) ? req.file.filename : f.imagemMedico; 
+  const d= await knex('medico')
+  .where('idMedico',id).update({nomeMedico, userMedico, emailMedico, tellMedico, passMedico,generoMedico,enderecoMedico, descMedico,imagemMedico});
+  console.log(d);
+  resp.redirect('/medicoperfil');
+  
+  
 
 })
 MedicoController.get("/deletarMedico/:id", async(req:Request, resp:Response) =>{
@@ -99,10 +109,30 @@ MedicoController.get("/listarmarcacoes",medicoAuth, async(req:Request, resp:Resp
   const idUser= req.session?.user.id;
   const medico= await knex('medico')
   .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
-  const consultas= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico').where('marcacao.idMedico', idUser)
+  const consultas= await knex('marcacao')
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('marcacao.idMedico', idUser)
   
   resp.render('Medico/consultaLista',{medico, consultas});
 })
+MedicoController.get("/medicioEditar_",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consultas= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico').where('marcacao.idMedico', idUser)
+  const especialidades=await knex('especialidade').select('*')
+  
+  resp.render('Medico/editarMedico',{medico, consultas, especialidades});
+})
+MedicoController.post("/editarMedico_",medicoAuth,upload.single('image'), async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {nomeMedico, userMedico, emailMedico, descMedico, idMedico , idEspecialidade} =req.body;
+  
+  const paciente= await knex('medico').where('idMedico', idMedico).update({nomeMedico, userMedico, emailMedico, descMedico,idEspecialidade})
+  resp.redirect('/perfilMedico_/'+idMedico)
+})
+
 MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const {id}= req.params;

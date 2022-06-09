@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/app/events/create-an-event.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:33:58 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Organ</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="/assets/js/config.js"></script>
+    <script src="/vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="/vendors/choices/choices.min.css" rel="stylesheet">
+    <link href="/vendors/flatpickr/flatpickr.min.css" rel="stylesheet">
+    <link href="/vendors/dropzone/dropzone.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="/vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+    <link href="/assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
+    <link href="/assets/css/theme.min.css" rel="stylesheet" id="style-default">
+    <link href="/assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+    <link href="/assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <script>
+      var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+      if (isRTL) {
+        var linkDefault = document.getElementById('style-default');
+        var userLinkDefault = document.getElementById('user-style-default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+      } else {
+        var linkRTL = document.getElementById('style-rtl');
+        var userLinkRTL = document.getElementById('user-style-rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <div class="container" data-layout="container">
+        <script>
+          var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+          if (isFluid) {
+            var container = document.querySelector('[data-layout]');
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+          }
+        </script>
+
+<%- include ("./PartialMedico/HeaderSideBar") %>
+<div class="content">
+    <%- include ("./PartialMedico/MenuMedico") %>
+
+          <script>
+            var navbarPosition = localStorage.getItem('navbarPosition');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            var navbarTopVertical = document.querySelector('.content .navbar-top');
+            var navbarTop = document.querySelector('[data-layout] .navbar-top');
+            var navbarTopCombo = document.querySelector('.content [data-navbar-top="combo"]');
+            if (navbarPosition === 'top') {
+              navbarTop.removeAttribute('style');
+              navbarTopVertical.remove(navbarTopVertical);
+              navbarVertical.remove(navbarVertical);
+              navbarTopCombo.remove(navbarTopCombo);
+            } else if (navbarPosition === 'combo') {
+              navbarVertical.removeAttribute('style');
+              navbarTopCombo.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopVertical.remove(navbarTopVertical);
+            } else {
+              navbarVertical.removeAttribute('style');
+              navbarTopVertical.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopCombo.remove(navbarTopCombo);
+            }
+          </script>
+
+            <div class="row mt-lg-0 mt-xl-5 mt-xxl-0">
+                <div class="col-lg-6 col-xl-12 col-xxl-6 h-100">
+                  <div class="d-flex mb-4"><span class="fa-stack me-2 ms-n1"><i class="fas fa-circle fa-stack-2x text-300"></i><i class="fa-inverse fa-stack-1x text-primary fas fa-tasks"></i></span>
+                    <div class="col">
+                      <h5 class="mb-0 text-primary position-relative"><span class="bg-200 dark__bg-1100 pe-3">Editar Dados Médicos</span><span class="border position-absolute top-50 translate-middle-y w-100 start-0 z-index--1"></span></h5>
+                      <p class="mb-0">Edite seus dados</p>
+                    </div>
+                  </div>
+                  <div class="card theme-wizard mb-5 mb-lg-0 mb-xl-5 mb-xxl-0 h-100">
+                    <div class="card-header bg-light pt-3 pb-2">
+                      <ul class="nav nav-pills mb-3" role="tablist" id="pill-tab2">
+                        <li class="nav-item" role="presentation"><button class="nav-link active" data-wizard-step="data-wizard-step" data-bs-toggle="pill" data-bs-target="#form-wizard-progress-tab1" type="button" role="tab" aria-controls="form-wizard-progress-tab1" aria-selected="true"><span class="fas fa-lock me-2" data-fa-transform="shrink-2"></span><span class="d-none d-md-inline-block fs--1">Conta de médico</span></button></li>
+                      </ul>
+                    </div>
+                    <div class="progress" style="height: 2px;">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="card-body py-4">
+                      <form action="/editarrMedic0" method="post" enctype="multipart/form-data" class="tab-content">
+                        <div class="tab-pane active px-sm-3 px-md-5" role="tabpanel" aria-labelledby="form-wizard-progress-tab1" id="form-wizard-progress-tab1">
+                          <div novalidate="novalidate">
+                            <div class="mb-3">
+                              <div class="row" data-dropzone="data-dropzone" data-options='{"maxFiles":1,"data":[{"name":"avatar.png","size":"54kb","url":"/assets/img/team"}]}'>
+                                <div></div>
+                                <div class="col-md-auto">
+                                  <div class="dz-preview dz-preview-single">
+                                    <div class="dz-preview-cover d-flex align-items-center justify-content-center mb-3 mb-md-0">
+                                      <div class="avatar avatar-4xl"><img class="rounded-circle" src="/assets/img/team/avatar.png" alt="..." data-dz-thumbnail="data-dz-thumbnail" /></div>
+                                      <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md">
+                                  <div class=" px-2 py-3">
+                                    <div class="text-center"><img class="me-2" src="/assets/img/icons/cloud-upload.svg" width="25" alt="" /> 
+                                      <input  type="file" name="image" accept="image/png, image/jpeg"/>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="form-wizard-progress-wizard-name">Nome*</label>
+                              <input class="form-control" type="text" value="<%=medico.nomeMedico %> " name="nomeMedico" placeholder="John Smith" id="form-wizard-progress-wizard-name" />
+                            </div>
+                            <div class="mb-3"><label class="form-label"  for="form-wizard-progress-wizard-name">Username*</label>
+                              <input class="form-control" value="<%=medico.userMedico %>" type="text" name="userMedico" placeholder="Username" id="form-wizard-progress-wizard-name" /></div>
+                            <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-email">Email*</label><input value="<%=medico.emailMedico %> " class="form-control" type="email" name="emailMedico" placeholder="Email address" pattern="^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$" required="required" id="form-wizard-progress-wizard-email" data-wizard-validate-email="true" />
+                              <div class="invalid-feedback">You must add email</div>
+                            </div>
+                            <div>
+                              <div class="mb-3"><label class="form-label" for="form-wizard-progress-gender">Genero</label><select class="form-select" name="generoMedico" id="form-wizard-progress-gender">
+                              
+                                  <option value="Masculino">Masculino</option>
+                                  <option value="Femenino">Femenino</option>
+                                </select></div>
+                              <div class="mb-3"><label class="form-label" for="form-wizard-progress-wizard-phone">Telefone</label><input value="<%=medico.tellMedico %> "  class="form-control" type="text" name="tellMedico" placeholder="Phone" id="form-wizard-progress-wizard-phone" /></div>
+                              <div class="mb-3">
+                                <label class="form-label" for="form-wizard-progress-wizard-name">Endereço*</label>
+                                <input class="form-control" type="text" value="<%=medico.enderecoMedico %> " name="enderecoMedico" placeholder="John Smith" id="form-wizard-progress-wizard-name" />
+                              </div>
+                              <div class="mb-3"><label  class="form-label" for="form-wizard-progress-wizard-address">Descrição</label>
+                                <textarea class="form-control" name="descMedico" rows="4" id="form-wizard-progress-wizard-address"><%=medico.descMedico %></textarea>
+                                <input type="hidden" name="id" value="<%=medico.idMedico %>">
+                              </div>
+                            </div>
+                            
+                            <div class="form-check"><input class="form-check-input" type="checkbox" name="terms" required="required" checked="checked" id="form-wizard-progress-wizard-checkbox" /><label class="form-check-label" for="form-wizard-progress-wizard-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label></div>
+                          </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                          <div class="px-sm-3 px-md-5">
+                            <ul class="pager wizard list-inline mb-0">
+                              <li class="previous"><button class="btn btn-link ps-0" type="button"><span class="fas fa-chevron-left me-2" data-fa-transform="shrink-3"></span></button></li>
+                              <li class="next"><button class="btn btn-primary px-5 px-sm-6" type="submit">Editar Dados<span class="fas fa-chevron-right ms-2" data-fa-transform="shrink-3"> </span></button></li>
+                            </ul>
+                          </div>
+                        </div>
+                        
+    
+                      </form>
+                    </div>
+    
+                  </div>
+                </div>
+    
+              </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </main><!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="/vendors/popper/popper.min.js"></script>
+    <script src="/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="/vendors/anchorjs/anchor.min.js"></script>
+    <script src="/vendors/is/is.min.js"></script>
+    <script src="/vendors/choices/choices.min.js"></script>
+    <script src="/assets/js/flatpickr.js"></script>
+    <script src="/vendors/dropzone/dropzone.min.js"></script>
+    <script src="/vendors/fontawesome/all.min.js"></script>
+    <script src="/vendors/lodash/lodash.min.js"></script>
+    <script src="/polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
+    <script src="/vendors/list.js/list.min.js"></script>
+    <script src="/assets/js/theme.js"></script>
+  </body>
+
+
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/app/events/create-an-event.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:34:01 GMT -->
+</html>

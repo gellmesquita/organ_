@@ -140,9 +140,11 @@
                     <% consultas.reverse().map(consulta=>{%>
                       <tr class="btn-reveal-trigger">
                         <td class="order py-2 align-middle white-space-nowrap">
-                         <%= consulta.nomeMedico %> 
+                          Consulta nº<%= consulta.idMarcacao %> 
+                         </td>
+                        <td class="order py-2 align-middle white-space-nowrap">
+                         <%= consulta.nomePaciente %> 
                         </td>
-                        <td class="date py-2 align-middle"><%= consulta.dataMarcacao %> </td>
                         <td class="address py-2 align-middle white-space-nowrap">
                        
             
@@ -153,7 +155,7 @@
                           <%= consulta.dataMarcacao %> 
                          </td>
                          <td class="order py-2 align-middle white-space-nowrap">
-                          <%= consulta.hora %> 
+                          <%= consulta.hora %>:00
                          </td>
                          <td class="order py-2 align-middle white-space-nowrap">
                           <%= consulta.dia %> 

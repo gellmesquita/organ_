@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/app/email/compose.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:33:58 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Organ</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="/assets/js/config.js"></script>
+    <script src="/vendors/overlayscrollbars/OverlayScrollbars.min.js"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="/vendors/overlayscrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+    <link href="/assets/css/theme-rtl.min.css" rel="stylesheet" id="style-rtl">
+    <link href="/assets/css/theme.min.css" rel="stylesheet" id="style-default">
+    <link href="/assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
+    <link href="/assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+      if (isRTL) {
+        var linkDefault = document.getElementById('style-default');
+        var userLinkDefault = document.getElementById('user-style-default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+      } else {
+        var linkRTL = document.getElementById('style-rtl');
+        var userLinkRTL = document.getElementById('user-style-rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <div class="container" data-layout="container">
+        <script>
+          var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+          if (isFluid) {
+            var container = document.querySelector('[data-layout]');
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+          }
+        </script>
+       
+       <%- include ("./PartialMedico/HeaderSideBar") %>
+       <div class="content">
+           <%- include ("./PartialMedico/MenuMedico") %>
+         
+          <script>
+            var navbarPosition = localStorage.getItem('navbarPosition');
+            var navbarVertical = document.querySelector('.navbar-vertical');
+            var navbarTopVertical = document.querySelector('.content .navbar-top');
+            var navbarTop = document.querySelector('[data-layout] .navbar-top');
+            var navbarTopCombo = document.querySelector('.content [data-navbar-top="combo"]');
+            if (navbarPosition === 'top') {
+              navbarTop.removeAttribute('style');
+              navbarTopVertical.remove(navbarTopVertical);
+              navbarVertical.remove(navbarVertical);
+              navbarTopCombo.remove(navbarTopCombo);
+            } else if (navbarPosition === 'combo') {
+              navbarVertical.removeAttribute('style');
+              navbarTopCombo.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopVertical.remove(navbarTopVertical);
+            } else {
+              navbarVertical.removeAttribute('style');
+              navbarTopVertical.removeAttribute('style');
+              navbarTop.remove(navbarTop);
+              navbarTopCombo.remove(navbarTopCombo);
+            }
+          </script>
+          <form action="/relatorio1" method="post" class="card">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Enviar Relatório Médico</h5>
+            </div>
+            <div class="card-body p-0">
+              <div class="border border-top-0 border-200">
+                    <p class="form-control border-0 rounded-0 outline-none px-card">
+                        Relatório da Consulta nº<%= consulta.idMarcacao %> 
+                    </p>
+                </div>
+              <div class="border border-y-0 border-200">
+                <p class="form-control border-0 rounded-0 outline-none px-card">
+                    Paciente:  <span style="font-weight: bold;"><%=consulta.nomePaciente %></span>
+                </p>
+            </div>
+              <div class="min-vh-50">
+                <textarea name="descRelatorio1" id="mytextarea">Crie Seu Relatório Médico</textarea>
+                <input value="<%=consulta.idMarcacao %> " type="hidden" name="id">
+            </div>
+
+            </div>
+            <div class="card-footer border-top border-200 d-flex flex-between-center">
+              <div class="d-flex align-items-center"><button class="btn btn-primary btn-sm px-5 me-2" type="submit">Enviar</button><input class="d-none" id="email-attachment" type="file" /><label class="me-2 btn btn-light btn-sm mb-0 cursor-pointer" for="email-attachment" data-bs-toggle="tooltip" data-bs-placement="top" title="Attach files"><span class="fas fa-paperclip fs-1" data-fa-transform="down-2"></span></label><input class="d-none" id="email-image" type="file" accept="image/*" /><label class="btn btn-light btn-sm mb-0 cursor-pointer" for="email-image" data-bs-toggle="tooltip" data-bs-placement="top" title="Attach images"><span class="fas fa-image fs-1" data-fa-transform="down-2"></span></label></div>
+              <div class="d-flex align-items-center">
+                <div class="dropdown font-sans-serif me-2 btn-reveal-trigger"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" id="email-options" type="button" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-v" data-fa-transform="down-2"></span></button>
+                  <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-options"><a class="dropdown-item" href="#!">Print</a><a class="dropdown-item" href="#!">Check spelling</a><a class="dropdown-item" href="#!">Plain text mode</a>
+                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#!">Archive</a>
+                  </div>
+                </div><button class="btn btn-light btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"> <span class="fas fa-trash"></span></button>
+              </div>
+            </div>
+          </form>
+        
+        </div>
+        
+      </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="/vendors/popper/popper.min.js"></script>
+    <script src="/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="/vendors/anchorjs/anchor.min.js"></script>
+    <script src="/vendors/is/is.min.js"></script>
+    <script src="/vendors/tinymce/tinymce.min.js"></script>
+    <script src="/vendors/fontawesome/all.min.js"></script>
+    <script src="/vendors/lodash/lodash.min.js"></script>
+    <script src="/../../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
+    <script src="/vendors/list.js/list.min.js"></script>
+    <script src="/assets/js/theme.js"></script>
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <!-- <script src="/tinymce/tinymce.min.js" referrerpolicy="origin"></script> -->
+
+    <script>
+      tinymce.init({
+        selector: '#mytextarea',
+        plugins: [
+          'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+          'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+          'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+        ],
+        toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+          'alignleft aligncenter alignright alignjustify | ' +
+          'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+      });
+    </script>
+  </body>
+
+
+<!-- Mirrored from prium.github.io/falcon/v3.4.0/app/email/compose.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 May 2022 17:33:58 GMT -->
+</html>

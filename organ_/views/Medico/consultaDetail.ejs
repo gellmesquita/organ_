@@ -210,9 +210,12 @@
                 </div>
               </div>
             </div>  
-            <div class="card-footer border-top text-end">
-              <a class="btn btn-falcon-default btn-sm ms-2" href="#!"></span>Enviar Relatório Médico</a></div>
-          </div>
+            <% if(consulta.dataMarcacao==consulta.dataMarcacao){ %>
+              <div class="card-footer border-top text-end">
+                <a class="btn btn-falcon-default btn-sm ms-2" href="/relatorioMedico_/<%=consulta.idMarcacao %> "></span>Enviar Relatório Médico</a></div>
+              </div>
+            <%} %> 
+
 
 
         </div>
@@ -233,7 +236,7 @@
     <script src="/vendors/is/is.min.js"></script>
     <script src="/vendors/fontawesome/all.min.js"></script>
     <script src="/vendors/lodash/lodash.min.js"></script>
-    <script src="//../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
+    <script src="/../../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
     <script src="/vendors/list.js/list.min.js"></script>
     <script src="/assets/js/theme.js"></script>
   </body>

@@ -132,6 +132,17 @@ MedicoController.post("/editarMedico_",medicoAuth,upload.single('image'), async(
   const paciente= await knex('medico').where('idMedico', idMedico).update({nomeMedico, userMedico, emailMedico, descMedico,idEspecialidade})
   resp.redirect('/perfilMedico_/'+idMedico)
 })
+MedicoController.get("/pacienteMedico",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consultas= await knex('marcacao')
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('marcacao.idMedico', idUser)
+  
+  resp.render('Medico/pacienteLista',{medico, consultas});
+})
 
 MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
@@ -144,6 +155,48 @@ MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:
   .where('idMarcacao', id).first()
   
   resp.render('Medico/consultaDetail',{medico, consulta});
+})
+MedicoController.get("/relatorioMedico_/:id",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {id}= req.params;
+
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('idMarcacao', id).first()
+  
+  resp.render('Medico/relatorioMedico',{medico, consulta});
+})
+
+MedicoController.post("/relatorio1",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {id, descRelatorio1}= req.body;
+
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+
+  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('idMarcacao', id).first()
+  
+  resp.render('Medico/enviarRelatorio2',{medico, consulta, id, descRelatorio1});
+})
+
+MedicoController.post("/relatorioFinal",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {idMarcacao, descRelatorio1, AnaliseRelatorio, descRelatorio, Resultado}= req.body;
+  const idMedico=idUser;
+  const estadoRelatorio=0;
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+
+  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('idMarcacao', idMarcacao).first()
+  resp.send('Trabalhar')
+  
+  // resp.render('Medico/enviarRelatorio2',{medico, consulta, id, descRelatorio1});
 })
 
 //Roras Do Medico 

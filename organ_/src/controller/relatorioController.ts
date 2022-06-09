@@ -96,6 +96,19 @@ relatorioController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, re
   
   resp.render('Medico/consultaDetail',{medico, consulta});
 })
+relatorioController.get("/relatoriosMedicos_",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+
+  const relatorios= await knex('Relatorio')
+  .join('medico', 'Relatorio.idMedico', 'medico.idMedico')
+  .join('marcacao', 'Relatorio.idMarcacao', 'marcacao.idMarcacao')
+
+    const paciente= await knex('marcacao').join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  
+  resp.render('Administrador/relatorioLista',{medico, relatorios, paciente});
+})
 
 
 

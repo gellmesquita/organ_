@@ -156,53 +156,6 @@ MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:
   
   resp.render('Medico/consultaDetail',{medico, consulta});
 })
-MedicoController.get("/relatorioMedico_/:id",medicoAuth, async(req:Request, resp:Response) =>{
-  const idUser= req.session?.user.id;
-  const {id}= req.params;
-
-  const medico= await knex('medico')
-  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
-  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
-  .where('idMarcacao', id).first()
-  
-  resp.render('Medico/relatorioMedico',{medico, consulta});
-})
-
-MedicoController.post("/relatorio1",medicoAuth, async(req:Request, resp:Response) =>{
-  const idUser= req.session?.user.id;
-  const {id, descRelatorio1, idPaciente}= req.body;
-
-  const medico= await knex('medico')
-  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
-
-  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
-  .where('idMarcacao', id).first()
-  
-  resp.render('Medico/enviarRelatorio2',{medico, consulta, id, descRelatorio1, idPaciente});
-})
-
-MedicoController.post("/relatorioFinal",medicoAuth, async(req:Request, resp:Response) =>{
-  const idUser= req.session?.user.id;
-  const {idMarcacao, descRelatorio1, AnaliseRelatorio, descRelatorio, Resultado, idPaciente}= req.body;
-  const idMedico=idUser;
-  const estadoRelatorio=0;
-  const medico= await knex('medico')
-  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
-
-  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
-  .where('idMarcacao', idMarcacao).first()
-  if(descRelatorio=="" || AnaliseRelatorio==""){
-    resp.redirect('/relatorioMedico_/'+idMarcacao)
-  }else{
-    const c=await knex('Relatorio').insert({idMarcacao,idPaciente, descRelatorio1, AnaliseRelatorio, descRelatorio, Resultado,estadoRelatorio,idMedico})
-    resp.redirect('/listarRelatorios')
-  }
-    
-  // resp.render('Medico/enviarRelatorio2',{medico, consulta, id, descRelatorio1});
-})
 
 //Roras Do Medico 
 MedicoController.get("/medicoPainel",medicoAuth, async(req:Request, resp:Response) =>{
@@ -401,8 +354,10 @@ MedicoController.get("/adminPainel",adminAuth, async(req:Request, resp:Response)
     }
     
 })
+
+  const usuarios=medicos.concat(pacientes).concat(medico)
   
-  resp.render("Administrador/index",  {medico,medicos,consultas, pacientes, naorealizado,realizado,marcada, meses, especialidades })
+  resp.render("Administrador/index",  {medico,usuarios,medicos,consultas, pacientes, naorealizado,realizado,marcada, meses, especialidades })
 })
 
 MedicoController.get("/listarMedico",adminAuth, async(req:Request, resp:Response) =>{

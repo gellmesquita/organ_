@@ -131,7 +131,6 @@
                       <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">Especilização</th>
                       <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Data</th>
                      
-                      <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Analise</th>
                       <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Estado</th>
                       <th class="sort pe-1 align-middle white-space-nowrap text-center">Detalhes</th>
                     </tr>
@@ -140,40 +139,23 @@
                     <% relatorios.reverse().map(relatorio=>{%>
                       <tr class="btn-reveal-trigger">
                         <td class="order py-2 align-middle white-space-nowrap">
-                         Relatorio nº<%= relatorio.idRelatorio %> 
+                         Relatorio nº<%= relatorio.id %> 
                         </td>
                         <td class="date py-2 align-middle"><%= relatorio.nomePaciente %> </td>
                         <td class="address py-2 align-middle white-space-nowrap">
                        
-                            <% paciente.filter(e=>e.idMarcacao==relatorio.idMarcacao).map(e=>{%> 
-                                <%= e.nomePaciente %>
-                            <%}) %> 
+                      
+                          <%= medico.nomeEspecialidade %>
+                           
                              
                         </td>
-                        <td class="order py-2 align-middle white-space-nowrap">
-                            <%= medico.nomeEspecialidade %> 
-                           </td>
                         <td class="order py-2 align-middle white-space-nowrap">
                           <%= relatorio.created_at %> 
                          </td>
                          <td class="order py-2 align-middle white-space-nowrap">
-                          <%= relatorio.analiseRelatorio %> 
+                          <%= relatorio.Resultado %> 
                          </td>
-                        <td class="status py-2 align-middle text-center fs-0 ">
-                          <% if (relatorio.estadoRelatorio==0) { %>
-                            <span class="badge badge rounded-pill badge-soft-primary">
-                              Marcada
-                            </span>
-                          <% }else if (relatorio.estadoRelatorio==1) { %>
-                            <span class="badge badge rounded-pill badge-soft-success">
-                              Realizada
-                            </span>
-                          <% }else if (relatorio.estadoRelatorio==2) { %>
-                            <span class="badge badge rounded-pill badge-soft-success">
-                              Realizada
-                            </span>
-                          <% } %>
-                      </td>
+                        
                          <td class="py-2 align-middle white-space-nowrap text-end">
                           <div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
                             <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">

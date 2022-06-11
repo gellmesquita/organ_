@@ -79,6 +79,7 @@ relatorioController.get("/listarRelatorios",medicoAuth, async(req:Request, resp:
   const relatorios= await knex('Relatorio')
   .join('medico', 'Relatorio.idMedico', 'medico.idMedico')
   .join('marcacao', 'Relatorio.idMarcacao', 'marcacao.idMarcacao')
+  .join('paciente', 'Relatorio.idPaciente', 'paciente.idPaciente')
   .where('relatorio.idMedico', idUser);
     const paciente= await knex('marcacao').join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente').where('marcacao.idMedico',idUser )
   
@@ -104,10 +105,12 @@ relatorioController.get("/relatoriosMedicos_",adminAuth, async(req:Request, resp
   const relatorios= await knex('Relatorio')
   .join('medico', 'Relatorio.idMedico', 'medico.idMedico')
   .join('marcacao', 'Relatorio.idMarcacao', 'marcacao.idMarcacao')
+  .join('paciente', 'Relatorio.idPaciente', 'paciente.idPaciente')
 
+  const especialidades= await knex('especialidade').select('*');
     const paciente= await knex('marcacao').join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
   
-  resp.render('Administrador/relatorioLista',{medico, relatorios, paciente});
+  resp.render('Administrador/relatorioLista',{medico, relatorios, paciente, especialidades});
 })
 
 

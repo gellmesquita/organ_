@@ -105,7 +105,7 @@
                                                                 <th class="align-middle">Consulta</th>
                                                                 <th class="align-middle white-space-nowrap pe-3">Data
                                                                 </th>
-                                                                <th class="align-middle white-space-nowrap pe-3">Análise
+                                                                <th class="align-middle white-space-nowrap pe-3">Estado
                                                                 </th>
                                                                 <th class="align-middle white-space-nowrap pe-3">Accão
                                                                 </th>
@@ -114,10 +114,8 @@
                                                         <tbody id="bulk-select-body">
                                                             <% relatorios.reverse().map(c=>{%> 
                                                                 <tr>
-                                                                    <th class="align-middle">  Relatorio nº<%= c.idRelatorio %> </th> 
+                                                                    <th class="align-middle">  Relatorio nº<%= c.id %> </th> 
                                                                     <th class="align-middle"><%= c.nomePaciente  %></th>  
-                                                                    
-                                                                    <td class="align-middle"><%= c.nomeMedico  %></td>
                                                                     <td
                                                                         class="align-middle white-space-nowrap text-end pe-3">
                                                                         <% especialidades.map(esp=>{%>
@@ -128,16 +126,21 @@
                                                                     </td>
                                                                     <td class="align-middle white-space-nowrap text-end pe-3">
                                                                        
-                                                                            <%= c.dataMarcacao  %>
+                                                                            <%= c.created_at  %>
                                                                          
                                                                     </td>
+                                                                    <td class="align-middle white-space-nowrap text-end pe-3">
+                                                                       
+                                                                      <%= c.Resultado  %>
+                                                                   
+                                                              </td>
                                                                     <td
                                                                         class="align-middle white-space-nowrap text-end pe-3">
                                                                         <div class="btn-group" role="group">
                                                                             <button class="btn btn-falcon-success dropdown-toggle" id="btnGroupVerticalDrop4" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
                                                                             <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop4">
-                                                                              <a class="dropdown-item" href="/detalheConsulta/<%= c.idMarcacao  %>">ver</a>
-                                                                              <a class="dropdown-item" href="/deletarConsulta/<%= c.idEspecialidade  %>">Eliminar</a>
+                                                                              <a class="dropdown-item" href="/detalheRelatorio/<%= c.id  %>">Detalhes</a>
+                                                                              <a class="dropdown-item" href="/deletarRelatorio/<%= c.id  %>">Eliminar</a>
                                                                             </div>
                                                                           </div>
                                                                     </td>

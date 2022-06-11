@@ -116,6 +116,7 @@
               <div class="min-vh-50">
                 <textarea name="descRelatorio1" id="mytextarea">Crie Seu Relatório Médico</textarea>
                 <input value="<%=consulta.idMarcacao %> " type="hidden" name="id">
+                <input value="<%=consulta.idPaciente %> " type="hidden" name="idPaciente">
             </div>
 
             </div>
@@ -155,22 +156,29 @@
     <script src="/vendors/list.js/list.min.js"></script>
     <script src="/assets/js/theme.js"></script>
 
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
     
-    <!-- <script src="/tinymce/tinymce.min.js" referrerpolicy="origin"></script> -->
+    <script src="/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
+      // tinymce.init({
+      //   selector: '#mytextarea',
+      //   plugins: [
+      //     'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+      //     'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+      //     'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+      //   ],
+      //   toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+      //     'alignleft aligncenter alignright alignjustify | ' +
+      //     'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+      // });
       tinymce.init({
-        selector: '#mytextarea',
-        plugins: [
-          'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
-          'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
-          'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
-        ],
-        toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
-          'alignleft aligncenter alignright alignjustify | ' +
-          'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
-      });
+    language: 'pt_BR',
+    selector:"#mytextarea",
+    plugins: [
+        'lists color advlist print image autolink preview hr link searchreplace wordcount fullscreen insertdatatime media save table emoticons  advlist autolink a11ychecker advcode link image list print visualchars paste hr preview wordcount fullscreen searchreplace insertdatetime fullpage media save table emoticons'
+    ]
+})
     </script>
   </body>
 

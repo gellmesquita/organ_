@@ -5,7 +5,7 @@ import { Response, Request, Router } from  "express";
 import adminAuth from '../middlewre/admin'
 import medicoAuth from '../middlewre/medico'
 import pacienteAuth from '../middlewre/paciente'
-// import bCryptjs from 'bcryptjs'
+import {addDias, c,day,dataAtual } from '../config/data'
 const upload = multer(multerConfig);
 
 const MedicoController=Router();

@@ -76,78 +76,125 @@
             <%- include ("./partialAdmin/HeaderSideBar") %>
                 <div class="content">
                     <%- include ("./partialAdmin/MenuAdmin") %>
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row flex-between-end">
-                                    <div class="col-auto align-self-center">
-                                        <h5 class="mb-0">Listagem dos Medicos</h5>
-                                    </div>
-                                    <div class="col-auto align-self-center">
-                                        <h6 style="cursor:pointer" onclick="window.location='/'" class="mb-0">Gerar Relatório</h6>
-                                    </div>
-                                </div>
+                    <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
+                        <div class="card-header">
+                          <div class="row flex-between-center">
+                            <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
+                              <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Listagem Medicos</h5>
                             </div>
-                            <div class="card-body py-0 border-top">
-                                <div class="tab-content">
-                                    <div class="tab-pane preview-tab-pane active" role="tabpanel"
-                                        aria-labelledby="tab-dom-b5b90702-8f53-4c41-812c-1124c578a4c4"
-                                        id="dom-b5b90702-8f53-4c41-812c-1124c578a4c4">
-                                        <div class="card shadow-none">
-                                            <div class="card-body p-0 pb-3">
-                                                <div class="d-flex align-items-center justify-content-end my-3">
-                                                    <div id="bulk-select-replace-element">
-                                                        <button onclick="window.location='/FormMedico'"  class="btn btn-falcon-success btn-sm" type="button">
-                                                            <span class="fas fa-plus"
-                                                                data-fa-transform="shrink-3 down-2"></span><span
-                                                                class="ms-1">Cadastrar Medico</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="table-responsive scrollbar">
-                                                    <table class="table mb-0">
-                                                        <thead class="text-black bg-200">
-                                                            <tr>
-                                                                
-                                                                <th class="align-middle">Nome</th>
-                                                                <th class="align-middle">Username </th>
-                                                                <th class="align-middle">Email</th>
-                                                                
-                                                                <th class="align-middle white-space-nowrap pe-3">Especialização
-                                                                </th>
-                                                                <th class="align-middle white-space-nowrap pe-3">Accão
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="bulk-select-body">
-                                                            <% medicos.reverse().map(c=>{%> 
-                                                                <tr>
-                                                                   
-                                                                    <th class="align-middle"><%= c.nomeMedico  %></th>  
-                                                                    <td class="align-middle"><%= c.userMedico  %></td>
-                                                                    <td class="align-middle"><%= c.emailMedico  %></td>
-                                                                    
-                                                                    <td class="align-middle white-space-nowrap text-end pe-3">
-                                                                        <% especialidades.filter(esp=> esp.idEspecialidade==c.idEspecialidade).reverse().slice(0, 1).map(esp=>{%>
-                                                                            <%= esp.nomeEspecialidade  %>
-                                                                            <%  })
-                                                                        %>
-                                                                    </td>
-                                                                    <td class="align-middle white-space-nowrap text-end pe-3">
-                                                                        <button onclick="window.location='/perfilMedico_/<%= c.idMedico %>'" class="btn btn-falcon-primary me-1 mb-1" type="button">ver</button>
-                                                                    </td>
-                                                                </tr>
-                                                            <%  }) %> 
-                                                           
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                   
-                                </div>
+                            <div class="col-8 col-sm-auto ms-auto text-end ps-0">
+                              <div class="d-none" id="orders-bulk-actions">
+                                <div class="d-flex"><select class="form-select form-select-sm" aria-label="Bulk actions">
+                                   
+                                    <option value="Delete">Delete</option>
+                                    <option value="Archive">Archive</option>
+                                  </select><button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button></div>
+                              </div>
+                              <div id="orders-actions">
+                                
+                                <button class="btn btn-falcon-default btn-sm" type="button">
+                                  <span class="d-none d-sm-inline-block ms-1">
+                                    Gerar Relatório
+                                  </span>
+                                </button>
+                                <button onclick="window.location='/FormMedico'"  class="btn btn-falcon-success btn-sm" type="button">
+                                    <span class="fas fa-plus"
+                                        data-fa-transform="shrink-3 down-2"></span><span
+                                        class="ms-1">Cadastrar Medico</span>
+                                </button>
+                              </div>
                             </div>
+                          </div>
                         </div>
+                        <div class="card-body p-0">
+                          <div class="table-responsive scrollbar">
+                            <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+                              <thead class="bg-200 text-900">
+                                <tr>
+            
+                                  <th class="sort pe-1 align-middle white-space-nowrap" data-sort="order">identificador</th>
+                                  <th class="sort pe-1 align-middle white-space-nowrap" data-sort="date">Nome</th>
+                                  <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Email</th>
+                                  <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">Telefone</th>
+                                  <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Especialidade>
+                                  <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">estado</th>
+                                  <th class="sort pe-1 align-middle white-space-nowrap text-center">Accão</th>
+        
+                                </tr>
+                              </thead>
+                              <tbody class="list" id="table-orders-body">
+                                <% medicos.reverse().map(Medico=>{%>
+                                  <tr class="btn-reveal-trigger">
+                                    <td class="order py-2 align-middle white-space-nowrap">
+                                      Medico nº<%= Medico.idMedico %> 
+                                     </td>
+                                    <td class="order py-2 align-middle white-space-nowrap">
+                                     <%= Medico.nomeMedico %> 
+                                    </td>
+                                    <td class="order py-2 align-middle white-space-nowrap">
+                                        <%= Medico.emailMedico %> 
+                                    </td>
+                                    <td class="address py-2 align-middle white-space-nowrap">
+                                   
+                
+                                                <%= Medico.tellMedico  %>
+                                         
+                                       
+                                    </td>
+                                    <td class="order py-2 align-middle white-space-nowrap">
+                                        <% especialidades.filter(esp=> esp.idEspecialidade==Medico.idEspecialidade).reverse().slice(0, 1).map(esp=>{%>
+                                            <%= esp.nomeEspecialidade  %>
+                                            <%  })
+                                        %>
+                                     </td>
+                                    
+                                     
+                                    <td class="status py-2 align-middle text-center fs-0 ">
+                                      <% if (Medico.estadoMedico==1) { %>
+                                        <span class="badge badge rounded-pill badge-soft-success">
+                                          Activo
+                                        </span>
+                                      <% }else if (Medico.estadoMedico==0) { %>
+                                        <span class="badge badge rounded-pill badge-soft-danger">
+                                          Desactivado
+                                        </span>
+                                      <% }%>
+                                        
+                                  </td>
+                                     <td class="py-2 align-middle white-space-nowrap text-end">
+                                      <div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
+                                        <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
+                                          <div class="bg-white py-2">
+                                            
+                                            <a class="dropdown-item" href="/perfilMedico_/<%= Medico.idMedico %>">ver</a>
+                                        
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+            
+                                <% }) %> 
+                     
+            
+            
+            
+                                
+                                
+            
+                          
+                              </tbody>
+                            </table>
+                          </div>
+                          
+                        </div>
+                        <div class="card-footer">
+                          <div class="d-flex align-items-center justify-content-center"><button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                            <ul class="pagination mb-0"></ul><button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right">             </span></button>
+                          </div>
+                        </div>
+                      </div>
+                  
                        
                         <script>
                             var navbarPosition = localStorage.getItem('navbarPosition');

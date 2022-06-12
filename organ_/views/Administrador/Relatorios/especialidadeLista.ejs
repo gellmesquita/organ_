@@ -1,0 +1,113 @@
+                    
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row flex-between-end">
+                                    <div class="col-auto align-self-center">
+                                        <h5 class="mb-0">Listagem das Especialidades</h5>
+                                    </div>
+                                    <div class="col-auto align-self-center">
+                                        <h6 class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#error-modal" style="cursor:pointer" class="mb-0">Cadastrar Especialidade</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body py-0 border-top">
+                                <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                                      <div class="modal-content position-relative">
+                                        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div> 
+                                        <form method="post" action="/cadastarEspecialidade">
+                                            <div class="modal-body p-0">
+                                           
+                                                <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                                  <h4 class="mb-1" id="modalExampleDemoLabel">Cadastrar Especialidade</h4>
+                                                </div>
+                                                <div class="p-4 pb-0">
+                                                  <span>
+                                                    <div class="mb-3">
+                                                      <label class="col-form-label" for="recipient-name">Nome Especialidade</label>
+                                                      <input name="nomeEspecialidade" class="form-control" id="recipient-name" type="text" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                      <label class="col-form-label" for="message-text">Descrição</label>
+                                                      <textarea name="descEspecialidade" class="form-control" id="message-text"></textarea>
+                                                    </div>
+                                                  </span>
+                                                </div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Abortar</button>
+                                                <button type="submit" class="btn btn-primary" type="button">Cadastrar</button>
+                                              </div>
+                                        </form>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane preview-tab-pane active" role="tabpanel"
+                                        aria-labelledby="tab-dom-b5b90702-8f53-4c41-812c-1124c578a4c4"
+                                        id="dom-b5b90702-8f53-4c41-812c-1124c578a4c4">
+                                        <div class="card shadow-none">
+                                            <div class="card-body p-0 pb-3">
+                                                
+                                                <div class="table-responsive scrollbar">
+                                                    <table class="table mb-0">
+                                                        <thead class="text-black bg-200">
+                                                            <tr>
+                                                                
+                                                                <th class="align-middle">Idenficador</th>
+                                                                
+                                                                <th class="align-middle">Especialidade</th>
+                                                                
+                                                                </th>
+                                                                <th class="align-middle white-space-nowrap pe-3">Nº Especialista
+                                                                </th>
+                                                                <th class="align-middle white-space-nowrap pe-3">Accão
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="bulk-select-body">
+                                                            <% especialidades.map(c=>{%> 
+                                                                <tr>
+                                                                    
+                                                                    <th class="align-middle">Esp nº<%= c.idEspecialidade  %></th>  
+                                                                    
+                                                                    <td class="align-middle"><%= c.nomeEspecialidade  %></td>
+
+                                                                    <td class="align-middle white-space-nowrap text-end pe-3">
+                                                                         
+                                                                            
+                                                                            <% quantidade.map(esp=> {%>
+                                                                                <% if(esp.idEspecialidade==c.idEspecialidade){%>
+                                                                                    <%= esp.quantidade  %>
+                                                                                <%}  %>
+                                                                               
+                                                                            <%}) %>
+
+                                                                         
+                                                                    </td>
+                                                                    <td
+                                                                        class="align-middle white-space-nowrap text-end pe-3">
+                                                                        <div class="btn-group" role="group">
+                                                                            <button class="btn btn-falcon-success dropdown-toggle" id="btnGroupVerticalDrop4" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
+                                                                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop4">
+                                                                              <a class="dropdown-item" href="/detalheEsp/<%= c.idEspecialidade  %>">ver</a>
+                                                                              <a class="dropdown-item" href="/deletarEsp/<%= c.idEspecialidade  %>">Eliminar</a>
+                                                                            </div>
+                                                                          </div>
+                                                                    </td>
+                                                                </tr>
+                                                            <%  }) %> 
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>

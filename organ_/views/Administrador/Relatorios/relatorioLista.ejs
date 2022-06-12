@@ -1,0 +1,169 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row flex-between-end">
+            <div class="col-auto align-self-center">
+                <h5 class="mb-0">Relatórios Médicos</h5>
+            </div>
+            <div class="col-auto align-self-center">
+                <h6 style="cursor:pointer" onclick="window.location=''" class="mb-0">Gerar Relatório</h6>
+            </div>
+        </div>
+    </div>
+    <div class="card-body py-0 border-top">
+        <div class="tab-content">
+            <div class="tab-pane preview-tab-pane active" role="tabpanel"
+                aria-labelledby="tab-dom-b5b90702-8f53-4c41-812c-1124c578a4c4"
+                id="dom-b5b90702-8f53-4c41-812c-1124c578a4c4">
+                <div class="card shadow-none">
+                    <div class="card-body p-0 pb-3">
+                        
+                        <div class="table-responsive scrollbar">
+                            <table class="table mb-0">
+                                <thead class="text-black bg-200">
+                                    <tr>
+                                        <th class="align-middle">Identificador</th>
+                                        <th class="align-middle">Paciente</th>
+                                        
+                                        <th class="align-middle">Consulta</th>
+                                        <th class="align-middle white-space-nowrap pe-3">Data
+                                        </th>
+                                        <th class="align-middle white-space-nowrap pe-3">Estado
+                                        </th>
+                                        <th class="align-middle white-space-nowrap pe-3">Accão
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bulk-select-body">
+                                    <% relatorios.reverse().map(c=>{%> 
+                                        <tr>
+                                            <th class="align-middle">  Relatorio nº<%= c.id %> </th> 
+                                            <th class="align-middle"><%= c.nomePaciente  %></th>  
+                                            <td
+                                                class="align-middle white-space-nowrap text-end pe-3">
+                                                <% especialidades.map(esp=>{%>
+                                                    <% if(c.idEspecialidade==esp.idEspecialidade){%>
+                                                        <%= esp.nomeEspecialidade  %>
+                                                    <%}%> 
+                                                <%}) %>
+                                            </td>
+                                            <td class="align-middle white-space-nowrap text-end pe-3">
+                                               
+                                                    <%= c.created_at  %>
+                                                 
+                                            </td>
+                                            <td class="align-middle white-space-nowrap text-end pe-3">
+                                               
+                                              <%= c.Resultado  %>
+                                           
+                                      </td>
+                                            <td
+                                                class="align-middle white-space-nowrap text-end pe-3">
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-falcon-success dropdown-toggle" id="btnGroupVerticalDrop4" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
+                                                    <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop4">
+                                                      <a class="dropdown-item" href="/detalheRelatorio/<%= c.id  %>">Detalhes</a>
+                                                      <a class="dropdown-item" href="/deletarRelatorio/<%= c.id  %>">Eliminar</a>
+                                                    </div>
+                                                  </div>
+                                            </td>
+                                        </tr>
+                                    <%  }) %> 
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane code-tab-pane" role="tabpanel"
+                aria-labelledby="tab-dom-d0adf82f-256f-437e-940b-d7a7b189bfa1"
+                id="dom-d0adf82f-256f-437e-940b-d7a7b189bfa1">
+                <pre class="scrollbar rounded-1" style="max-height:420px"><code class="language-html">&lt;div class=&quot;card shadow-none&quot;&gt;
+&lt;div class=&quot;card-body p-0 pb-3&quot;&gt;
+&lt;div class=&quot;d-flex align-items-center justify-content-end my-3&quot;&gt;
+&lt;div id=&quot;bulk-select-replace-element&quot;&gt;&lt;button class=&quot;btn btn-falcon-success btn-sm&quot; type=&quot;button&quot;&gt;&lt;span class=&quot;fas fa-plus&quot; data-fa-transform=&quot;shrink-3 down-2&quot;&gt;&lt;/span&gt;&lt;span class=&quot;ms-1&quot;&gt;New&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;d-none ms-3&quot; id=&quot;bulk-select-actions&quot;&gt;
+&lt;div class=&quot;d-flex&quot;&gt;&lt;select class=&quot;form-select form-select-sm&quot; aria-label=&quot;Bulk actions&quot;&gt;
+&lt;option selected=&quot;selected&quot;&gt;Bulk actions&lt;/option&gt;
+&lt;option value=&quot;Delete&quot;&gt;Delete&lt;/option&gt;
+&lt;option value=&quot;Archive&quot;&gt;Archive&lt;/option&gt;
+&lt;/select&gt;&lt;button class=&quot;btn btn-falcon-danger btn-sm ms-2&quot; type=&quot;button&quot;&gt;Apply&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;table-responsive scrollbar&quot;&gt;
+&lt;table class=&quot;table mb-0&quot;&gt;
+&lt;thead class=&quot;text-black bg-200&quot;&gt;
+&lt;tr&gt;
+&lt;th class=&quot;align-middle white-space-nowrap&quot;&gt;
+&lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; data-bulk-select='{&quot;body&quot;:&quot;bulk-select-body&quot;,&quot;actions&quot;:&quot;bulk-select-actions&quot;,&quot;replacedElement&quot;:&quot;bulk-select-replace-element&quot;}' /&gt;&lt;/div&gt;
+&lt;/th&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Name&lt;/th&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Nationality &lt;/th&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Gender&lt;/th&gt;
+&lt;th class=&quot;align-middle white-space-nowrap pe-3&quot;&gt;Age&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody id=&quot;bulk-select-body&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
+&lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-1&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
+&lt;/td&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Kit Harington&lt;/th&gt;
+&lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
+&lt;td class=&quot;align-middle&quot;&gt;Male&lt;/td&gt;
+&lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
+&lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-2&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
+&lt;/td&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Emilia Clarke&lt;/th&gt;
+&lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
+&lt;td class=&quot;align-middle&quot;&gt;Female&lt;/td&gt;
+&lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
+&lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-3&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
+&lt;/td&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Peter Dinklage&lt;/th&gt;
+&lt;td class=&quot;align-middle&quot;&gt;American&lt;/td&gt;
+&lt;td class=&quot;align-middle&quot;&gt;Male&lt;/td&gt;
+&lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;49&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
+&lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-4&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
+&lt;/td&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Sean Bean&lt;/th&gt;
+&lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
+&lt;td class=&quot;align-middle&quot;&gt;Male&lt;/td&gt;
+&lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;59&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
+&lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-5&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
+&lt;/td&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Maisie Williams&lt;/th&gt;
+&lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
+&lt;td class=&quot;align-middle&quot;&gt;Female&lt;/td&gt;
+&lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;21&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;align-middle white-space-nowrap&quot;&gt;
+&lt;div class=&quot;form-check mb-0&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;checkbox-6&quot; data-bulk-select-row=&quot;data-bulk-select-row&quot; /&gt;&lt;/div&gt;
+&lt;/td&gt;
+&lt;th class=&quot;align-middle&quot;&gt;Sophie Turner&lt;/th&gt;
+&lt;td class=&quot;align-middle&quot;&gt;British&lt;/td&gt;
+&lt;td class=&quot;align-middle&quot;&gt;Female&lt;/td&gt;
+&lt;td class=&quot;align-middle white-space-nowrap text-end pe-3&quot;&gt;23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </div>
+    </div>
+</div>

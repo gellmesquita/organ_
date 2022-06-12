@@ -11,9 +11,8 @@ import MedicoController from './controller/medicoController';
 import RelatorioController from './controller/relatorioController';
 import EspecialidadeController from './controller/especialidadeController';
 import knex from './database/conection';
+import cron  from 'node-cron'
 
-//node-cron
-import c from  './config/marcacoes'
 
 const app= express();
 app.use(flash())
@@ -46,5 +45,8 @@ app.use(async(req,res, next)=>{
 
 
 app.listen(1001, () => {
+    cron.schedule('* * * * * *', () => {
+        console.log('running a task every minute');
+      });
     console.log('Created');
 })

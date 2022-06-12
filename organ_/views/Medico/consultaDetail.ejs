@@ -212,6 +212,11 @@
             </div>  
             <% if(verify==1){ %>
               <div class="card-footer border-top text-end">
+                <a class="btn btn-falcon-default btn-sm ms-2" href="/relatorioDetalhe/<%=relatorio.id %>/<%=consulta.idMarcacao %> "></span>Ver Relatorio Médico</a></div>
+              </div>
+            <%} %>
+            <% if(dataAtual==consulta.idMarcacao && parseInt(consulta.idMarcacao)>hora){ %>
+              <div class="card-footer border-top text-end">
                 <a class="btn btn-falcon-default btn-sm ms-2" href="/relatorioMedico_/<%=consulta.idMarcacao %> "></span>Enviar Relatório Médico</a></div>
               </div>
             <%} %> 

@@ -164,12 +164,9 @@ MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:
     verify =1
   }
   const data= new Date();
+ 
 
-
-  
-  
-
-  resp.render('Medico/consultaDetail',{medico, consulta, verify});
+  resp.render('Medico/consultaDetail',{medico, consulta, verify, dataAtual, hora:data.getHours(), relatorio:relatorios[0]});
 })
 
 //Roras Do Medico 

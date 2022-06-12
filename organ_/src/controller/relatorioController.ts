@@ -144,6 +144,7 @@ relatorioController.post("/relatorioFinal",medicoAuth, async(req:Request, resp:R
     resp.redirect('/relatorioMedico_/'+idMarcacao)
   }else{
     const c=await knex('Relatorio').insert({idMarcacao,idPaciente, descRelatorio1, AnaliseRelatorio, descRelatorio, Resultado,estadoRelatorio,idMedico})
+    const p = await knex('marcacao').where('idMarcacao', idMarcacao).update({estadoMarcacao:1})
     resp.redirect('/listarRelatorios')
   }
     

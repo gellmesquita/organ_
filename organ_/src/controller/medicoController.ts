@@ -165,11 +165,7 @@ MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:
   }
   const data= new Date();
 
-  const dia=data.getDay();
-  const mes=data.getMonth();
-  const ano=data.getFullYear();
-  const dataCompleta=`${ano}-${mes+1}-${data.getDay()}`;
-  console.log(dataCompleta);
+
   
   
 

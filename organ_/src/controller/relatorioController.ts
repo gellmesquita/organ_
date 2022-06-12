@@ -85,18 +85,7 @@ relatorioController.get("/listarRelatorios",medicoAuth, async(req:Request, resp:
   
   resp.render('Medico/relatorioLista',{medico, relatorios, paciente});
 })
-relatorioController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:Response) =>{
-  const idUser= req.session?.user.id;
-  const {id}= req.params;
 
-  const medico= await knex('medico')
-  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
-  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
-  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
-  .where('idMarcacao', id).first()
-  
-  resp.render('Medico/consultaDetail',{medico, consulta});
-})
 relatorioController.get("/relatoriosMedicos_",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const medico= await knex('medico')
@@ -159,6 +148,25 @@ relatorioController.post("/relatorioFinal",medicoAuth, async(req:Request, resp:R
   }
     
   // resp.render('Medico/enviarRelatorio2',{medico, consulta, id, descRelatorio1});
+})
+relatorioController.get("/relatorioDetalhe/:id/:idMarcacao",medicoAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const {id, idMarcacao}= req.params;
+
+  const medico= await knex('medico')
+  .join('especialidade', 'medico.idEspecialidade', 'especialidade.idEspecialidade').where('idMedico', idUser).first();
+  const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .where('idMarcacao', idMarcacao).first()
+  const relatorios= await knex('Relatorio')
+  .join('medico', 'Relatorio.idMedico', 'medico.idMedico')
+  .join('marcacao', 'Relatorio.idMarcacao', 'marcacao.idMarcacao')
+  .join('paciente', 'Relatorio.idPaciente', 'paciente.idPaciente')
+  .where('id', id).first();
+  // console.log(relatorios);
+  
+  
+  resp.render('Medico/relatorioDetail',{medico, consulta, relatorios});
 })
 
 

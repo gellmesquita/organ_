@@ -153,8 +153,27 @@ MedicoController.get("/consultaDetalhe/:id",medicoAuth, async(req:Request, resp:
   const consulta= await knex('marcacao').join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
   .where('idMarcacao', id).first()
+  const relatorios= await knex('Relatorio')
+  .join('medico', 'Relatorio.idMedico', 'medico.idMedico')
+  .join('marcacao', 'Relatorio.idMarcacao', 'marcacao.idMarcacao')
+  .join('paciente', 'Relatorio.idPaciente', 'paciente.idPaciente')
+  .where('Relatorio.idMarcacao', id).select('id');
   
-  resp.render('Medico/consultaDetail',{medico, consulta});
+  let verify=0;
+  if(relatorios.length>0){
+    verify =1
+  }
+  const data= new Date();
+
+  const dia=data.getDay();
+  const mes=data.getMonth();
+  const ano=data.getFullYear();
+  const dataCompleta=`${ano}-${mes+1}-${data.getDay()}`;
+  console.log(dataCompleta);
+  
+  
+
+  resp.render('Medico/consultaDetail',{medico, consulta, verify});
 })
 
 //Roras Do Medico 

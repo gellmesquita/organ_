@@ -4,7 +4,7 @@ var mes = String(data.getMonth() + 1).padStart(2,'0')
 var ano = String(data.getFullYear()).padStart(2,'0')
 
 var dataAtual = ano +'-'+mes+'-'+ dia
-var dias =10
+var dias =2;
 
 function addDias(data:any, dias:any) {
     var res = new Date(data);

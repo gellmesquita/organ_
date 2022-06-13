@@ -106,7 +106,7 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
   PacienteController.get("/pacientemarcacoes",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
     
-    const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao',0)
+    const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao', '>', 0)
     .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*')
     const especialidades=await knex('especialidade').select('*')
     
@@ -206,6 +206,18 @@ PacienteController.post('/editarpaciente',pacienteAuth,async(req:Request, resp: 
       resp.render("Paciente/marcacao_1",{especialidades,marcacao_1})
     }else{
     resp.redirect("/rota desconhecida...!#")
+    }
+    
+  })
+   PacienteController.post("/comprovativo",upload.single('image'),pacienteAuth, async(req:Request, resp:Response) =>{
+    const{id}=req.body;
+    const arquivo= (req.file) ? req.file.filename : 'user.png';
+  
+    const comprovativo = await knex('comprovativo').insert({arquivo,idMarcacao:id})
+    if(comprovativo){
+      const d= await knex('marcacao').where('idMarcacao',id).update({estadoMarcacao:'5'});
+      req.flash('certo','Marcacao concluida') 
+    resp.redirect(`/marcacao_1/${id}`)
     }
     
   })

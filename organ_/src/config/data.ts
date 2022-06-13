@@ -2,6 +2,8 @@ var data = new Date();
 var dia = String(data.getDate()).padStart(2,'0')
 var mes = String(data.getMonth() + 1).padStart(2,'0')
 var ano = String(data.getFullYear()).padStart(2,'0')
+var horatual = data.getHours()
+console.log(horatual)
 
 var dataAtual = ano +'-'+mes+'-'+ dia
 var dias =2;
@@ -54,7 +56,8 @@ day = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira
     
 }
 
-export {addDias, c,day,dataAtual}
+
+export {addDias, c,day,dataAtual,horatual}
 
 
 

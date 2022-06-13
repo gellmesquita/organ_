@@ -12,7 +12,7 @@ import RelatorioController from './controller/relatorioController';
 import EspecialidadeController from './controller/especialidadeController';
 import knex from './database/conection';
 import cron  from 'node-cron'
-
+import {addDias, c,day,dataAtual,horatual } from './config/data'
 
 const app= express();
 app.use(flash())
@@ -45,8 +45,9 @@ app.use(async(req,res, next)=>{
 
 
 app.listen(1001, () => {
-    cron.schedule('* * * * * *', () => {
-        console.log('running a task every minute');
-      });
+    
+   // cron.schedule('* * * * * *', async () => {
+    //    const marcacao = await knex('marcacao').where('dataMarcacao', '<=',dataAtual).andWhere('hora','>',horatual).update({estadoMarcacao:'2'});
+    //  });
     console.log('Created');
 })

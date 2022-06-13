@@ -9,6 +9,7 @@ export async function up(knex: Knex) {
         table.string('ano').notNullable();
         table.string('hora').notNullable();
         table.string('diaExtenso').notNullable();
+        table.integer('diacron').notNullable();
         table.integer('idPaciente').notNullable().references('idPaciente').inTable('paciente');
         table.integer('idMedico').notNullable().references('idMedico').inTable('medico');
     })

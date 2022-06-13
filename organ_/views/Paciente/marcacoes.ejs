@@ -50,6 +50,7 @@
                         <th scope="col">Hora</th>
                         <th scope="col">Médico</th>
                         <th scope="col">Especialidade/Médico</th>
+                        <th scope="col">Estado da Marcação</th>
                         <th scope="col">Acção</th>
                       </tr>
                     </thead>
@@ -67,6 +68,17 @@
                          
                                 <%  })%>
                            </td>
+                           <td> <% if(mar.estadoMarcacao=== "4"){%> 
+                            
+                              <i class="fa fa-spinner fa-spin"></i>Em
+                              espera
+                          
+                            <%}else{%> 
+                         
+                                <i class="fa fa-plus-circle"></i>Marcacão Agendada
+                           
+                              <%}%> 
+                            </td>
                            <td>
                              <a href="/marcacao_1/<%= mar.idMarcacao %> ">
                                <button class="btn btn-primary btn-round" >Detalhes</button></a>

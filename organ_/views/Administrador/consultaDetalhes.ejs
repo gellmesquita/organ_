@@ -119,7 +119,7 @@
                 <div class="col">
                   <h5 class="mb-0">Detalhes da Marcacao</h5>
                 </div>
-                <div class="col-auto"><a class="btn btn-falcon-default btn-sm" href="#!"><span class="fas fa-pencil-alt fs--2 me-1"></span>Gerar Relatório</a></div>
+                
               </div>
             </div>
             <div class="card-body bg-light border-top">
@@ -213,6 +213,55 @@
             <div class="card-footer border-top text-end">
               <a class="btn btn-falcon-default btn-sm ms-2" href="#!"><span class="fas fa-check fs--2 me-1"></span>Dados do consulta</a></div>
           </div>
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h5 class="mb-0">Detalhes do Pagamento</h5>
+                </div>
+                
+              </div>
+            </div>
+            <div class="card-body bg-light border-top">
+              <div class="row">
+                <div class="col-lg col-xxl-7">
+                 
+                  
+                    <embed src="http://localhost:1001/upload/<%=comprovativo.arquivo %> " type="application/pdf" width="100%" height="100%">
+                
+                </div>
+                <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
+                  <h6 class="fw-semi-bold ls mb-3 text-uppercase">OUTROS</h6>
+
+                  <div class="row">
+                    <div class="col-5 col-sm-4">
+                      <p class="fw-semi-bold mb-1">Data & Hora</p>
+                    </div>
+                    <div class="col">
+                      <p class="mb-1"><%= comprovativo.dataPagamento %></p>
+                    </div>
+                  </div>
+                 
+                  <div class="row">
+                    <div class="col-5 col-sm-4">
+                      <p class="fw-semi-bold mb-0">Detalhes</p>
+                    </div>
+                    <div class="col">
+                      <p class=" mb-0">Transferencia</p>
+                    </div>
+                  </div>
+                
+                  
+                </div>
+              </div>
+            </div>  
+            <div class="card-footer border-top text-end">
+              <% if( consulta.estadoMarcacao==5 ){%> 
+    <a class="btn btn-falcon-default btn-sm ms-2" onclick="confirmar(`<%=consulta.idMarcacao%>`)"><span class="fas fa-check fs--2 me-1"></span>Dados do consulta</a></div>
+         
+    <%   } %> 
+          
+            </div>
 
 
         </div>
@@ -236,6 +285,50 @@
     <script src="//../polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
     <script src="/vendors/list.js/list.min.js"></script>
     <script src="/assets/js/theme.js"></script>
+    <script src="/sweetalert/sweetalert2.all.min.js"></script>
+    <script>
+      function confirmar(id){
+        
+    Swal.fire({
+      title: 'Aceitar Esta Marcação?',
+    icon:'warning',
+      showCancelButton: true,
+      confirmButtonColor:'#3085d6',
+      cancelButtonColor:'#d33',
+      confirmButtonText: 'Confirmar',
+    
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below   */
+      if (result.isConfirmed) {
+    
+       window.location = '/permitir/'+id;
+      } else if (result.isDenied) {
+        Swal.fire('Erro ao eliminar', '', 'info')
+      }
+    })
+      }
+      </script>
+
+  <% if(certo.length >0){%>
+      <script>
+       Swal.fire(
+      'Boa!',
+      '`<%=certo %>`!',
+      'success'
+    )
+  
+      </script>
+      <% }else if(errado.length >0) {%>
+        <script>
+          Swal.fire({
+  icon: 'error',
+  title: 'Opa...',
+  text: '`<%=errado %>`!',
+  
+  })
+          
+        </script>
+        <% }%>
   </body>
 
 

@@ -14,9 +14,9 @@ MarcacaoController.get('/criarmarcacao/:idesp', async(req:Request, resp: Respons
  
   
     const medicos= await knex('medico').where('idEspecialidade', idesp).andWhere('role',0)
-    const  estadoMarcacao = "0";//Quer dizer que ainda não foi atendido
+    const  estadoMarcacao = "4";//Quer dizer que ainda não pagou
     const idPaciente= req.session?.user.id;
-    const consultas= await knex('marcacao').where('idPaciente',idPaciente).andWhere('idEspecialidade',idesp).andWhere('estadoMarcacao', 0)
+    const consultas= await knex('marcacao').where('idPaciente',idPaciente).andWhere('idEspecialidade',idesp).andWhere('estadoMarcacao', 4)
     .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*');
    
     if( consultas.length !==0){
@@ -76,13 +76,13 @@ const mai= verify[0].maior;
 const hora_consul = mai + 1; 
 if(hora_consul < 8){
  var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
- const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
      const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
      req.flash("certo","Marcação Agendada")
      resp.redirect("/pacienteespecialidades")
 } else if(hora_consul > 7 && hora_consul  < 17 ){
  var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
- const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
      const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
      req.flash("certo","Marcação Agendada")
      resp.redirect("/pacienteespecialidades")
@@ -110,7 +110,7 @@ if(hora_consul < 8){
     const hora_consul = mai + 1; 
     if(hora_consul < 8){
      var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
          const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
          req.flash("certo","Marcação Agendada")
          resp.redirect("/pacienteespecialidades")
@@ -140,13 +140,13 @@ if(hora_consul < 8){
    const hora_consul = mai + 1; 
    if(hora_consul < 8){
     var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
         const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
         req.flash("certo","Marcação Agendada")
         resp.redirect("/pacienteespecialidades")
    } else if(hora_consul > 7 && hora_consul  < 17 ){
     var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
         const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
         req.flash("certo","Marcação Agendada")
         resp.redirect("/pacienteespecialidades")
@@ -172,7 +172,7 @@ const ano =sx[0];
 const  mes  =sx[1];
 const dia =sx[2];
     
-const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
  const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
  req.flash("certo","Marcação Agendada")
  resp.redirect("/pacienteespecialidades")
@@ -191,7 +191,7 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
     const  mes  =sx[1];
     const dia =sx[2];
          
-     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
       req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
@@ -207,7 +207,7 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
     const dia =sx[2];
   var data = new Date(ctx);    
   var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-  const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+  const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx,diacron:5, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
       req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
@@ -218,13 +218,13 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
   resp.redirect("/pacientemarcacoes")
 }
    }else{
-    const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+    const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso:day, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
     const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
     req.flash("certo","Marcação Agendada")
     resp.redirect("/pacienteespecialidades")
    } 
     }else{
-      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:day, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       req.flash("certo","Marcação Agendada")
     resp.redirect("/pacienteespecialidades")
     }
@@ -291,13 +291,13 @@ const mai= verify[0].maior;
 const hora_consul = mai + 1; 
 if(hora_consul < 8){
  var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
- const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
      const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
      req.flash("certo","Marcação Agendada")
      resp.redirect("/pacienteespecialidades")
 } else if(hora_consul > 7 && hora_consul  < 17 ){
  var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
- const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
      const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
      req.flash("certo","Marcação Agendada")
      resp.redirect("/pacienteespecialidades")
@@ -325,13 +325,13 @@ if(hora_consul < 8){
     const hora_consul = mai + 1; 
     if(hora_consul < 8){
      var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
          const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
          req.flash("certo","Marcação Agendada")
          resp.redirect("/pacienteespecialidades")
     } else if(hora_consul > 7 && hora_consul  < 17 ){
      var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
          const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
          req.flash("certo","Marcação Agendada")
          resp.redirect("/pacienteespecialidades")
@@ -355,13 +355,13 @@ if(hora_consul < 8){
    const hora_consul = mai + 1; 
    if(hora_consul < 8){
     var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
         const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
         req.flash("certo","Marcação Agendada")
         resp.redirect("/pacienteespecialidades")
    } else if(hora_consul > 7 && hora_consul  < 17 ){
     var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+    const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:hora_consul,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
         const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
         req.flash("certo","Marcação Agendada")
         resp.redirect("/pacienteespecialidades")
@@ -387,7 +387,7 @@ const ano =sx[0];
 const  mes  =sx[1];
 const dia =sx[2];
     
-const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
  const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
  req.flash("certo","Marcação Agendada")
  resp.redirect("/pacienteespecialidades")
@@ -406,7 +406,7 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
     const  mes  =sx[1];
     const dia =sx[2];
          
-     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+     const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, diacron:5,idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
       req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
@@ -422,7 +422,7 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
     const dia =sx[2];
   var data = new Date(ctx);    
   var dayx = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"][data.getDay()];
-  const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+  const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:dayx,diacron:5, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
       req.flash("certo","Marcação Agendada")
       resp.redirect("/pacienteespecialidades")
@@ -433,13 +433,13 @@ const ids = await knex('marcacao').insert({dataMarcacao:ctx, estadoMarcacao, mes
   resp.redirect("/pacientemarcacoes")
 }
    }else{
-    const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+    const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:hora_consulta,diaExtenso:day, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
     const p = await knex('marcacao').orderBy('idmarcacao', 'desc').select('*')
     req.flash("certo","Marcação Agendada")
     resp.redirect("/pacienteespecialidades")
    } 
     }else{
-      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:day, idPaciente,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
+      const ids = await knex('marcacao').insert({dataMarcacao:c, estadoMarcacao, mes, dia, ano, hora:8,diaExtenso:day, idPaciente,diacron:5,idMedico:medicos[0].idMedico}).catch(err=> {console.log(err)})
       req.flash("certo","Marcação Agendada")
     resp.redirect("/pacienteespecialidades")
     }
@@ -471,6 +471,14 @@ MarcacaoController.get('/deletarrmarcacao/:id', async(req:Request, resp: Respons
     req.flash("errado","Ocorreu um problema")
     resp.redirect("/pacientemarcacoes")
   }
+})
+MarcacaoController.get('/permitir/:id',async(req:Request, resp: Response)=>{
+const {id}= req.params;
+const d= await knex('marcacao').where('idMarcacao',id).update({estadoMarcacao:'0'});
+req.flash('certo','Marcacao aceite') 
+resp.redirect(`/detalheConsulta/${id}`)
+
+
 })
 
 

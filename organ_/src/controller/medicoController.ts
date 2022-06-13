@@ -505,17 +505,30 @@ MedicoController.get("/listarConsulta",adminAuth, async(req:Request, resp:Respon
   const medico= await knex('medico').where('idMedico', idUser).first();
   const medicos= await knex('medico').join('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
   const especialidades= await knex('especialidade').select('*') 
-  const consultas= await knex('marcacao')
+  const consultas= await knex('marcacao').where('estadoMarcacao','<', 4)
   .join('medico', 'marcacao.idMedico', 'medico.idMedico')
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
   .distinct()
 
   resp.render("Administrador/listaConsulta",  {medico,medicos,consultas, especialidades })
 })
+MedicoController.get("/listarPedido",adminAuth, async(req:Request, resp:Response) =>{
+  const idUser= req.session?.user.id;
+  const medico= await knex('medico').where('idMedico', idUser).first();
+  const medicos= await knex('medico').join('especialidade', 'medico.idEspecialidade','=', 'especialidade.idEspecialidade').where('role', 0)
+  const especialidades= await knex('especialidade').select('*') 
+  const consultas= await knex('marcacao').where('estadoMarcacao', 5)
+  .join('medico', 'marcacao.idMedico', 'medico.idMedico')
+  .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
+  .distinct()
+
+  resp.render("Administrador/listaPedidos",  {medico,medicos,consultas, especialidades, })
+})
 
 MedicoController.get("/detalheConsulta/:idMarcacao",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;
   const {idMarcacao} =req.params;
+  const comprovativo= await knex('comprovativo').where('idMarcacao', idMarcacao).first();
   const medico= await knex('medico').where('idMedico', idUser).first();
   const especialidades= await knex('especialidade').select('*')
   const consulta= await knex('marcacao')
@@ -523,7 +536,7 @@ MedicoController.get("/detalheConsulta/:idMarcacao",adminAuth, async(req:Request
   .join('paciente', 'marcacao.idPaciente', 'paciente.idPaciente')
   .where('idMarcacao',idMarcacao).first()
 
-  resp.render("Administrador/consultaDetalhes",  {medico, especialidades, consulta })
+  resp.render("Administrador/consultaDetalhes",  {medico,comprovativo, especialidades, consulta,certo:req.flash('certo'),errado:req.flash('errado') })
 })
 MedicoController.get("/deletarConsulta/:idMarcacao",adminAuth, async(req:Request, resp:Response) =>{
   const idUser= req.session?.user.id;

@@ -126,12 +126,12 @@
                 <div class="col">
                   <h5 class="mb-0">Detalhes do Paciente</h5>
                 </div>
-                <div class="col-auto"><a class="btn btn-falcon-default btn-sm" href="#!"><span class="fas fa-pencil-alt fs--2 me-1"></span>Gerar Relatório</a></div>
+                <div class="col-auto"><a class="btn btn-falcon-default btn-sm" onclick="printContent('div1')"><span class="fas fa-pencil-alt fs--2 me-1"></span>Gerar Relatório</a></div>
               </div>
             </div>
-            <div class="card-body bg-light border-top">
-              <div class="row">
-                <div class="col-lg col-xxl-5">
+            <div class="card-body bg-light border-top" >
+              <div class="row" id="div1">
+                <div class="col-lg col-xxl-5" >
                   <h6 class="fw-semi-bold ls mb-3 text-uppercase">Dados Pessoais</h6>
                   <div class="row">
                     <div class="col-5 col-sm-4">
@@ -223,7 +223,7 @@
                   </div>
                   <div id="orders-actions">
                     
-                    <button class="btn btn-falcon-default btn-sm" type="button">
+                    <button class="btn btn-falcon-default btn-sm" onclick="printContent('div2')" type="button">
                       <span class="d-none d-sm-inline-block ms-1">
                         Gerar Relatório
                       </span>
@@ -232,7 +232,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-body p-0">
+            <div class="card-body p-0" id="div2">
               <div class="table-responsive scrollbar">
                 <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                   <thead class="bg-200 text-900">

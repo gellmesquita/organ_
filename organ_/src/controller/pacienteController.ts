@@ -106,7 +106,7 @@ PacienteController.post('/Criarpaciente',async(req:Request, resp: Response)=>{
   PacienteController.get("/pacientemarcacoes",pacienteAuth, async(req:Request, resp: Response) =>{
     const id = req.session?.user.id;
     
-    const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao', '>', 0)
+    const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao', '!=', 2)
     .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*')
     const especialidades=await knex('especialidade').select('*')
     
@@ -220,6 +220,27 @@ PacienteController.post('/editarpaciente',pacienteAuth,async(req:Request, resp: 
     resp.redirect(`/marcacao_1/${id}`)
     }
     
+  })
+  PacienteController.get("/pacientehistorico",pacienteAuth, async(req:Request, resp: Response) =>{
+    const id = req.session?.user.id;
+    
+    const consultas= await knex('marcacao').where('idPaciente',id).andWhere('estadoMarcacao', '<', 3).andWhere('estadoMarcacao', '>', 0)
+    .join('medico', 'marcacao.idMedico', 'medico.idMedico').select('*')
+    const especialidades=await knex('especialidade').select('*')
+    
+   console.log(consultas)
+    resp.render("Paciente/historico",{consultas,especialidades,certo:req.flash('certo'),errado:req.flash('errado')})
+  })
+  PacienteController.get("/pacienterelatorio/:idMarcacao",pacienteAuth, async(req:Request, resp: Response) =>{
+    const id = req.session?.user.id;
+    const {idMarcacao}= req.params;
+    
+    const relatorio= await knex('Relatorio').where('idPaciente',id).andWhere('idMarcacao', idMarcacao)
+    .join('medico', 'Relatorio.idMedico', 'medico.idMedico').select('*')
+    const especialidades=await knex('especialidade').select('*')
+    
+   console.log(relatorio)
+    resp.render("Paciente/relatorio",{relatorio,especialidades,certo:req.flash('certo'),errado:req.flash('errado')})
   })
  
 

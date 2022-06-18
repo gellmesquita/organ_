@@ -121,7 +121,7 @@
     function ValidarExt() {
         var customFile = document.getElementById('customFile');
         var customRuta = customFile.value;
-        var customPermitidas = /(.jpg|.png|.PNG.|JPG|.jpeg|.JPEG|.pdf|PDF)$/i;
+        var customPermitidas = /(.pdf|PDF)$/i;
         if (!customPermitidas.exec(customRuta)) {
           Swal.fire({
             icon: 'error',

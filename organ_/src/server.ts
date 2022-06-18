@@ -38,16 +38,22 @@ app.use(EspecialidadeController);
 app.use(RelatorioController);
 
 app.use(async(req,res, next)=>{ 
-    const esp=await knex('especialidade').limit(3)
-    res.render("Site/404", {esp})
+    
+    res.render("Site/404")
 }) 
 
 
 
 app.listen(1001, () => {
     
-   // cron.schedule('* * * * * *', async () => {
-    //    const marcacao = await knex('marcacao').where('dataMarcacao', '<=',dataAtual).andWhere('hora','>',horatual).update({estadoMarcacao:'2'});
-    //  });
+    cron.schedule('* */1440  * * *', async () => {
+        const d = await knex('marcacao').where('estadoMarcacao', 4).andWhere('diacron','=',0).delete()
+    const mr = await knex('marcacao').where('estadoMarcacao', 4).andWhere('diacron','>',0).select('*');
+    mr.map(async e=>{
+        const up = await knex('marcacao').where('idMarcacao',e.idMarcacao).update({diacron:e.diacron-1})
+    })
+     
+        const marcacao = await knex('marcacao').where('dataMarcacao', '<=',dataAtual).andWhere('hora','>',horatual).update({estadoMarcacao:'2'});
+      });
     console.log('Created');
 })

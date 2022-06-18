@@ -5,6 +5,15 @@
         document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
       }
     </script>
+    <script>
+      function printContent(el){
+          var restorage = document.body.innerHTML;
+          var printcontent = document.getElementById(el).innerHTML;
+          document.body.innerHTML.printcontent;
+          window.print();
+          document.body.innerHTML = restorage;
+      }
+  </script>
     <div class="d-flex align-items-center">
       <div class="toggle-icon-wrapper">
         <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>

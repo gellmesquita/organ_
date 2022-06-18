@@ -12,7 +12,7 @@ import pacienteAuth from '../middlewre/paciente'
 
 EspecialidadeController.post('/cadastarEspecialidade',adminAuth,async(req:Request, resp: Response)=>{
   try {
-    const {nomeEspecialidade,descEspecialidade}= req.body; 
+    const {nomeEspecialidade,descEspecialidade,precoEspecialidade}= req.body; 
     const idUser= req.session?.user.id;
     const {idMedico}= req.params;
     const medico= await knex('medico').where('idMedico', idUser).first();
@@ -22,7 +22,7 @@ EspecialidadeController.post('/cadastarEspecialidade',adminAuth,async(req:Reques
       req.flash('Errado', 'Especialidade Não Cadastrada');
       resp.redirect('/listarEspecialidade')
     }else{
-      const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade,});
+      const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade,precoEspecialidade});
       req.flash('certo', 'Especialidade Cadastrada');
       resp.redirect('/listarEspecialidade')
     }

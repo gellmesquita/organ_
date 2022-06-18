@@ -3,6 +3,7 @@ export async function up(knex: Knex) {
     return knex.schema.createTable('especialidade', (table)=>{
         table.increments('idEspecialidade').primary();
         table.string('nomeEspecialidade').notNullable();
+        table.string('precoEspecialidade').notNullable();
         table.string('descEspecialidade').defaultTo("Descrição");
     })
 }

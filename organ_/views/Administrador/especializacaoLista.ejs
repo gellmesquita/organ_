@@ -108,6 +108,7 @@
                                   <th class="sort pe-1 align-middle white-space-nowrap" data-sort="order">identificador</th>
                                   <th class="sort pe-1 align-middle white-space-nowrap" data-sort="date">Especialidade</th>
                                   <th class="sort pe-1 align-middle white-space-nowrap" data-sort="date">Nº Especialista</th>
+                                  <th class="sort pe-1 align-middle white-space-nowrap" data-sort="date">Preço</th>
                                   <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address">Acção</th>
                                 </tr>
                               </thead>
@@ -127,7 +128,7 @@
                                         <%}) %>    
                                     
                                     </td>
-                                    
+                                    <td class="date py-2 align-middle"><%= c.precoEspecialidade %> Kz</td>
                                      <td class="py-2 align-middle white-space-nowrap text-end">
                                       <div class="dropdown font-sans-serif position-static"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
                                         <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
@@ -248,6 +249,48 @@
     <script src="/polyfill.io/v3/polyfill.min58be.js?features=window.scroll"></script>
     <script src="/vendors/list.js/list.min.js"></script>
     <script src="/assets/js/theme.js"></script>
+    <script src="/sweetalert/sweetalert2.all.min.js"></script>
+    <% if(errado.length >0) {%>
+        <script>
+    var Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+Toast.fire({
+  icon: 'error',
+  title: '<%=errado %>'
+})
+        </script>
+       
+        <% }else if(certo.length >0) {%>
+          <script>
+    
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'Especialidade criado com sucesso'
+})
+            
+          </script>
+          <% }%>
 </body>
 
 

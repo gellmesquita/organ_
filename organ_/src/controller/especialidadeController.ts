@@ -13,19 +13,32 @@ import pacienteAuth from '../middlewre/paciente'
 EspecialidadeController.post('/cadastarEspecialidade',adminAuth,async(req:Request, resp: Response)=>{
   try {
     const {nomeEspecialidade,descEspecialidade,precoEspecialidade}= req.body; 
-    const idUser= req.session?.user.id;
-    const {idMedico}= req.params;
-    const medico= await knex('medico').where('idMedico', idUser).first();
-    
-    const verify = await knex('especialidade').where('nomeEspecialidade', nomeEspecialidade);
-    if(verify.length>0){
-      req.flash('Errado', 'Especialidade Não Cadastrada');
+    if(nomeEspecialidade===''||descEspecialidade===''||precoEspecialidade===''){
+      req.flash('errado', 'Ocorreu um problema');
       resp.redirect('/listarEspecialidade')
     }else{
-      const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade,precoEspecialidade});
-      req.flash('certo', 'Especialidade Cadastrada');
-      resp.redirect('/listarEspecialidade')
+      var preco = /[0-9]/.test(precoEspecialidade)
+      var nomeE =/[A-Z][a-z]/.test(nomeEspecialidade)
+      var descE =/[A-Z][a-z]/.test(descEspecialidade)
+      if(preco == false ||nomeE== false|| descE== false){
+        req.flash('errado', 'Ocorreu um problema');
+        resp.redirect('/listarEspecialidade')
+      }
+      const idUser= req.session?.user.id;
+      const {idMedico}= req.params;
+      const medico= await knex('medico').where('idMedico', idUser).first();
+      
+      const verify = await knex('especialidade').where('nomeEspecialidade', nomeEspecialidade);
+      if(verify.length>0){
+        req.flash('errado', 'Especialidade Não Cadastrada');
+        resp.redirect('/listarEspecialidade')
+      }else{
+        const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade,precoEspecialidade});
+        req.flash('certo', 'Especialidade Cadastrada');
+        resp.redirect('/listarEspecialidade')
+      }
     }
+   
 
   } catch (error) {
     resp.send(error + " - falha ao registar")
@@ -53,7 +66,7 @@ EspecialidadeController.get('/listarEspecialidade',adminAuth, async(req:Request,
     const {idMedico}= req.params;
     const medico= await knex('medico').where('idMedico', idUser).first();
     const quantidade= await knex('medico').groupBy('idEspecialidade').count('idEspecialidade', {as:'quantidade'}).select('idEspecialidade');
-    resp.render('Administrador/especializacaoLista', {especialidades, quantidade, medico})
+    resp.render('Administrador/especializacaoLista', {especialidades, quantidade, medico,certo:req.flash('certo'),errado:req.flash('errado')})
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }

@@ -14,14 +14,14 @@ EspecialidadeController.post('/cadastarEspecialidade',adminAuth,async(req:Reques
   try {
     const {nomeEspecialidade,descEspecialidade,precoEspecialidade}= req.body; 
     if(nomeEspecialidade===''||descEspecialidade===''||precoEspecialidade===''){
-      req.flash('Errado', 'Especialidade Não Cadastrada');
+      req.flash('errado', 'Ocorreu um problema');
       resp.redirect('/listarEspecialidade')
     }else{
       var preco = /[0-9]/.test(precoEspecialidade)
       var nomeE =/[A-Z][a-z]/.test(nomeEspecialidade)
       var descE =/[A-Z][a-z]/.test(descEspecialidade)
       if(preco == false ||nomeE== false|| descE== false){
-        req.flash('Errado', 'Ocorreu um problema');
+        req.flash('errado', 'Ocorreu um problema');
         resp.redirect('/listarEspecialidade')
       }
       const idUser= req.session?.user.id;
@@ -30,7 +30,7 @@ EspecialidadeController.post('/cadastarEspecialidade',adminAuth,async(req:Reques
       
       const verify = await knex('especialidade').where('nomeEspecialidade', nomeEspecialidade);
       if(verify.length>0){
-        req.flash('Errado', 'Especialidade Não Cadastrada');
+        req.flash('errado', 'Especialidade Não Cadastrada');
         resp.redirect('/listarEspecialidade')
       }else{
         const ids = await knex('especialidade').insert({nomeEspecialidade,descEspecialidade,precoEspecialidade});
